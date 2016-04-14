@@ -11,11 +11,13 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
     "conventional-recommended-bump": "^0.2.0",
+    "cz-conventional-changelog": "^1.1.5",
     "glob": "^7.0.3",
     "gulp": "^3.9.1",
     "gulp-add-src": "^0.2.0",
     "gulp-bump": "^2.1.0",
     "gulp-conventional-changelog": "^1.1.0",
+    "gulp-filter": "^4.0.0",
     "gulp-git": "latest",
     "gulp-jshint": "^2.0.0",
     "gulp-mocha": "^2.2.0",
@@ -53,6 +55,9 @@
       "post-commit": [],
       "post-checkout": "npm install",
       "post-merge": "npm install"
+    },
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }

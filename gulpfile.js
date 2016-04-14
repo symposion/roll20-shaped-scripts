@@ -9,6 +9,7 @@ var git = require('gulp-git');
 var addSrc = require('gulp-add-src');
 var conventionalChangelog = require('gulp-conventional-changelog');
 var conventionalRecommendedBump = require('conventional-recommended-bump');
+var filter = require('gulp-filter');
 
 gulp.task('default', ['test', 'lint'], function () {
   return gulp.src('./lib/entry-point.js')
@@ -28,25 +29,31 @@ gulp.task('test', function () {
     .pipe(mocha());
 });
 
-gulp.task('release', ['changelog'], function (done) {
-  conventionalRecommendedBump({ preset: 'angular' }, function (err, importance) {
-    // Get all the files to bump version in
-    gulp.src('./package.json')
-      .pipe(bump({ type: importance }))
-      .pipe(gulp.dest('./'))
-      .pipe(addSrc.append('./CHANGELOG.md'))
-      .pipe(git.commit('chore(release): bump package version and update changelog', { emitData: true }))
-      // **tag it in the repository**
-      .pipe(tagVersion());
-    done(err);
-  });
-
-
+gulp.task('release', ['changelog'], function () {
+  // Get all the files to bump version in
+  return gulp.src('./package.json')
+    .pipe(addSrc.append('./CHANGELOG.md'))
+    .pipe(git.commit('chore(release): bump package version and update changelog', { emitData: true }))
+    .pipe(filter('./CHANGELOG.md'))
+    // **tag it in the repository**
+    .pipe(tagVersion());
 });
 
-gulp.task('changelog', function () {
+gulp.task('changelog', ['bumpVersion'], function () {
   return gulp.src('./CHANGELOG.md', { buffer: false })
     .pipe(conventionalChangelog({ preset: 'angular' }))
     .pipe(gulp.dest('./'));
+});
+
+gulp.task('bumpVersion', function (done) {
+  conventionalRecommendedBump({ preset: 'angular' }, function (err, importance) {
+    if (err) {
+      return done(err);
+    }
+    return gulp.src('./package.json')
+      .pipe(bump({ type: importance }))
+      .pipe(gulp.dest('./'))
+      .on('end', done);
+  });
 });
 
