@@ -1,5 +1,5 @@
 ### Status
-[![Build Status](https://travis-ci.org/symposion/roll20-api-scripts.png)](https://travis-ci.org/symposion/roll20-api-scripts)
+[![Build Status](https://travis-ci.org/symposion/roll20-shaped-scripts.png)](https://travis-ci.org/symposion/roll20-shaped-scripts)
 
 ### Samples and Custom JSON
 If you are interested in adding custom JSON for homebrew spells/monsters then you first of all need to create the correct JSON.

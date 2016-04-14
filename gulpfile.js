@@ -29,14 +29,17 @@ gulp.task('test', function () {
     .pipe(mocha());
 });
 
-gulp.task('release', ['changelog'], function () {
+gulp.task('release', ['changelog'], function (done) {
   // Get all the files to bump version in
   return gulp.src('./package.json')
     .pipe(addSrc.append('./CHANGELOG.md'))
     .pipe(git.commit('chore(release): bump package version and update changelog', { emitData: true }))
     .pipe(filter('./CHANGELOG.md'))
     // **tag it in the repository**
-    .pipe(tagVersion());
+    .pipe(tagVersion())
+    .on('end', function () {
+      git.push('origin', 'master', { args: '--tags' }, done);
+    });
 });
 
 gulp.task('changelog', ['bumpVersion'], function () {
