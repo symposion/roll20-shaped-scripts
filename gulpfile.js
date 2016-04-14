@@ -46,12 +46,12 @@ gulp.task('changelog', ['bumpVersion'], function () {
 });
 
 gulp.task('bumpVersion', function (done) {
-  conventionalRecommendedBump({ preset: 'angular' }, function (err, importance) {
+  conventionalRecommendedBump({ preset: 'angular' }, function (err, result) {
     if (err) {
       return done(err);
     }
     return gulp.src('./package.json')
-      .pipe(bump({ type: importance }))
+      .pipe(bump({ type: result.releaseAs }))
       .pipe(gulp.dest('./'))
       .on('end', done);
   });
