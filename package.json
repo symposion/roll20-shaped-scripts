@@ -47,14 +47,10 @@
       "pre-commit": [
         "gulp lint"
       ],
-      "pre-push": [
-        "rm -rf node_modules",
-        "npm install",
-        "gulp"
-      ],
+      "pre-push": "gulp",
       "post-commit": [],
-      "post-checkout": "npm install",
-      "post-merge": "npm install"
+      "post-checkout": [],
+      "post-merge": []
     },
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
