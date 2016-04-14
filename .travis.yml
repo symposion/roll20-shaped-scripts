@@ -8,6 +8,8 @@ before_deploy:
 - git config credential.helper "store --file=.git/credentials"
 - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
 - git remote add origin "https://$GH_TOKEN@github.com/symposion/roll20-shaped-scripts.git"
+after_deploy:
+- git push --follow-tags origin master
 deploy:
 - provider: releases
   skip_cleanup: true
