@@ -31,7 +31,7 @@ gulp.task('test', function () {
 
 gulp.task('release', ['changelog'], function (done) {
   // Get all the files to bump version in
-  return gulp.src('./package.json')
+  gulp.src('./package.json')
     .pipe(addSrc.append('./CHANGELOG.md'))
     .pipe(git.commit('chore(release): bump package version and update changelog', { emitData: true }))
     .pipe(filter('./CHANGELOG.md'))
