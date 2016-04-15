@@ -1,4 +1,3 @@
-
 <a name="1.0.0"></a>
 # [1.0.0](/https://github.com/symposion/roll20-api-scripts//compare/v0.1.0...v1.0.0) (2016-04-15)
 
