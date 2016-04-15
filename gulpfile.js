@@ -10,6 +10,7 @@ var conventionalChangelog = require('gulp-conventional-changelog');
 var conventionalRecommendedBump = require('conventional-recommended-bump');
 var conventionalGithubReleaser = require('conventional-github-releaser');
 var gulpIgnore = require('gulp-ignore');
+var GitHubApi = require('github');
 
 gulp.task('default', ['test', 'lint'], function () {
   return gulp.src('./lib/entry-point.js')
@@ -57,7 +58,7 @@ gulp.task('release', ['commitAndTag'], function (done) {
 
   git.push('origin', 'master', { args: '--follow-tags' }, function (err) {
     if (err) {
-      throw err;
+      done(err);
     }
 
     conventionalGithubReleaser({
@@ -65,7 +66,20 @@ gulp.task('release', ['commitAndTag'], function (done) {
       token: process.env.GH_TOKEN
     }, {
       preset: 'angular'
-    }, done);
+    }, makeGithubCallback(function (release) {
+      let github = new GitHubApi({ version: '3.0.0' });
+      github.authenticate({
+        type: 'oauth',
+        token: process.env.GH_TOKEN
+      });
+      github.releases.uploadAsset({
+        owner: 'symposion',
+        repo: 'roll20-shaped-scripts',
+        id: release.id,
+        name: 'ShapedScripts.js',
+        filePath: './ShapedScripts.js'
+      }, makeGithubCallback(null, done));
+    }, done));
   });
 });
 
@@ -91,4 +105,14 @@ gulp.task('bumpVersion', ['checkoutMaster'], function (done) {
 });
 
 
-
+function makeGithubCallback(cb, done) {
+  return function (err, response) {
+    if (err) {
+      return done(err);
+    }
+    if (response[0].state === 'rejected') {
+      return done(response[0].reason);
+    }
+    return cb && cb(response[0]);
+  };
+}
