@@ -66,8 +66,6 @@ gulp.task('release', ['commitAndTag'], function (done) {
       preset: 'angular'
     }, done);
   });
-
-
 });
 
 gulp.task('changelog', ['bumpVersion'], function () {

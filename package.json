@@ -45,11 +45,7 @@
       "commit-msg": "conventional",
       "pre-commit": [
         "gulp lint"
-      ],
-      "pre-push": "gulp",
-      "post-commit": [],
-      "post-checkout": [],
-      "post-merge": []
+      ]
     }
   }
 }
