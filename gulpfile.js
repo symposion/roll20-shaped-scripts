@@ -7,10 +7,14 @@ var tagVersion = require('gulp-tag-version');
 var bump = require('gulp-bump');
 var git = require('gulp-git');
 var conventionalChangelog = require('gulp-conventional-changelog');
-var conventionalRecommendedBump = require('conventional-recommended-bump');
-var conventionalGithubReleaser = require('conventional-github-releaser');
+var conventionalRecommendedBump = np(require('conventional-recommended-bump'));
+var conventionalGithubReleaser = np(require('conventional-github-releaser'));
 var gulpIgnore = require('gulp-ignore');
 var GitHubApi = require('github');
+const github = new GitHubApi({ version: '3.0.0' });
+var gitRev = require('git-rev');
+var readPkg = require('read-pkg');
+var gutil = require('gulp-util');
 
 gulp.task('default', ['test', 'lint'], function () {
   return gulp.src('./lib/entry-point.js')
@@ -40,8 +44,11 @@ gulp.task('commitAndTag', ['changelog'], function (done) {
     .pipe(gulpIgnore.exclude('CHANGELOG.md'))
     // **tag it in the repository**
     .pipe(tagVersion())
-
-    .on('end', done);
+    .on('end', function () {
+      git.push('origin', 'master', { args: '--follow-tags' }, function (err) {
+        done(err);
+      });
+    });
 });
 
 gulp.task('checkoutMaster', function (done) {
@@ -52,35 +59,47 @@ gulp.task('checkoutMaster', function (done) {
 });
 
 gulp.task('release', ['commitAndTag'], function (done) {
-  if (!process.env.CI) {
-    return done();
-  }
+  // if (!process.env.CI) {
+  //   return done();
+  // }
 
-  git.push('origin', 'master', { args: '--follow-tags' }, function (err) {
-    if (err) {
-      done(err);
-    }
+  const auth = {
+    type: 'oauth',
+    token: process.env.GH_TOKEN
+  };
+  const config = {
+    preset: 'angular'
+  };
+  const upload = np(github.releases.uploadAsset.bind(github.releases));
 
-    conventionalGithubReleaser({
-      type: 'oauth',
-      token: process.env.GH_TOKEN
-    }, {
-      preset: 'angular'
-    }, makeGithubCallback(function (release) {
-      let github = new GitHubApi({ version: '3.0.0' });
-      github.authenticate({
-        type: 'oauth',
-        token: process.env.GH_TOKEN
-      });
-      github.releases.uploadAsset({
-        owner: 'symposion',
-        repo: 'roll20-shaped-scripts',
-        id: release.id,
-        name: 'ShapedScripts.js',
-        filePath: './ShapedScripts.js'
-      }, makeGithubCallback(null, done));
-    }, done));
-  });
+  checkReleaseTaggedVersion()
+    .then(function (isRelease) {
+      if (isRelease) {
+        return conventionalGithubReleaser(auth, config)
+          .then(function (response) {
+            const release = getGHResponseValue(response);
+
+            github.authenticate(auth);
+            return upload({
+              owner: 'symposion',
+              repo: 'roll20-shaped-scripts',
+              id: release.id,
+              name: 'ShapedScripts.js',
+              filePath: './ShapedScripts.js'
+            });
+          })
+          .then(function () {
+            done();
+          });
+      }
+      else {
+        gutil.log('Skipping github release, tag on current commit doesn\'t match package.json version');
+      }
+    })
+    .catch(function (error) {
+      done(error);
+    });
+
 });
 
 gulp.task('changelog', ['bumpVersion'], function () {
@@ -105,24 +124,52 @@ gulp.task('bumpVersion', ['checkoutMaster'], function (done) {
 });
 
 
-function makeGithubCallback(cb, done) {
-  return function (err, response) {
-    if (err) {
-      return done(err);
+function getGHResponseValue(response) {
+  if (response && response[0]) {
+    switch (response[0].state) {
+      case 'rejected':
+        throw new Error(response[0].reason);
+      case 'fulfilled':
+        return response[0].value;
     }
-    if (response && response[0]) {
-      switch (response[0].state) {
-        case 'rejected':
-          return done(response[0].reason);
-        case 'fulfilled':
-          return cb && cb(response[0].value);
-      }
-    }
-    else if (cb) {
-      return cb();
-    }
-    else {
-      return done();
-    }
+  }
+  return response;
+}
+
+
+function checkReleaseTaggedVersion() {
+  return Promise.all([readPkg(), sp(gitRev.tag)()])
+    .then(function (results) {
+      gutil.log(`Version from package.json: ${results[0].version}, version from tag: ${results[1]}`);
+      return `v${results[0].version}` === results[1];
+    });
+}
+
+function np(method) {
+  return function () {
+    const self = this;
+    const args = Array.prototype.slice.call(arguments);
+    return new Promise(function (resolve, reject) {
+      args.push(function (err, data) {
+        if (err !== null) {
+          return reject(err);
+        }
+        resolve(data);
+      });
+      method.apply(self, args);
+    });
+  };
+}
+
+function sp(method) {
+  return function () {
+    const self = this;
+    const args = Array.prototype.slice(arguments);
+    return new Promise(function (resolve, reject) {
+      args.push(function (data) {
+        resolve(data);
+      });
+      method.apply(self, args);
+    });
   };
 }
