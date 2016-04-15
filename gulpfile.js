@@ -11,6 +11,7 @@ var conventionalRecommendedBump = require('conventional-recommended-bump');
 var conventionalGithubReleaser = require('conventional-github-releaser');
 var gulpIgnore = require('gulp-ignore');
 var GitHubApi = require('github');
+var gutil = require('gulp-util');
 
 gulp.task('default', ['test', 'lint'], function () {
   return gulp.src('./lib/entry-point.js')
@@ -67,6 +68,7 @@ gulp.task('release', ['commitAndTag'], function (done) {
     }, {
       preset: 'angular'
     }, makeGithubCallback(function (release) {
+      gutil.log(release);
       let github = new GitHubApi({ version: '3.0.0' });
       github.authenticate({
         type: 'oauth',

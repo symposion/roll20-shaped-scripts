@@ -29,7 +29,8 @@
     "should": "^8.2.2",
     "sinon": "^1.17.3",
     "webpack-stream": "^3.1.0",
-    "github": "latest"
+    "github": "latest",
+    "gulp-util": "latest"
   },
   "scripts": {
     "test": "gulp",
