@@ -1,3 +1,9 @@
+<a name="1.0.5"></a>
+## [1.0.5](https://github.com/symposion/roll20-shaped-scripts/compare/v1.0.4...v1.0.5) (2016-04-15)
+
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](/https://github.com/symposion/roll20-api-scripts//compare/v0.1.0...v1.0.0) (2016-04-15)
 
