@@ -6,12 +6,10 @@ var webpack = require('webpack-stream');
 var tagVersion = require('gulp-tag-version');
 var bump = require('gulp-bump');
 var git = require('gulp-git');
-var addSrc = require('gulp-add-src');
 var conventionalChangelog = require('gulp-conventional-changelog');
 var conventionalRecommendedBump = require('conventional-recommended-bump');
 var conventionalGithubReleaser = require('conventional-github-releaser');
-var filter = require('gulp-filter');
-var gulpif = require('gulp-if');
+var gulpIgnore = require('gulp-ignore');
 
 gulp.task('default', ['test', 'lint'], function () {
   return gulp.src('./lib/entry-point.js')
@@ -32,26 +30,44 @@ gulp.task('test', function () {
 });
 
 gulp.task('commitAndTag', ['changelog'], function (done) {
+  if (!process.env.CI) {
+    return done();
+  }
   // Get all the files to bump version in
-  gulp.src('./package.json')
-    .pipe(addSrc.append('./CHANGELOG.md'))
-    .pipe(gulpif(!!process.env.CI, git.commit('chore(release): bump package version and update changelog', { emitData: true })))
-    .pipe(filter('./CHANGELOG.md'))
+  gulp.src(['./package.json', './CHANGELOG.md'])
+    .pipe(git.commit('chore(release): bump package version and update changelog', { emitData: true }))
+    .pipe(gulpIgnore.exclude('CHANGELOG.md'))
     // **tag it in the repository**
-    .pipe(gulpif(process.env.CI, tagVersion()))
+    .pipe(tagVersion())
+
     .on('end', done);
 });
 
-gulp.task('release', ['commitAndTag'], function (done) {
-  if (!!process.env.CI) {
+gulp.task('checkoutMaster', function (done) {
+  if (!process.env.CI) {
     return done();
   }
-  conventionalGithubReleaser({
-    type: 'oauth',
-    token: process.env.GH_TOKEN
-  }, {
-    preset: 'angular'
-  }, done);
+  git.checkout('master', done);
+});
+
+gulp.task('release', ['commitAndTag'], function (done) {
+  if (!process.env.CI) {
+    return done();
+  }
+
+  git.push('origin', 'master', function (err) {
+    if (err) {
+      done(err);
+    }
+    conventionalGithubReleaser({
+      type: 'oauth',
+      token: process.env.GH_TOKEN
+    }, {
+      preset: 'angular'
+    }, done);
+  });
+
+
 });
 
 gulp.task('changelog', ['bumpVersion'], function () {
@@ -60,7 +76,10 @@ gulp.task('changelog', ['bumpVersion'], function () {
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('bumpVersion', function (done) {
+gulp.task('bumpVersion', ['checkoutMaster'], function (done) {
+  if (!process.env.CI) {
+    return done();
+  }
   conventionalRecommendedBump({ preset: 'angular' }, function (err, result) {
     if (err) {
       return done(err);
