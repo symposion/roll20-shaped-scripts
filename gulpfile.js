@@ -115,6 +115,6 @@ function makeGithubCallback(cb, done) {
     if (response[0].state === 'rejected') {
       return done(response[0].reason);
     }
-    return cb && cb(response[0]);
+    return cb && cb(response[0].value);
   };
 }
