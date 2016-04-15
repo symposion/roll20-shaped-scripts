@@ -35,7 +35,7 @@ gulp.task('commitAndTag', ['changelog'], function (done) {
   }
   // Get all the files to bump version in
   gulp.src(['./package.json', './CHANGELOG.md'])
-    .pipe(git.commit('chore(release): bump package version and update changelog', { emitData: true }))
+    .pipe(git.commit('chore(release): bump package version and update changelog [ci skip]', { emitData: true }))
     .pipe(gulpIgnore.exclude('CHANGELOG.md'))
     // **tag it in the repository**
     .pipe(tagVersion())
@@ -55,10 +55,11 @@ gulp.task('release', ['commitAndTag'], function (done) {
     return done();
   }
 
-  git.push('origin', 'master', function (err) {
+  git.push('origin', 'master', { args: '--follow-tags' }, function (err) {
     if (err) {
-      done(err);
+      throw err;
     }
+
     conventionalGithubReleaser({
       type: 'oauth',
       token: process.env.GH_TOKEN
