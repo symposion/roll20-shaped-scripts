@@ -59,9 +59,9 @@ gulp.task('checkoutMaster', function (done) {
 });
 
 gulp.task('release', ['commitAndTag'], function (done) {
-  // if (!process.env.CI) {
-  //   return done();
-  // }
+  if (!process.env.CI) {
+    return done();
+  }
 
   const auth = {
     type: 'oauth',
@@ -138,11 +138,17 @@ function getGHResponseValue(response) {
 
 
 function checkReleaseTaggedVersion() {
-  return Promise.all([readPkg(), sp(gitRev.tag)()])
+  return Promise.all([readPkg(), sp(gitRev.tag)(), delay()])
     .then(function (results) {
       gutil.log(`Version from package.json: ${results[0].version}, version from tag: ${results[1]}`);
       return `v${results[0].version}` === results[1];
     });
+}
+
+function delay() {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, 500);
+  });
 }
 
 function np(method) {
