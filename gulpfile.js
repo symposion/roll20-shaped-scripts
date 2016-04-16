@@ -15,10 +15,29 @@ const github = new GitHubApi({ version: '3.0.0' });
 var gitRev = require('git-rev');
 var readPkg = require('read-pkg');
 var gutil = require('gulp-util');
+var injectVersion = require('gulp-inject-version');
+
+const filesToUpload = ['5eShapedCompanion.js', 'CHANGELOG.md', 'README.md'];
+let versionSuffix = '';
+switch (process.env.CI && process.env.TRAVIS_BRANCH) {
+  case 'master':
+    //do nothing, keep bare version number
+    break;
+  case 'develop':
+    versionSuffix = `-dev+${process.env.TRAVIS_BUILD_NUMBER}`;
+    break;
+  default:
+    versionSuffix = '-local';
+}
+
 
 gulp.task('default', ['test', 'lint'], function () {
+  const config = require('./webpack.config.js');
   return gulp.src('./lib/entry-point.js')
-    .pipe(webpack(require('./webpack.config.js')))
+    .pipe(webpack(config))
+    .pipe(injectVersion({
+      append: versionSuffix
+    }))
     .pipe(gulp.dest('./'));
 });
 
@@ -43,7 +62,7 @@ gulp.task('commitAndTag', ['changelog'], function (done) {
     .pipe(git.commit('chore(release): bump package version and update changelog [ci skip]', { emitData: true }))
     .pipe(gulpIgnore.exclude('CHANGELOG.md'))
     // **tag it in the repository**
-    .pipe(tagVersion())
+    .pipe(tagVersion({ prefix: '' }))
     .on('end', function () {
       git.push('origin', 'master', { args: '--follow-tags' }, function (err) {
         done(err);
@@ -80,13 +99,13 @@ gulp.task('release', ['commitAndTag'], function (done) {
             const release = getGHResponseValue(response);
 
             github.authenticate(auth);
-            return upload({
+            return Promise.all(filesToUpload.map(fileName => upload({
               owner: 'symposion',
               repo: 'roll20-shaped-scripts',
               id: release.id,
-              name: 'ShapedScripts.js',
-              filePath: './ShapedScripts.js'
-            });
+              name: fileName,
+              filePath: `./${fileName}`
+            })));
           })
           .then(function () {
             done();

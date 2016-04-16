@@ -6,7 +6,7 @@ module.exports = {
   },
   output: {
     path: __dirname,
-    filename: 'ShapedScripts.js',
+    filename: '5eShapedCompanion.js',
     library: 'ShapedScripts'
   },
   externals: {
