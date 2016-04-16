@@ -1,3 +1,13 @@
+<a name="1.0.2"></a>
+## [1.0.2](https://github.com/symposion/roll20-shaped-scripts/compare/1.0.1...v1.0.2) (2016-04-16)
+
+
+### Bug Fixes
+
+* **build:** Attempt to fix not-deterministic problem with github releases ([c408f87](https://github.com/symposion/roll20-shaped-scripts/commit/c408f87))
+
+
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/symposion/roll20-shaped-scripts/compare/1.0.0...v1.0.1) (2016-04-16)
 
