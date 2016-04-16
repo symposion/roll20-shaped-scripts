@@ -16,12 +16,12 @@ deploy:
     branch: master
 after_deploy:
 - cd ..
-- git clone --depth 5 https://github.com/symposion/roll20-api-scripts.git
+- git clone --branch master https://github.com/symposion/roll20-api-scripts.git
 - cd roll20-api-scripts
 - git config credential.helper "store --file=.git/credentials"
 - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
 - git remote add upstream https://www.github.com/roll20/roll20-api-scripts.git
-- git fetch upstream
+- git fetch --all
 - git rebase upstream/master
 - git push origin master
 - git checkout shaped-sheet-update
