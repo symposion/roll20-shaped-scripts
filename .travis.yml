@@ -24,7 +24,7 @@ after_deploy:
 - git fetch upstream
 - git rebase upstream/master
 - git push origin master
-- git checkout -B shaped-sheet-update
+- git checkout shaped-sheet-update
 - cd 5eShapedCompanion
 - npm install
 - gulp syncReleases
