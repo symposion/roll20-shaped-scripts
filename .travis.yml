@@ -16,14 +16,17 @@ deploy:
     branch: master
 after_deploy:
 - cd ..
-- git clone --depth 5 --branch master http://github.com/symposion/roll20-api-scripts.git
+- git clone --depth 5 --branch master https://github.com/symposion/roll20-api-scripts.git
 - cd roll20-api-scripts
+- git config credential.helper "store --file=.git/credentials"
+- echo "https://${GH_TOKEN}:@github.com" > .git/credentials
 - git remote add upstream https://www.github.com/roll20/roll20-api-scripts.git
 - git fetch upstream
 - git rebase upstream/master
 - git push origin master
 - git checkout -B shaped-sheet-update
 - cd 5eShapedCompanion
+- npm install
 - gulp syncReleases
 - git add .
 - git commit -m "Submit updated version of 5eShapedCompanion script to roll20"
