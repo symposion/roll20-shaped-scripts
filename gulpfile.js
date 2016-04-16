@@ -160,7 +160,7 @@ function checkReleaseTaggedVersion() {
   return Promise.all([readPkg(), sp(gitRev.tag)(), delay()])
     .then(function (results) {
       gutil.log(`Version from package.json: ${results[0].version}, version from tag: ${results[1]}`);
-      return `v${results[0].version}` === results[1];
+      return results[0].version === results[1];
     });
 }
 
