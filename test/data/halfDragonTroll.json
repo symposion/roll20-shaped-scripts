@@ -1,0 +1,54 @@
+{
+  "monsters": [
+    {
+      "name": "Half-Dragon Troll",
+      "size": "Large",
+      "type": "giant",
+      "alignment": "chaotic evil",
+      "AC": "15 (natural armor)",
+      "HP": "84 (8d10 + 40)",
+      "speed": "30 ft",
+      "strength": 18,
+      "dexterity": 13,
+      "constitution": 20,
+      "intelligence": 7,
+      "wisdom": 9,
+      "charisma": 7,
+      "skills": "Perception +1",
+      "damageResistances": "acid",
+      "senses": "blindsight 10 ft, darkvision 60 ft",
+      "languages": "Draconic, Giant",
+      "challenge": "5",
+      "traits": [
+        {
+          "name": "Keen Smell",
+          "text": "The half-dragon troll has advantage on Wisdom (Perception) checks that rely on smell."
+        },
+        {
+          "name": "Regeneration",
+          "text": "The half-dragon troll regains 10 hit points at the start of its turn. If the troll takes acid or fire damage, this trait doesn't function at the start of the troll's next turn. The troll dies only if it starts its turn with 0 hit points and doesn't regenerate."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "text": "The half-dragon troll makes three attacks: one with its bite and two with its claws."
+        },
+        {
+          "name": "Bite",
+          "text": "Melee Weapon Attack: +7 to hit, reach 5 ft, one target. Hit: 7 (1d6 + 4) piercing damage."
+        },
+        {
+          "name": "Claw",
+          "text": "Melee Weapon Attack: +7 to hit, reach 5 ft, one target. Hit: 11 (2d6 + 4) slashing damage."
+        },
+        {
+          "name": "Acid Breath",
+          "recharge": "Recharge 5-6",
+          "text": "The half-dragon troll exhales acid in a 15-foot line that is 5 feet wide. Each creature in that line must make a DC 11 Dexterity saving throw, taking 22 (5d8) acid damage on a failed save, or half as much damage on a successful one."
+        }
+      ]
+    }
+  ],
+  "version": "0.2"
+}
