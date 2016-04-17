@@ -64,7 +64,7 @@ gulp.task('commitAndTag', ['changelog'], function (done) {
     // **tag it in the repository**
     .pipe(tagVersion({ prefix: '' }))
     .on('end', function () {
-      git.push('origin', 'master', { args: '--follow-tags' }, function (err) {
+      git.push('origin', 'master', { args: '--tags' }, function (err) {
         done(err);
       });
     });
@@ -166,7 +166,7 @@ function checkReleaseTaggedVersion() {
 
 function delay() {
   return new Promise(function (resolve) {
-    setTimeout(resolve, 500);
+    setTimeout(resolve, 1000);
   });
 }
 
