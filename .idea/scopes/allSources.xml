@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="allSources" pattern="file[5eShapedScripts]:lib//*||file[5eShapedScripts]:resources//*||file[5eShapedScripts]:test//*" />
+</component>
