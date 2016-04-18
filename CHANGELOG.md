@@ -1,3 +1,20 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/symposion/roll20-shaped-scripts/compare/1.0.3...v1.1.0) (2016-04-18)
+
+
+### Bug Fixes
+
+* **abilities:** Changed to not create a macro action when there are no corresponding actions. ([335fdd9](https://github.com/symposion/roll20-shaped-scripts/commit/335fdd9)), closes [#2](https://github.com/symposion/roll20-shaped-scripts/issues/2)
+* **hpRoll:** Fix hp rolling to respect max setting for token bar ([b18e2a4](https://github.com/symposion/roll20-shaped-scripts/commit/b18e2a4)), closes [#23](https://github.com/symposion/roll20-shaped-scripts/issues/23)
+* **statblock:** Support statblock abilities in two line format ([d7904b0](https://github.com/symposion/roll20-shaped-scripts/commit/d7904b0))
+
+### Features
+
+* **config:** Add auto HD and Roll HD on drop options to config UI ([4e08a92](https://github.com/symposion/roll20-shaped-scripts/commit/4e08a92)), closes [#25](https://github.com/symposion/roll20-shaped-scripts/issues/25)
+* **config:** Support max dex for medium armor and half-proficiency saves houserules ([0868c9a](https://github.com/symposion/roll20-shaped-scripts/commit/0868c9a))
+
+
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/symposion/roll20-shaped-scripts/compare/1.0.2...v1.0.3) (2016-04-17)
 
