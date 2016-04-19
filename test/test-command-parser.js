@@ -49,5 +49,36 @@ describe('command-parser', function () {
       expected.foo.subThree.flurb[1] = 'splat';
       expect(result).to.deep.equal(expected);
     });
+
+  });
+
+  describe('#optionLookup', function () {
+    var lookup = {
+      key1: 'value1',
+      key2: 'value2'
+    };
+    var result = {};
+    const myCp = cp('shaped')
+      .addCommand('stuff', function (object) {
+        result = object;
+      })
+      .optionLookup('spells', function (option) {
+        return lookup[option];
+      })
+      .end();
+
+    it('handles comma-sep options', function () {
+      myCp.processCommand({ content: '!shaped-stuff --key1, key2', type: 'api' });
+      expect(result).to.deep.equal({
+        selected: undefined,
+        spells: ['value1', 'value2']
+      });
+    });
+
+    it('handles partial error with comma-sep options', function () {
+      expect(myCp.processCommand.bind(myCp, { content: '!shaped-stuff --key1, key4', type: 'api' }))
+        .to.throw('Unrecognised item key4 for option group spells');
+    });
+
   });
 });
