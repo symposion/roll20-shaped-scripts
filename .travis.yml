@@ -23,14 +23,12 @@ after_deploy:
 - git remote add upstream https://www.github.com/roll20/roll20-api-scripts.git
 - git fetch --all
 - git rebase upstream/master
-- git push origin master
-- git checkout -B shaped-sheet-update
 - cd 5eShapedCompanion
 - npm install
 - gulp syncReleases
 - git add .
 - git commit -m "Submit updated version of 5eShapedCompanion script to roll20"
-- git push origin shaped-sheet-update
+- git push origin master
 
 env:
   global:
