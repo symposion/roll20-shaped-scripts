@@ -58,9 +58,9 @@ gulp.task('commitAndTag', ['changelog', 'doctoc', 'buildReleaseVersionScript'], 
     return done();
   }
   // Get all the files to bump version in
-  gulp.src(['./package.json', './CHANGELOG.md'])
+  gulp.src(['./package.json', './CHANGELOG.md', './README.md'])
     .pipe(git.commit('chore(release): bump package version and update changelog [ci skip]', { emitData: true }))
-    .pipe(gulpIgnore.exclude('CHANGELOG.md'))
+    .pipe(gulpIgnore.exclude('CHANGELOG.md|README.md'))
     // **tag it in the repository**
     .pipe(tagVersion({ prefix: '' }))
     .on('end', function () {
@@ -72,7 +72,7 @@ gulp.task('commitAndTag', ['changelog', 'doctoc', 'buildReleaseVersionScript'], 
 
 gulp.task('doctoc', ['checkoutMaster'], function (done) {
   gulp.src('README.md')
-    .pipe(toc())
+    .pipe(toc({ depth: 2 }))
     .pipe(gulp.dest('./'));
 });
 
