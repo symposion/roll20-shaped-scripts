@@ -70,8 +70,8 @@ gulp.task('commitAndTag', ['changelog', 'doctoc', 'buildReleaseVersionScript'], 
     });
 });
 
-gulp.task('doctoc', ['checkoutMaster'], function (done) {
-  gulp.src('README.md')
+gulp.task('doctoc', ['checkoutMaster'], function () {
+  return gulp.src('README.md')
     .pipe(toc({ depth: 2 }))
     .pipe(gulp.dest('./'));
 });
