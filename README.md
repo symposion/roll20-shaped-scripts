@@ -7,6 +7,48 @@ specifically designed to provide services and enhancements for the
 not work** with any other character sheet such as the Roll20 5e OGL character sheet. If you report bugs/ask for
 help while trying to use the script with a different character sheet you will be ignored with extreme prejudice!
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Key features](#key-features)
+- [Setup](#setup)
+  - [Prerequisites:](#prerequisites)
+  - [Installation](#installation)
+  - [Updating](#updating)
+  - [Optional Extras](#optional-extras)
+- [Usage](#usage)
+  - [Import a Monster from Monster Manual Statblock text](#import-a-monster-from-monster-manual-statblock-text)
+    - [Notes on Statblock Text](#notes-on-statblock-text)
+  - [Importing Monsters from a Custom Database](#importing-monsters-from-a-custom-database)
+  - [Importing Spells from a Custom Database](#importing-spells-from-a-custom-database)
+  - [Tracking advantage using the script](#tracking-advantage-using-the-script)
+  - [Creating token actions for characters](#creating-token-actions-for-characters)
+  - [Decrementing ammo](#decrementing-ammo)
+  - [Death saves, Hit Dice](#death-saves-hit-dice)
+  - [Roll HP for monsters](#roll-hp-for-monsters)
+- [Full command list](#full-command-list)
+  - [!shaped-import-statblock](#shaped-import-statblock)
+    - [Options](#options)
+    - [Selection](#selection)
+  - [!shaped-import-monster](#shaped-import-monster)
+    - [Options](#options-1)
+    - [Selection](#selection-1)
+  - [!shaped-at](#shaped-at)
+    - [Options](#options-2)
+    - [Selection](#selection-2)
+  - [!shaped-abilities](#shaped-abilities)
+    - [Options](#options-3)
+    - [Selection](#selection-3)
+  - [!shaped-config](#shaped-config)
+  - [!shaped-token-defaults](#shaped-token-defaults)
+- [Configuration](#configuration)
+  - [Advantage Tracker](#advantage-tracker)
+  - [Token Defaults](#token-defaults)
+  - [New Characters](#new-characters)
+  - [Sheet Enhancements](#sheet-enhancements)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Key features
 * Automatically create characters from Monster Manual statblock text
@@ -197,7 +239,7 @@ Imports details from a text statblock into a Roll20 character. The statblock mus
  configured according to the [default token settings configuration](#token-defaults) ready to be set as the
  default token for the character.
 
-###Options
+### Options
  * **--overwrite** if the selected token already represents a character in the journal, the import will fail
  to avoid accidentally overwriting data, unless you supply this option to confirm that you wish to do so.
  * **--replace** if there is already a character in the journal with the same name as the one you are importing, the
@@ -206,7 +248,7 @@ Imports details from a text statblock into a Roll20 character. The statblock mus
  overwrite any character with the same name, unless there is more than one, in which case it will fail rather than
  risking overwriting the wrong one. Note that **--replace** implies **--overwrite**.
 
-###Selection
+### Selection
 You must have at least one token selected. If you have more than one, it will attempt to import a statblock from each
  one in turn. When importing, each token will be set to represent the newly created character for it, and the script
  will also attempt to set the avatar for the character to be the token graphic<sup>[1](#avatar-note)</sup>.
@@ -219,7 +261,7 @@ monsters to choose from. The imported character will be configured with the defa
  configured according to the [default token settings configuration](#token-defaults) ready to be set as the
  default token for the character.
 
-###Options
+### Options
  * **--<monster name>** (e.g. **--Lich**) specifies a monster to import. You may supply multiple monsters as separate
   options, or you may supply multiple in one option separated by commas (**--Ghoul, Zombie, Ghost**)
  * **--overwrite** if the selected token already represents a character in the journal, the import will fail
@@ -230,7 +272,7 @@ monsters to choose from. The imported character will be configured with the defa
  overwrite any character with the same name, unless there is more than one, in which case it will fail rather than
  risking overwriting the wrong one. Note that **--replace** implies **--overwrite**.
 
-###Selection
+### Selection
 You may no or 1 tokens selected when running this command:
 
 * If you have no tokens selected, this command will just add the new characters to the journal.
@@ -244,19 +286,19 @@ token image as the avatar for your new character<sup>[1](#avatar-note)</sup>.
 ## !shaped-at
 Gives the selected character advantage or disadvantage, or  neither.
 
-###Options
+### Options
 * **--advantage** give the selected character advantage
 * **--disadvantage** give the selected character disadvantage
 * **--normal** clears (dis)advantage status for the selected character
 
-###Selection
+### Selection
 You must select at least one token that represents a character. The specified setting will apply to the characters of
  all selected tokens.
 
 ## !shaped-abilities
 Creates token actions for your character as shortcuts to a variety of rolls and other actions from the sheet.
 
-###Options
+### Options
 * **--attacks** - create an ability for each attack present in the character sheet
 * **--traits** - create an ability for each trait present in the character sheet
 * **--traits-macro** - create an ability to launch the chat window traits buttons
@@ -279,7 +321,7 @@ Creates token actions for your character as shortcuts to a variety of rolls and 
 In addition, you can pass the names of spells like **--Fireball** to create token actions for each spell. Obviously
 the character in question must actually have this spell in its spellbook for this to work.
 
-###Selection
+### Selection
 You must have at least one token that represents a character selected for this command to work. If you have multiple
 characters selected you cannot specify spells in the options since the different characters may have different spells.
 
@@ -292,12 +334,12 @@ Apply the same defaults that are used when setting up tokens on import to whatev
 Useful for mass-configuring manually created tokens. See [below](#config-token-settings) for more details on what these
 options are.
 
-#Configuration
-##Advantage Tracker
+# Configuration
+## Advantage Tracker
 * **Show Markers** If this is 'on', all tokens for a character will be marked with a green or a red dot if they have
 advantage or disadvantage respectively. Designed for use with the [!shaped-at](#shaped-at) command
 
-##Token Defaults
+## Token Defaults
 * **Numbered Tokens** If this is 'on', new tokens will have %%NUMBERED%% appended to their name to work with Aaron's
 TokenNameNumbered script. Please search for this on the API forum for more details.
 * **Show Name Tag** If this is 'on', the token will show its name tag to anyone who has permission to see it
@@ -329,17 +371,17 @@ way to simulate a character who has the ability to see further than normal in lo
 form of vision that might allow them to navigate in the dark. For example, someone who can see twice as far in low light
 would have a multiplier of two.
 
-##New Characters
+## New Characters
 * **Sheet Output** Set whether output from the new character sheet should be public or whispered to the
 controlling player by default
 * **Death Save Output** Same as Sheet Output, but specifically for death saves
 * **Initiative Output** Same as Sheet Output, but specifically for Initiative rolls
 * **Show name on Roll Template** If 'on', the character's name will be shown on all their rolls in chat
 * **Roll Options** How are d20 rolls handled by default:
-** Normal: Roll one die only
-** Roll with Advantage: Roll two dice, display the highest value
-** Roll with Disadvantage: Roll two dice, display the lowest value
-** Roll 2: Roll two dice, display both results
+    * **Normal**: Roll one die only
+    * **Roll with Advantage**: Roll two dice, display the highest value
+    * **Roll with Disadvantage**: Roll two dice, display the lowest value
+    * **Roll 2**: Roll two dice, display both results
 * **Init Roll** Same as above, but only applies to Initiative rolls. There is no Roll 2 option in this case because
 initiative must have a single value to be sent to the turn tracker
 * **Init to Tracker** If 'on', automatically send all initiative rolls to the turn tracker.
@@ -351,3 +393,10 @@ display the target's AC on the Roll output
 display the target's character name on the Roll output
 * **Auto Use Ammo** If 'on', new characters will be set to automatically decrement ammo when launching
 attacks that are configured with ammo.
+
+## Sheet Enhancements
+* **Roll HP On Drop** If 'on' the script will automatically Roll HP for any character whose default token doesn't have
+a linked attribute for the specified bar. See the [Roll HP for monsters](#roll-hp-for-monsters) section for more
+details.
+* **Process HD Automatically** If 'on' the script will automatically decrement your HD count when you roll hit dice
+and will also add the amount rolled to your HP total.
