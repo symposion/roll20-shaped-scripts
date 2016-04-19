@@ -23,7 +23,6 @@ after_deploy:
 - git remote add upstream https://www.github.com/roll20/roll20-api-scripts.git
 - git fetch --all
 - git rebase upstream/master
-- git push origin master
 - cd 5eShapedCompanion
 - npm install
 - gulp syncReleases
