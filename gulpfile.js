@@ -17,6 +17,7 @@ var readPkg = require('read-pkg');
 var gutil = require('gulp-util');
 var injectVersion = require('gulp-inject-version');
 var toc = require('gulp-doctoc');
+const config = require('./webpack.config.js');
 
 const filesToUpload = ['5eShapedCompanion.js', 'CHANGELOG.md', 'README.md'];
 let versionSuffix = '';
@@ -33,13 +34,7 @@ switch (process.env.CI && process.env.TRAVIS_BRANCH) {
 
 
 gulp.task('default', ['test', 'lint'], function () {
-  const config = require('./webpack.config.js');
-  return gulp.src('./lib/entry-point.js')
-    .pipe(webpack(config))
-    .pipe(injectVersion({
-      append: versionSuffix
-    }))
-    .pipe(gulp.dest('./'));
+  return runWebpackBuild();
 });
 
 gulp.task('lint', function () {
@@ -54,7 +49,11 @@ gulp.task('test', function () {
     .pipe(mocha());
 });
 
-gulp.task('commitAndTag', ['changelog', 'doctoc'], function (done) {
+gulp.task('buildReleaseVersionScript', ['bumpVersion'], function () {
+  return runWebpackBuild();
+});
+
+gulp.task('commitAndTag', ['changelog', 'doctoc', 'buildReleaseVersionScript'], function (done) {
   if (!process.env.CI) {
     return done();
   }
@@ -149,6 +148,14 @@ gulp.task('bumpVersion', ['checkoutMaster'], function (done) {
   });
 });
 
+function runWebpackBuild() {
+  return gulp.src('./lib/entry-point.js')
+    .pipe(webpack(config))
+    .pipe(injectVersion({
+      append: versionSuffix
+    }))
+    .pipe(gulp.dest('./'));
+}
 
 function getGHResponseValue(response) {
   if (response && response[0]) {
