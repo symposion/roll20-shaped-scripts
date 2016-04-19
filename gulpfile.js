@@ -16,6 +16,7 @@ var gitRev = require('git-rev');
 var readPkg = require('read-pkg');
 var gutil = require('gulp-util');
 var injectVersion = require('gulp-inject-version');
+var toc = require('gulp-doctoc');
 
 const filesToUpload = ['5eShapedCompanion.js', 'CHANGELOG.md', 'README.md'];
 let versionSuffix = '';
@@ -53,7 +54,7 @@ gulp.task('test', function () {
     .pipe(mocha());
 });
 
-gulp.task('commitAndTag', ['changelog'], function (done) {
+gulp.task('commitAndTag', ['changelog', 'doctoc'], function (done) {
   if (!process.env.CI) {
     return done();
   }
@@ -68,6 +69,12 @@ gulp.task('commitAndTag', ['changelog'], function (done) {
         done(err);
       });
     });
+});
+
+gulp.task('doctoc', ['checkoutMaster'], function (done) {
+  gulp.src('README.md')
+    .pipe(toc())
+    .pipe(gulp.dest('./'));
 });
 
 gulp.task('checkoutMaster', function (done) {
