@@ -129,7 +129,7 @@ gulp.task('release', ['commitAndTag'], function (done) {
 
 gulp.task('changelog', ['bumpVersion'], function () {
   return gulp.src('./CHANGELOG.md', { buffer: false })
-    .pipe(conventionalChangelog({ preset: 'angular' }))
+    .pipe(conventionalChangelog({ preset: 'angular' }, { currentTag: readPkg.sync().version }))
     .pipe(gulp.dest('./'));
 });
 
