@@ -1,3 +1,13 @@
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/symposion/roll20-shaped-scripts/compare/1.1.0...v1.1.1) (2016-04-19)
+
+
+### Bug Fixes
+
+* **spell-import:** Make it expand all gender pronoun placeholders in the emote ([acf580a](https://github.com/symposion/roll20-shaped-scripts/commit/acf580a)), closes [#39](https://github.com/symposion/roll20-shaped-scripts/issues/39)
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/symposion/roll20-shaped-scripts/compare/1.0.3...v1.1.0) (2016-04-18)
 
