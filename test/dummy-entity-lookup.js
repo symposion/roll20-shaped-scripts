@@ -1,7 +1,7 @@
-var EntityLookup = require('../lib/entity-lookup');
-var _ = require('underscore');
+const EntityLookup = require('../lib/entity-lookup');
+const _ = require('underscore');
 
-var spells = {
+const spells = {
   version: '0.2',
   spells: [
     { name: 'Mage Hand', level: 0 },
@@ -67,16 +67,16 @@ var spells = {
     { name: 'Wall of Force', level: 5 },
     { name: 'Teleport', level: 6 },
     { name: 'Mind Blank', level: 8 },
-    { name: 'Time Stop', level: 9 }
-  ]
+    { name: 'Time Stop', level: 9 },
+  ],
 };
 
-var el = new EntityLookup();
+const el = new EntityLookup();
 el.configureEntity('monsters', [el.getSpellHydrator()], _.constant(true));
 el.configureEntity('spells', [], _.constant(true));
 el.addEntities(spells);
 
 module.exports = {
-  spells: spells,
-  entityLookup: el
+  spells,
+  entityLookup: el,
 };

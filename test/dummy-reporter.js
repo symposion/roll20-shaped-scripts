@@ -1,20 +1,20 @@
 'use strict';
 
-module.exports = Reporter;
 
-/**
- *
- * @constructor
- */
-function Reporter() {
+class Reporter {
+  constructor() {
+    this.messages = [];
+  }
 
-  this.messages = [];
+  // noinspection JSUnusedGlobalSymbols
+  report(title, message) {
+    this.messages.push(`${title}:${message}`);
+  }
 
-  this.report = function (title, message) {
-    this.messages.push(title + ':' + message);
-  };
-
-  this.reportError = function (message) {
+  // noinspection JSUnusedGlobalSymbols
+  reportError(message) {
     this.messages.push(message);
-  };
+  }
 }
+
+module.exports = Reporter;

@@ -1,132 +1,123 @@
-/* globals describe: false, it:false, afterEach:false*/
+/* globals describe: false, it:false, beforeEach:false*/
+'use strict';
 require('chai').should();
-var expect = require('chai').expect;
-var _ = require('underscore');
-var roll20 = require('../lib/roll20');
-var mockery = require('mockery');
-mockery.enable();
-mockery.warnOnUnregistered(false);
-mockery.registerMock('../lib/srd-converter', _.identity);
-var ShapedScripts = require('../lib/shaped-script');
-mockery.disable();
-var sinon = require('sinon');
-var logger = require('./dummy-logger');
-var Reporter = require('./dummy-reporter');
-var Roll20Object = require('./dummy-roll20-object');
-var el = require('./dummy-entity-lookup');
+const expect = require('chai').expect;
+const _ = require('underscore');
+const Roll20 = require('roll20-wrapper');
+const ShapedScripts = require('../lib/shaped-script');
+const sinon = require('sinon');
+const logger = require('./dummy-logger');
+const Reporter = require('./dummy-reporter');
+const Roll20Object = require('./dummy-roll20-object');
+const el = require('./dummy-entity-lookup');
+
+/**
+ * Test attribute
+ * @param name
+ * @param value
+ * @constructor
+ */
+function Attribute(name, value) {
+  this.name = name;
+  this.value = value;
+}
+
+// noinspection JSUnusedGlobalSymbols
+Attribute.prototype.get = function (propName) {
+  switch (propName) {
+    case 'current':
+      return this.value;
+    case 'name':
+      return this.name;
+    default:
+      throw new Error(`Unrecognised property name ${propName}`);
+  }
+};
+
+const arrowsQty = new Attribute('repeating_ammo_YYY_qty', 50);
+
+const attributeArray = [
+  new Attribute('normalAttr', 'someVal'),
+  new Attribute('anotherNormalAttr', 'someVal'),
+  new Attribute('repeating_foo_XXX_something', 'someVal'),
+  new Attribute('repeating_foo_XXX_other', 'someVal'),
+  new Attribute('repeating_foo_YYY_something', 'someVal'),
+  new Attribute('repeating_foo_YYY_other', 'someVal'),
+  new Attribute('repeating_ammo_XXX_qty', 20),
+  new Attribute('repeating_ammo_XXX_weight', 0.25),
+  new Attribute('repeating_ammo_XXX_name', 'bolts'),
+  arrowsQty,
+  new Attribute('repeating_ammo_YYY_name', 'arrows'),
+  new Attribute('repeating_ammo_YYY_weight', 0.1),
+];
 
 describe('shaped-script', function () {
-  'use strict';
-  var sandbox = sinon.sandbox.create();
+  let roll20;
 
-  afterEach(function () {
-    sandbox.restore();
+  beforeEach(function () {
+    roll20 = new Roll20();
   });
 
   describe('checkForAmmoUpdate', function () {
-
     it('should decrement ammo correctly', function () {
-      var roll20Mock = sandbox.stub(roll20);
-      var characterStub = { id: 'myid' };
+      sinon.stub(roll20);
+      const characterStub = { id: 'myid' };
 
-      /**
-       * Test attribute
-       * @param name
-       * @param value
-       * @constructor
-       */
-      function Attribute(name, value) {
-        this.name = name;
-        this.value = value;
-      }
 
-      //noinspection JSUnusedGlobalSymbols
-      Attribute.prototype.get = function (propName) {
-        switch (propName) {
-          case 'current':
-            return this.value;
-          case 'name':
-            return this.name;
-          default:
-            throw 'Unrecognised property name ' + propName;
-        }
-      };
+      roll20.findObjs.withArgs({ _type: 'character', name: 'Bob' }).returns([characterStub]);
+      roll20.findObjs.withArgs({ type: 'attribute', characterid: characterStub.id }).returns(attributeArray);
+      roll20.getAttrByName.withArgs(characterStub.id, 'ammo_auto_use').returns('1');
 
-      var arrowsQty = new Attribute('repeating_ammo_YYY_qty', 50);
+      const shapedScript = new ShapedScripts(logger, { config: { updateAmmo: true } }, roll20, null, null,
+        new Reporter());
 
-      var attributeArray = [
-        new Attribute('normalAttr', 'someVal'),
-        new Attribute('anotherNormalAttr', 'someVal'),
-        new Attribute('repeating_foo_XXX_something', 'someVal'),
-        new Attribute('repeating_foo_XXX_other', 'someVal'),
-        new Attribute('repeating_foo_YYY_something', 'someVal'),
-        new Attribute('repeating_foo_YYY_other', 'someVal'),
-        new Attribute('repeating_ammo_XXX_qty', 20),
-        new Attribute('repeating_ammo_XXX_weight', 0.25),
-        new Attribute('repeating_ammo_XXX_name', 'bolts'),
-        arrowsQty,
-        new Attribute('repeating_ammo_YYY_name', 'arrows'),
-        new Attribute('repeating_ammo_YYY_weight', 0.1)
-      ];
-
-      roll20Mock.findObjs.withArgs({ _type: 'character', name: 'Bob' }).returns([characterStub]);
-      roll20Mock.findObjs.withArgs({ type: 'attribute', characterid: characterStub.id }).returns(attributeArray);
-      roll20Mock.getAttrByName.withArgs(characterStub.id, 'ammo_auto_use').returns('1');
-
-      var shapedScript = new ShapedScripts(logger, { config: { updateAmmo: true } }, roll20Mock, null, null, new Reporter());
-
-      var msg = {
+      const msg = {
         rolltemplate: '5e-shaped',
         content: '{{ammo_name=arrows}}{{character_name=Bob}}{{ammo=$[[0]]}}',
-        inlinerolls: [{ expression: '50-2' }]
+        inlinerolls: [{ expression: '50-2' }],
       };
 
-      var options = shapedScript.getRollTemplateOptions(msg);
+      const options = shapedScript.getRollTemplateOptions(msg);
 
-      var setVals = {};
+      const setVals = {};
 
       arrowsQty.set = function (propName, value) {
         setVals[propName] = value;
       };
 
       shapedScript.handleAmmo(options, msg);
-      //noinspection JSUnresolvedVariable
+      // noinspection JSUnresolvedVariable
       return setVals.should.deep.equal({ current: 48 });
     });
   });
 
   describe('#importMonsters', function () {
-
-
     it('token, no existing character, one monster', function () {
-      var monsters = [
+      const monsters = [
         {
-          name: 'monster'
-        }
+          name: 'monster',
+        },
       ];
 
-      runImportMonsterTest(sandbox, monsters, {},
-        function (token, character, roll20) {
+      runImportMonsterTest(roll20, monsters, {},
+        function (token, character) {
           roll20.createObj.withArgs('character', { name: 'monster' }).returns(character);
         },
         function (character, attributes, token) {
           expect(token.props.represents).to.equal(character.id);
           expect(character.props.avatar).to.equal('imgsrc');
         });
-
-
     });
 
     it('token, existing character, one monster', function () {
-
-      var monsters = [
+      const monsters = [
         {
-          name: 'monster'
-        }
+          name: 'monster',
+        },
       ];
 
-      runImportMonsterTest(sandbox, monsters, {},
-        function (token, character, roll20) {
+      runImportMonsterTest(roll20, monsters, {},
+        function (token, character) {
           token.set('represents', character.id);
           roll20.createObj.withArgs('character', { name: 'monster' }).returns(character);
         },
@@ -134,19 +125,17 @@ describe('shaped-script', function () {
           expect(token.props.represents).to.equal(character.id);
           expect(character.props.avatar).to.equal('imgsrc');
         });
-
     });
 
     it('token, existing character, one monster, overwrite', function () {
-
-      var monsters = [
+      const monsters = [
         {
-          name: 'monster'
-        }
+          name: 'monster',
+        },
       ];
 
-      runImportMonsterTest(sandbox, monsters, { overwrite: true },
-        function (token, character, roll20) {
+      runImportMonsterTest(roll20, monsters, { overwrite: true },
+        function (token, character) {
           token.set('represents', character.id);
           roll20.getObj.withArgs('character', character.id).returns(character);
         },
@@ -154,19 +143,17 @@ describe('shaped-script', function () {
           expect(token.props.represents).to.equal(character.id);
           expect(character.props.avatar).to.equal('imgsrc');
         });
-
     });
 
     it('token, existing character, one monster, replace', function () {
-
-      var monsters = [
+      const monsters = [
         {
-          name: 'monster'
-        }
+          name: 'monster',
+        },
       ];
 
-      runImportMonsterTest(sandbox, monsters, { replace: true },
-        function (token, character, roll20) {
+      runImportMonsterTest(roll20, monsters, { replace: true },
+        function (token, character) {
           character.set('name', 'monster2');
           token.set('represents', character.id);
           roll20.getObj.withArgs('character', character.id).returns(character);
@@ -175,19 +162,17 @@ describe('shaped-script', function () {
           expect(token.props.represents).to.equal(character.id);
           expect(character.props.avatar).to.equal('imgsrc');
         });
-
     });
 
     it('token, existing character, one monster, replace', function () {
-
-      var monsters = [
+      const monsters = [
         {
-          name: 'monster'
-        }
+          name: 'monster',
+        },
       ];
 
-      runImportMonsterTest(sandbox, monsters, { replace: true },
-        function (token, character, roll20) {
+      runImportMonsterTest(roll20, monsters, { replace: true },
+        function (token, character) {
           character.set('name', 'monster');
           roll20.findObjs.withArgs({ type: 'character', name: 'monster' }).returns([character]);
         },
@@ -195,87 +180,88 @@ describe('shaped-script', function () {
           expect(token.props.represents).to.equal(character.id);
           expect(character.props.avatar).to.equal('imgsrc');
         });
-
     });
   });
 
   describe('#triggerChatWatchers', function () {
     it('trigger hd watcher', function () {
-      var roll20Mock = sandbox.stub(roll20);
-      var characterStub = { id: 'myid' };
-      roll20Mock.findObjs.withArgs({ _type: 'character', name: 'Bob' }).returns([characterStub]);
-      var shapedScript = new ShapedScripts(logger, { config: { updateAmmo: true } }, roll20Mock, null, null, new Reporter());
+      sinon.stub(roll20);
+      const characterStub = { id: 'myid' };
+      roll20.findObjs.withArgs({ _type: 'character', name: 'Bob' }).returns([characterStub]);
+      const shapedScript = new ShapedScripts(logger, { config: { updateAmmo: true } }, roll20, null, null,
+        new Reporter());
       shapedScript.registerEventHandlers();
-      var msg = {
+      const msg = {
         rolltemplate: '5e-shaped',
-        content: '{{uses=@{Bellaluna|hd_d10}}}{{uses_max=@{Bellaluna|hd_d10|max}}{{character_name=Bob}}@{Bob|attacher_hit_dice}',
-        inlinerolls: [{ expression: '50-2' }]
+        content: '{{uses=@{Bellaluna|hd_d10}}}{{uses_max=@{Bellaluna|hd_d10|max}}{{character_name=Bob}}' +
+        '@{Bob|attacher_hit_dice}',
+        inlinerolls: [{ expression: '50-2' }],
       };
       shapedScript.triggerChatWatchers(msg);
     });
   });
 
   describe('ability creation', function () {
-    sandbox.restore();
     it('should create save ability', function () {
-      var roll20Mock = sandbox.stub(roll20);
-      var characterStub = new Roll20Object('character');
+      sinon.stub(roll20);
+      const characterStub = new Roll20Object('character');
       characterStub.set('name', 'Bob');
-      var tokenStub = new Roll20Object('graphic');
-      var abilityStub = new Roll20Object('ability');
+      const tokenStub = new Roll20Object('graphic');
+      const abilityStub = new Roll20Object('ability');
       tokenStub.set('represents', characterStub.id);
-      roll20Mock.getObj.withArgs('graphic', tokenStub.id).returns(tokenStub);
-      roll20Mock.getObj.withArgs('character', characterStub.id).returns(characterStub);
-      roll20Mock.getOrCreateObj.withArgs('ability', {
+      roll20.getObj.withArgs('graphic', tokenStub.id).returns(tokenStub);
+      roll20.getObj.withArgs('character', characterStub.id).returns(characterStub);
+      roll20.getOrCreateObj.withArgs('ability', {
         characterid: characterStub.id,
-        name: 'Saves'
+        name: 'Saves',
       }).returns(abilityStub);
-      var reporter = new Reporter();
-      var shapedScript = new ShapedScripts(logger, { config: { updateAmmo: true } }, roll20Mock, null, el.entityLookup, reporter);
+      const reporter = new Reporter();
+      const shapedScript = new ShapedScripts(logger, { config: { updateAmmo: true } }, roll20, null,
+        el.entityLookup, reporter);
       shapedScript.getCommandProcessor().processCommand({
         type: 'api',
         content: '!shaped-abilities --saves',
-        selected: [{ _type: 'graphic', _id: tokenStub.id }]
+        selected: [{ _type: 'graphic', _id: tokenStub.id }],
       });
-      expect(roll20Mock.getOrCreateObj.withArgs('ability', {
+      expect(roll20.getOrCreateObj.withArgs('ability', {
         characterid: characterStub.id,
-        name: 'Saves'
+        name: 'Saves',
       }).callCount).to.equal(1);
     });
-
   });
 });
 
 
-function runImportMonsterTest(sandbox, monsters, options, preConfigure, expectationChecker) {
+function runImportMonsterTest(roll20, monsters, options, preConfigure, expectationChecker) {
   'use strict';
-  sandbox.stub(roll20, 'createObj');
-  sandbox.stub(roll20, 'findObjs');
-  sandbox.stub(roll20, 'getAttrByName');
-  sandbox.stub(roll20, 'sendChat');
-  sandbox.stub(roll20, 'getObj');
-  var shapedScript = new ShapedScripts(logger, {}, roll20, null, null, new Reporter());
+  sinon.stub(roll20, 'createObj');
+  sinon.stub(roll20, 'findObjs');
+  sinon.stub(roll20, 'getAttrByName');
+  sinon.stub(roll20, 'sendChat');
+  sinon.stub(roll20, 'getObj');
+  const shapedScript = new ShapedScripts(logger, {}, roll20, null, null, new Reporter(),
+    { convertMonster: _.identity }, _.identity, _.identity);
   shapedScript.checkInstall();
 
-  var token = new Roll20Object('graphic');
+  const token = new Roll20Object('graphic');
   token.set('imgsrc', 'imgsrc');
 
-  var attributes = {};
-  var character = new Roll20Object('character');
+  const attributes = {};
+  const character = new Roll20Object('character');
 
-  preConfigure(token, character, roll20);
+  preConfigure(token, character);
 
-  sandbox.stub(roll20, 'setAttrByName', function (characterId, name, value) {
+  sinon.stub(roll20, 'setAttrByName', function (characterId, name, value) {
     expect(characterId).to.equal(character.id);
-    var attr = attributes[name] || new Roll20Object('attribute');
+    const attr = attributes[name] || new Roll20Object('attribute');
     attr.set('current', value);
     attributes[name] = attr;
   });
 
   roll20.findObjs.withArgs({ type: 'attribute', characterid: character.id }).returns([]);
-  sandbox.stub(roll20, 'getOrCreateAttr', function (characterId, name) {
+  sinon.stub(roll20, 'getOrCreateAttr', function (characterId, name) {
     expect(characterId).to.equal(character.id);
-    var attr = new Roll20Object('attribute');
+    const attr = new Roll20Object('attribute');
     attributes[name] = attr;
     return attr;
   });

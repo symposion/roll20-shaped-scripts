@@ -1,61 +1,61 @@
 /* globals describe: false, it:false */
 require('chai').should();
-var srdConverter = require('../lib/srd-converter');
-var fs = require('fs');
-var glob = require('glob');
+const srdConverter = require('../lib/srd-converter');
+const fs = require('fs');
+const glob = require('glob');
 
 describe('srd-converter', function () {
   'use strict';
 
   describe('#convertMonster', function () {
-    var fullObject = {
+    const fullObject = {
       name: 'Wobbler',
       traits: [
         { name: 'Trait One', recharge: '1/day', text: 'trait text blah blah\nblah' },
-        { name: 'Trait Two', text: 'trait 2 text blah blah\nblah' }
+        { name: 'Trait Two', text: 'trait 2 text blah blah\nblah' },
       ],
       actions: [
         { name: 'Action One', recharge: '5-6', text: 'action text blah blah\nblah' },
-        { name: 'Action Two', text: 'action 2 text blah blah\nblah' }
+        { name: 'Action Two', text: 'action 2 text blah blah\nblah' },
       ],
       reactions: [
         { name: 'Reaction One', recharge: '5-6', text: 'reaction text blah blah\nblah' },
-        { name: 'Reaction Two', text: 'reaction 2 text blah blah\nblah' }
+        { name: 'Reaction Two', text: 'reaction 2 text blah blah\nblah' },
       ],
       legendaryPoints: 3,
       legendaryActions: [
         { name: 'Legendary Action One', cost: 1, text: 'legendary text blah blah\nblah' },
-        { name: 'Legendary Action Two', cost: 2, text: 'legendary 2 text blah blah\nblah' }
-      ]
+        { name: 'Legendary Action Two', cost: 2, text: 'legendary 2 text blah blah\nblah' },
+      ],
     };
 
-    var emptyObject = {
-      name: 'Wobbler'
+    const emptyObject = {
+      name: 'Wobbler',
     };
 
-    var emptyArrayObject = {
+    const emptyArrayObject = {
       name: 'Wobbler',
       traits: [],
       actions: [],
       reactions: [],
-      legendaryActions: []
+      legendaryActions: [],
     };
 
-    var someMissing = {
+    const someMissing = {
       name: 'Wobbler',
       traits: [
-        { name: 'Trait Two', text: 'trait 2 text blah blah\nblah' }
+        { name: 'Trait Two', text: 'trait 2 text blah blah\nblah' },
       ],
       actions: [
         { name: 'Action One', recharge: '5-6', text: 'action text blah blah\nblah' },
-        { name: 'Action Two', text: 'action 2 text blah blah\nblah' }
-      ]
+        { name: 'Action Two', text: 'action 2 text blah blah\nblah' },
+      ],
     };
 
 
     it('correctly concatenates a full object', function () {
-      //noinspection JSUnresolvedVariable
-      var converted = srdConverter.convertMonster(fullObject);
+      // noinspection JSUnresolvedVariable
+      const converted = srdConverter.convertMonster(fullObject);
       converted.should.have.property('content_srd',
         'Traits\n' +
         '**Trait One (1/day)**: trait text blah blah\nblah\n' +
@@ -77,30 +77,30 @@ describe('srd-converter', function () {
     });
 
     it('correctly adds extra fields', function () {
-      //noinspection JSUnresolvedVariable
-      var converted = srdConverter.convertMonster(fullObject);
+      // noinspection JSUnresolvedVariable
+      const converted = srdConverter.convertMonster(fullObject);
       converted.should.have.property('is_npc', 1);
       converted.should.have.property('edit_mode', 'off');
       converted.should.not.contain.any.keys('traits', 'actions', 'reactions', 'legendaryActions', 'legendary_actions');
     });
 
     it('correctly concatenates an empty object', function () {
-      //noinspection JSUnresolvedVariable
-      var converted = srdConverter.convertMonster(emptyObject);
+      // noinspection JSUnresolvedVariable
+      const converted = srdConverter.convertMonster(emptyObject);
       converted.should.have.property('content_srd', '');
       converted.should.not.contain.any.keys('traits', 'actions', 'reactions', 'legendaryActions', 'legendary_actions');
     });
 
     it('correctly concatenates an object with empty arrays', function () {
-      //noinspection JSUnresolvedVariable
-      var converted = srdConverter.convertMonster(emptyArrayObject);
+      // noinspection JSUnresolvedVariable
+      const converted = srdConverter.convertMonster(emptyArrayObject);
       converted.should.have.property('content_srd', '');
       converted.should.not.have.any.keys('traits', 'actions', 'reactions', 'legendaryActions', 'legendary_actions');
     });
 
     it('correctly concatenates a medium object', function () {
-      //noinspection JSUnresolvedVariable
-      var converted = srdConverter.convertMonster(someMissing);
+      // noinspection JSUnresolvedVariable
+      const converted = srdConverter.convertMonster(someMissing);
       converted.should.have.property('content_srd',
         'Traits\n' +
         '**Trait Two**: trait 2 text blah blah\nblah\n' +
@@ -113,14 +113,14 @@ describe('srd-converter', function () {
 
   describe('#convertSpell', function () {
     try {
-      var spells = JSON.parse(fs.readFileSync('../../roll20/data/spells/spellData.json', 'utf-8'));
+      const spells = JSON.parse(fs.readFileSync('../../roll20/data/spells/spellData.json', 'utf-8'));
 
       it('should parse spell correctly', function () {
         srdConverter.convertSpells(spells, 'female');
       });
     }
     catch (e) {
-      //Test file not present, ignore
+      // Test file not present, ignore
       if (e.code !== 'ENOENT') {
         throw e;
       }
@@ -129,17 +129,14 @@ describe('srd-converter', function () {
 
   describe('#convertJsonMonster', function () {
     glob.sync('../../roll20/data/monsterSourceFiles/*.json').forEach(function (jsonFile) {
-      describe('JSON file: ' + jsonFile, function () {
-        JSON.parse(fs.readFileSync(jsonFile, 'utf8'))
-          .monsters.forEach(function (monster) {
-          it('convert ' + monster.name, function () {
+      describe(`JSON file:  ${jsonFile}`, function () {
+        const json = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
+        json.monsters.forEach(function (monster) {
+          it(`convert ${monster.name}`, function () {
             srdConverter.convertMonster(monster);
           });
         });
       });
-
     });
-
   });
-
 });

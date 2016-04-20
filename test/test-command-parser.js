@@ -1,22 +1,22 @@
 /* globals describe: false, it:false */
-var expect = require('chai').expect;
-var cp = require('../lib/command-parser');
+'use strict';
 
-var testValidator = function (value) {
-  'use strict';
+const expect = require('chai').expect;
+const cp = require('../lib/command-parser');
+
+function testValidator(value) {
   return {
     converted: value,
-    valid: true
+    valid: true,
   };
-};
+}
 
 describe('command-parser', function () {
   'use strict';
 
   describe('#command', function () {
-
     it('parse options correctly', function () {
-      var result = {};
+      let result = {};
       cp('shaped')
         .addCommand('config', function (object) {
           result = object;
@@ -25,39 +25,38 @@ describe('command-parser', function () {
           subOne: [
             {
               tinky: testValidator,
-              blort: testValidator
-            }
+              blort: testValidator,
+            },
           ],
           subTwo: testValidator,
           subThree: {
             wibble: testValidator,
             flurb: [
-              testValidator
-            ]
-          }
+              testValidator,
+            ],
+          },
         })
         .end()
         .processCommand({ content: '!shaped-config --foo.subThree.flurb[1] splat', type: 'api' });
-      var expected = {
+      const expected = {
         foo: {
           subThree: {
-            flurb: []
-          }
+            flurb: [],
+          },
         },
-        selected: undefined
+        selected: undefined,
       };
       expected.foo.subThree.flurb[1] = 'splat';
       expect(result).to.deep.equal(expected);
     });
-
   });
 
   describe('#optionLookup', function () {
-    var lookup = {
+    const lookup = {
       key1: 'value1',
-      key2: 'value2'
+      key2: 'value2',
     };
-    var result = {};
+    let result = {};
     const myCp = cp('shaped')
       .addCommand('stuff', function (object) {
         result = object;
@@ -71,7 +70,7 @@ describe('command-parser', function () {
       myCp.processCommand({ content: '!shaped-stuff --key1, key2', type: 'api' });
       expect(result).to.deep.equal({
         selected: undefined,
-        spells: ['value1', 'value2']
+        spells: ['value1', 'value2'],
       });
     });
 
@@ -79,6 +78,5 @@ describe('command-parser', function () {
       expect(myCp.processCommand.bind(myCp, { content: '!shaped-stuff --key1, key4', type: 'api' }))
         .to.throw('Unrecognised item key4 for option group spells');
     });
-
   });
 });
