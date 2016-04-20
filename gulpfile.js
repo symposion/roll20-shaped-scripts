@@ -1,29 +1,29 @@
 'use strict';
-var gulp = require('gulp');
-var mocha = require('gulp-mocha');
-var jshint = require('gulp-jshint');
-var webpack = require('webpack-stream');
-var tagVersion = require('gulp-tag-version');
-var bump = require('gulp-bump');
-var git = require('gulp-git');
-var conventionalChangelog = require('gulp-conventional-changelog');
-var conventionalRecommendedBump = np(require('conventional-recommended-bump'));
-var conventionalGithubReleaser = np(require('conventional-github-releaser'));
-var gulpIgnore = require('gulp-ignore');
-var GitHubApi = require('github');
+const gulp = require('gulp');
+const mocha = require('gulp-mocha');
+const eslint = require('gulp-eslint');
+const webpack = require('webpack-stream');
+const tagVersion = require('gulp-tag-version');
+const bump = require('gulp-bump');
+const git = require('gulp-git');
+const conventionalChangelog = require('gulp-conventional-changelog');
+const conventionalRecommendedBump = np(require('conventional-recommended-bump'));
+const conventionalGithubReleaser = np(require('conventional-github-releaser'));
+const gulpIgnore = require('gulp-ignore');
+const GitHubApi = require('github');
 const github = new GitHubApi({ version: '3.0.0' });
-var gitRev = require('git-rev');
-var readPkg = require('read-pkg');
-var gutil = require('gulp-util');
-var injectVersion = require('gulp-inject-version');
-var toc = require('gulp-doctoc');
-const config = require('./webpack.config.js');
+const gitRev = require('git-rev');
+const readPkg = require('read-pkg');
+const gutil = require('gulp-util');
+const injectVersion = require('gulp-inject-version');
+const toc = require('gulp-doctoc');
+const webpackConfig = require('./webpack.config.js');
 
 const filesToUpload = ['5eShapedCompanion.js', 'CHANGELOG.md', 'README.md'];
 let versionSuffix = '';
 switch (process.env.CI && process.env.TRAVIS_BRANCH) {
   case 'master':
-    //do nothing, keep bare version number
+    // do nothing, keep bare version number
     break;
   case 'develop':
     versionSuffix = `-dev+${process.env.TRAVIS_BUILD_NUMBER}`;
@@ -33,75 +33,67 @@ switch (process.env.CI && process.env.TRAVIS_BRANCH) {
 }
 
 
-gulp.task('default', ['test', 'lint'], function () {
-  return runWebpackBuild();
-});
+gulp.task('default', ['test', 'lint'], () => runWebpackBuild());
 
-gulp.task('lint', function () {
-  return gulp.src('./lib/*.js')
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(jshint.reporter('fail'));
-});
+gulp.task('lint', () =>
+  gulp.src('./lib/*.js')
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError())
+);
 
-gulp.task('test', function () {
-  return gulp.src('test/test-*.js', { read: false })
-    .pipe(mocha());
-});
+gulp.task('test', () =>
+  gulp.src('test/test-*.js', { read: false })
+    .pipe(mocha())
+);
 
-gulp.task('buildReleaseVersionScript', ['bumpVersion'], function () {
-  return runWebpackBuild();
-});
+gulp.task('buildReleaseVersionScript', ['bumpVersion'], () => runWebpackBuild());
 
-gulp.task('commitAndTag', ['changelog', 'doctoc', 'buildReleaseVersionScript'], function (done) {
+gulp.task('commitAndTag', ['changelog', 'doctoc', 'buildReleaseVersionScript'], (done) => {
   if (!process.env.CI) {
     return done();
   }
   // Get all the files to bump version in
-  gulp.src(['./package.json', './CHANGELOG.md', './README.md'])
+  return gulp.src(['./package.json', './CHANGELOG.md', './README.md'])
     .pipe(git.commit('chore(release): bump package version and update changelog [ci skip]', { emitData: true }))
     .pipe(gulpIgnore.exclude(/CHANGELOG.md|README.md/))
     // **tag it in the repository**
     .pipe(tagVersion({ prefix: '' }))
-    .on('end', function () {
-      git.push('origin', 'master', { args: '--tags' }, function (err) {
-        done(err);
-      });
-    });
+    .on('end', () => git.push('origin', 'master', { args: '--tags' }, (err) => done(err)));
 });
 
-gulp.task('doctoc', ['checkoutMaster'], function () {
-  return gulp.src('README.md')
+gulp.task('doctoc', ['checkoutMaster'], () =>
+  gulp.src('README.md')
     .pipe(toc({ depth: 2 }))
-    .pipe(gulp.dest('./'));
-});
+    .pipe(gulp.dest('./'))
+);
 
-gulp.task('checkoutMaster', function (done) {
+gulp.task('checkoutMaster', (done) => {
   if (!process.env.CI) {
     return done();
   }
-  git.checkout('master', done);
+  return git.checkout('master', done);
 });
 
-gulp.task('release', ['commitAndTag'], function (done) {
+gulp.task('release', ['commitAndTag'], (done) => {
   if (!process.env.CI) {
     return done();
   }
 
   const auth = {
     type: 'oauth',
-    token: process.env.GH_TOKEN
+    token: process.env.GH_TOKEN,
   };
   const config = {
-    preset: 'angular'
+    preset: 'angular',
   };
   const upload = np(github.releases.uploadAsset.bind(github.releases));
 
-  checkReleaseTaggedVersion()
-    .then(function (isRelease) {
+  return checkReleaseTaggedVersion()
+    .then(isRelease => {
       if (isRelease) {
         return conventionalGithubReleaser(auth, config)
-          .then(function (response) {
+          .then(response => {
             const release = getGHResponseValue(response);
 
             github.authenticate(auth);
@@ -110,34 +102,29 @@ gulp.task('release', ['commitAndTag'], function (done) {
               repo: 'roll20-shaped-scripts',
               id: release.id,
               name: fileName,
-              filePath: `./${fileName}`
+              filePath: `./${fileName}`,
             })));
           })
-          .then(function () {
-            done();
-          });
+          .then(() => done());
       }
-      else {
-        gutil.log('Skipping github release, tag on current commit doesn\'t match package.json version');
-      }
+
+      gutil.log('Skipping github release, tag on current commit doesn\'t match package.json version');
+      return done();
     })
-    .catch(function (error) {
-      done(error);
-    });
-
+    .catch(done);
 });
 
-gulp.task('changelog', ['bumpVersion'], function () {
-  return gulp.src('./CHANGELOG.md', { buffer: false })
+gulp.task('changelog', ['bumpVersion'], () =>
+  gulp.src('./CHANGELOG.md', { buffer: false })
     .pipe(conventionalChangelog({ preset: 'angular' }, { currentTag: readPkg.sync().version }))
-    .pipe(gulp.dest('./'));
-});
+    .pipe(gulp.dest('./'))
+);
 
-gulp.task('bumpVersion', ['checkoutMaster'], function (done) {
+gulp.task('bumpVersion', ['checkoutMaster'], done => {
   if (!process.env.CI) {
     return done();
   }
-  conventionalRecommendedBump({ preset: 'angular' }, function (err, result) {
+  return conventionalRecommendedBump({ preset: 'angular' }, (err, result) => {
     if (err) {
       return done(err);
     }
@@ -150,9 +137,9 @@ gulp.task('bumpVersion', ['checkoutMaster'], function (done) {
 
 function runWebpackBuild() {
   return gulp.src('./lib/entry-point.js')
-    .pipe(webpack(config))
+    .pipe(webpack(webpackConfig))
     .pipe(injectVersion({
-      append: versionSuffix
+      append: versionSuffix,
     }))
     .pipe(gulp.dest('./'));
 }
@@ -164,6 +151,8 @@ function getGHResponseValue(response) {
         throw new Error(response[0].reason);
       case 'fulfilled':
         return response[0].value;
+      default:
+        throw new Error(`unrecognised github response ${response[0].state}`);
     }
   }
   return response;
@@ -172,43 +161,39 @@ function getGHResponseValue(response) {
 
 function checkReleaseTaggedVersion() {
   return Promise.all([readPkg(), sp(gitRev.tag)(), delay()])
-    .then(function (results) {
+    .then(results => {
       gutil.log(`Version from package.json: ${results[0].version}, version from tag: ${results[1]}`);
       return results[0].version === results[1];
     });
 }
 
 function delay() {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, 1000);
-  });
+  return new Promise(resolve => setTimeout(resolve, 1000));
 }
 
 function np(method) {
-  return function () {
+  return function promiseWrapper() {
     const self = this;
     const args = Array.prototype.slice.call(arguments);
-    return new Promise(function (resolve, reject) {
-      args.push(function (err, data) {
+    return new Promise((resolve, reject) => {
+      args.push((err, data) => {
         if (err !== null) {
           return reject(err);
         }
-        resolve(data);
+        return resolve(data);
       });
-      method.apply(self, args);
+      return method.apply(self, args);
     });
   };
 }
 
 function sp(method) {
-  return function () {
+  return function promiseWrapper() {
     const self = this;
     const args = Array.prototype.slice(arguments);
-    return new Promise(function (resolve, reject) {
-      args.push(function (data) {
-        resolve(data);
-      });
-      method.apply(self, args);
+    return new Promise(resolve => {
+      args.push(data => resolve(data));
+      return method.apply(self, args);
     });
   };
 }

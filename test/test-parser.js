@@ -1,17 +1,17 @@
 /* globals describe: false, before:false, it:false */
-var chai = require('chai');
-var chaiAsPromised = require('chai-as-promised');
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 require('chai').should();
-var Promise = require('bluebird'); // jshint ignore:line
-var fs = require('fs');
+const Promise = require('bluebird'); // jshint ignore:line
+const fs = require('fs');
 Promise.promisifyAll(fs);
-var glob = require('glob');
-var parseModule = require('../lib/parser');
-var logger = require('../lib/logger')({ logLevel: 'WARN' });
-var sanitise = require('../lib/sanitise');
-var mpp = require('../lib/monster-post-processor');
-var el = require('./dummy-entity-lookup');
+const glob = require('glob');
+const parseModule = require('../lib/parser');
+const logger = require('./dummy-logger');
+const sanitise = require('../lib/sanitise');
+const mpp = require('../lib/monster-post-processor');
+const el = require('./dummy-entity-lookup');
 
 /**
  * @name readFileAsync
@@ -27,34 +27,30 @@ var el = require('./dummy-entity-lookup');
 describe('Monster Manual tests', function () {
   'use strict';
 
-  var parser;
+  let parser;
 
   before(function () {
     return fs.readFileAsync('./resources/mmFormatSpec.json', 'utf-8')
       .then(function (specText) {
-        var parsed = JSON.parse(specText);
+        const parsed = JSON.parse(specText);
         parser = parseModule.getParser(parsed, logger);
       });
-
   });
 
 
-  var files = glob.sync('./test/data/*.txt');
+  const files = glob.sync('./test/data/*.txt');
   files.forEach(function (file) {
-    it('correctly parses ' + file.replace(/\.txt$/, ''), function () {
+    it(`correctly parses ${file.replace(/\.txt$/, '')}`, function () {
       return Promise.join(runTestForFile(parser, file),
         getExpectedOutputForFile(file),
         function (test, expected) {
           if (!expected) {
-            fs.writeFileSync(file.replace(/\.txt$/, '.json'), JSON.stringify(test, undefined, 2), 'utf8');
+            return fs.writeFileSync(file.replace(/\.txt$/, '.json'), JSON.stringify(test, undefined, 2), 'utf8');
           }
-          else {
-            //noinspection JSUnresolvedVariable
-            return test.should.deep.equal(expected);
-          }
+          // noinspection JSUnresolvedVariable
+          return test.should.deep.equal(expected);
         });
     });
-
   });
 });
 
@@ -69,20 +65,17 @@ function runTestForFile(parser, file) {
 function getExpectedOutputForFile(file) {
   'use strict';
 
-  var filename = file.replace(/\.txt$/, '.json');
+  const filename = file.replace(/\.txt$/, '.json');
   return fs.readFileAsync(filename, 'utf-8')
-    .catch(function (e) {
-      return null;
-    })
+    .catch(() => null)
     .then(JSON.parse);
-
 }
 
 
 function runParse(parser, statBlockText) {
   'use strict';
   try {
-    var parsed = parser.parse(sanitise(statBlockText, logger));
+    const parsed = parser.parse(sanitise(statBlockText, logger));
     mpp(parsed.monsters, el.entityLookup);
     return parsed;
   }
