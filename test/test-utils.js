@@ -46,4 +46,36 @@ describe('utils', function () {
       expect(result).to.deep.equal(expected);
     });
   });
+
+  describe('flattenObject', function () {
+    it('flattens object correctly', function () {
+      const input = {
+        key1: 'value1',
+        key2: 'value2',
+        key3: {
+          innerKey1: 'innerValue1',
+          innerKey2: {
+            innermostKey1: 'innermostValue1',
+            innermostKey2: 'innermostValue2',
+          },
+        },
+        key4: 'value4',
+        key5: {
+          innerKey3: 'innerValue3',
+        },
+        key6: 'value6',
+      };
+
+      expect(utils.flattenObject(input)).to.deep.equal({
+        key1: 'value1',
+        key2: 'value2',
+        innerKey1: 'innerValue1',
+        innermostKey1: 'innermostValue1',
+        innermostKey2: 'innermostValue2',
+        key4: 'value4',
+        innerKey3: 'innerValue3',
+        key6: 'value6',
+      });
+    });
+  });
 });
