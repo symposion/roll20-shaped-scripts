@@ -104,8 +104,7 @@ gulp.task('release', ['commitAndTag'], (done) => {
               name: fileName,
               filePath: `./${fileName}`,
             })));
-          })
-          .then(() => done());
+          });
       }
 
       gutil.log('Skipping github release, tag on current commit doesn\'t match package.json version');
