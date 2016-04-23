@@ -168,7 +168,7 @@ function checkReleaseTaggedVersion() {
 }
 
 function delay() {
-  return new Promise(resolve => setTimeout(resolve, 1000));
+  return new Promise(resolve => setTimeout(resolve, 2000));
 }
 
 function np(method) {
