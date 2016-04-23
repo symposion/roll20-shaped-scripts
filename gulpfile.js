@@ -54,12 +54,13 @@ gulp.task('commitAndTag', ['changelog', 'doctoc', 'buildReleaseVersionScript'], 
     return done();
   }
   // Get all the files to bump version in
-  return gulp.src(['./package.json', './CHANGELOG.md', './README.md'])
+  gulp.src(['./package.json', './CHANGELOG.md', './README.md'])
     .pipe(git.commit('chore(release): bump package version and update changelog [ci skip]', { emitData: true }))
     .pipe(gulpIgnore.exclude(/CHANGELOG.md|README.md/))
     // **tag it in the repository**
     .pipe(tagVersion({ prefix: '' }))
     .on('end', () => git.push('origin', 'master', { args: '--tags' }, (err) => done(err)));
+  return undefined;
 });
 
 gulp.task('doctoc', ['checkoutMaster'], () =>
@@ -104,8 +105,7 @@ gulp.task('release', ['commitAndTag'], (done) => {
               name: fileName,
               filePath: `./${fileName}`,
             })));
-          })
-          .then(() => done());
+          });
       }
 
       gutil.log('Skipping github release, tag on current commit doesn\'t match package.json version');
@@ -168,7 +168,7 @@ function checkReleaseTaggedVersion() {
 }
 
 function delay() {
-  return new Promise(resolve => setTimeout(resolve, 1000));
+  return new Promise(resolve => setTimeout(resolve, 2000));
 }
 
 function np(method) {
