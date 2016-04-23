@@ -1,12 +1,14 @@
 /* globals describe: false, it:false */
-var expect = require('chai').expect;
-var _ = require('underscore');
-var el = require('./dummy-entity-lookup');
-var mpp = require('../lib/monster-post-processor');
+const expect = require('chai').expect;
+const _ = require('underscore');
+const el = require('./dummy-entity-lookup');
+const mpp = require('../lib/monster-post-processor');
 
-var spellcastingTrait = 'Spellcasting. The lich is an 18th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 20, +12 to hit with spell attacks). The lich has the following wizard spells prepared:\n' +
-  'Cantrips (at will): mage hand, prestidigitation, ray off rost 1st level (4 slots): detect magic, magic missile, shield,\n' +
-  'thunderwave\n' +
+const spellcastingTrait = 'Spellcasting. The lich is an 18th-level spellcaster. Its spellcasting ability is ' +
+  'Intelligence (spell save DC 20, +12 to hit with spell attacks). The lich has the following wizard spells ' +
+  'prepared:\n' +
+  'Cantrips (at will): mage hand, prestidigitation, ray off rost 1st level (4 slots): ' +
+  'detect magic, magic missile, shield,\nthunderwave\n' +
   '2nd level (3 slots): detect thoughts, invisibility, Melf\'s acid arrow,\n' +
   'mirror image\n' +
   '3rd level (3 slots): animate dead, counterspell, dispel\n' +
@@ -16,7 +18,9 @@ var spellcastingTrait = 'Spellcasting. The lich is an 18th-level spellcaster. It
   '6th level (1 slot): disintegrate, globe of invulnerability 7thlevel(1 slot):fingerofdeath,planeshift\n' +
   '8th level (1 slot): dominate monster, power word stun 9th level(1slot):powerwordkill';
 
-var reformattedTrait = 'Spellcasting. The lich is an 18th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 20, +12 to hit with spell attacks). The lich has the following wizard spells prepared:\n' +
+const reformattedTrait = 'Spellcasting. The lich is an 18th-level spellcaster. Its spellcasting ability is ' +
+  'Intelligence' +
+  ' (spell save DC 20, +12 to hit with spell attacks). The lich has the following wizard spells prepared:\n' +
   'Cantrips (at will): Mage Hand, Prestidigitation, Ray of Frost\n' +
   '1st level (4 slots): Detect Magic, Magic Missile, Shield, Thunderwave\n' +
   '2nd level (3 slots): Detect Thoughts, Invisibility, Melf\'s Acid Arrow, Mirror Image\n' +
@@ -28,15 +32,17 @@ var reformattedTrait = 'Spellcasting. The lich is an 18th-level spellcaster. Its
   '8th level (1 slot): Dominate Monster, Power Word Stun\n' +
   '9th level (1slot): Power Word Kill';
 
-var innateTrait = 'Innate Spellcasting. The draw\'s innate spellcasting ability is Charisma (spell save DC 15). She can innately cast the following spells, requiring no material components:\n' +
+const innateTrait = 'Innate Spellcasting. The draw\'s innate spellcasting ability is Charisma (spell save DC 15). ' +
+  'She can innately cast the following spells, requiring no material components:\n' +
   'At will : dancing lights\n' +
   '1/day each: darkness,faerie fire, levitate (self only)';
 
-var reformattedInnateTrait = 'Innate Spellcasting. The draw\'s innate spellcasting ability is Charisma (spell save DC 15). She can innately cast the following spells, requiring no material components:\n' +
+const reformattedInnateTrait = 'Innate Spellcasting. The draw\'s innate spellcasting ability is Charisma ' +
+  '(spell save DC 15). She can innately cast the following spells, requiring no material components:\n' +
   'At will: Dancing Lights\n' +
   '1/day each: Darkness, Faerie Fire, Levitate (self only)';
 
-var spellList = [
+const spellList = [
   'Dancing Lights',
   'Mage Hand',
   'Prestidigitation',
@@ -66,7 +72,7 @@ var spellList = [
   'Planeshift',
   'Dominate Monster',
   'Power Word Stun',
-  'Power Word Kill'
+  'Power Word Kill',
 ];
 
 
@@ -75,21 +81,21 @@ describe('monster-post-processor', function () {
 
 
   it('extracts spell details', function () {
-    var monster = {
+    const monster = {
       traits: [
         { name: 'Spellcasting', text: spellcastingTrait },
-        { name: 'Innate Spellcasting', text: innateTrait }
-      ]
+        { name: 'Innate Spellcasting', text: innateTrait },
+      ],
     };
-    var reformedMonster = {
+    const reformedMonster = {
       traits: [
         { name: 'Spellcasting', text: reformattedTrait },
-        { name: 'Innate Spellcasting', text: reformattedInnateTrait }
+        { name: 'Innate Spellcasting', text: reformattedInnateTrait },
       ],
-      spells: _.map(spellList, _.partial(el.entityLookup.findEntity, 'spells'))
+      spells: _.map(spellList, _.partial(el.entityLookup.findEntity.bind(el.entityLookup), 'spells')),
     };
     mpp([monster], el.entityLookup);
-    //noinspection JSUnresolvedVariable
+    // noinspection JSUnresolvedVariable
     expect(monster).to.deep.equal(reformedMonster);
   });
 });

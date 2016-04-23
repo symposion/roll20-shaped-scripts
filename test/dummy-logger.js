@@ -1,4 +1,4 @@
-var _ = require('underscore');
+const _ = require('underscore');
 module.exports = {
   error: _.noop,
   warn: _.noop,
@@ -6,5 +6,5 @@ module.exports = {
   debug: _.noop,
   trace: _.noop,
   wrapModule: _.noop,
-  wrapFunction: _.noop
+  wrapFunction: _.noop,
 };
