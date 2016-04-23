@@ -44,7 +44,6 @@ describe('command-parser', function () {
             flurb: [],
           },
         },
-        selected: undefined,
       };
       expected.foo.subThree.flurb[1] = 'splat';
       expect(result).to.deep.equal(expected);
@@ -69,7 +68,6 @@ describe('command-parser', function () {
     it('handles comma-sep options', function () {
       myCp.processCommand({ content: '!shaped-stuff --key1, key2', type: 'api' });
       expect(result).to.deep.equal({
-        selected: undefined,
         spells: ['value1', 'value2'],
       });
     });
@@ -77,6 +75,21 @@ describe('command-parser', function () {
     it('handles partial error with comma-sep options', function () {
       expect(myCp.processCommand.bind(myCp, { content: '!shaped-stuff --key1, key4', type: 'api' }))
         .to.throw('Unrecognised item key4 for option group spells');
+    });
+  });
+
+  describe('#missingParam', function () {
+    it('accepts supplied required param', function () {
+      let result = {};
+      const myCp = cp('shaped')
+        .addCommand('stuff', function (object) {
+          result = object;
+        })
+        .option('test', testValidator, true)
+        .end();
+
+      myCp.processCommand({ content: '!shaped-stuff --test', type: 'api' });
+      expect(result).to.deep.equal({ test: true });
     });
   });
 });
