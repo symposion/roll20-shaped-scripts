@@ -239,7 +239,7 @@ function runImportMonsterTest(roll20, monsters, options, preConfigure, expectati
   sinon.stub(roll20, 'getAttrByName');
   sinon.stub(roll20, 'sendChat');
   sinon.stub(roll20, 'getObj');
-  const shapedScript = new ShapedScripts(logger, {}, roll20, null, null, new Reporter(),
+  const shapedScript = new ShapedScripts(logger, { version: 0 }, roll20, null, null, new Reporter(),
     { convertMonster: _.identity }, _.identity, _.identity);
   shapedScript.checkInstall();
 

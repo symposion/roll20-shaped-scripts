@@ -48,29 +48,34 @@ describe('Migrator', function () {
   });
 
   it('upgrades old Shaped Config correctly', function () {
-    const config = {
+    const state = {
       version: 0.1,
-      genderPronouns: [
-        'someStuff',
-      ],
+      config: {
+        genderPronouns: [
+          'someStuff',
+        ],
+      },
     };
 
-    expect(Migrator.migrateShapedConfig(config, dl).genderPronouns).to.have.lengthOf(3);
+    expect(Migrator.migrateShapedConfig(state, dl).config.genderPronouns).to.have.lengthOf(3);
   });
 
   it('upgrades recent Shaped Config correctly', function () {
     const config = {
       version: 0.1,
-      newCharSettings: {
-        savingThrowsHalfProf: false,
-        mediumArmorMaxDex: 2,
+      config: {
+        newCharSettings: {
+          savingThrowsHalfProf: false,
+          mediumArmorMaxDex: 2,
+        },
       },
     };
 
-    const result = Migrator.migrateShapedConfig(config, dl);
+    const result = Migrator.migrateShapedConfig(config, dl).config;
     expect(result.newCharSettings).to.have.property('houserules');
     expect(result.newCharSettings.houserules).to.have.property('savingThrowsHalfProf', false);
     expect(result.newCharSettings.houserules).to.have.property('mediumArmorMaxDex', 2);
     expect(result.newCharSettings).not.to.have.property('savingThrowsHalfProf');
   });
-});
+})
+;
