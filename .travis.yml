@@ -14,21 +14,12 @@ deploy:
   on:
     repo: symposion/roll20-shaped-scripts
     branch: master
-after_deploy:
-- cd ..
-- git clone --branch master https://github.com/symposion/roll20-api-scripts.git
-- cd roll20-api-scripts
-- git config credential.helper "store --file=.git/credentials"
-- echo "https://${GH_TOKEN}:@github.com" > .git/credentials
-- git remote add upstream https://www.github.com/roll20/roll20-api-scripts.git
-- git fetch --all
-- git merge --ff upstream/master
-- cd 5eShapedCompanion
-- npm install
-- gulp syncReleases
-- git add .
-- git commit -m "Submit updated version of 5eShapedCompanion script to roll20"
-- git push origin master
+- provider: script
+  skip_cleanup: true
+  script: gulp developRelease
+  on:
+    repo: symposion/roll20-shaped-scripts
+    branch: develop
 env:
   global:
     secure: GcbJQHdU76uXC+JFQhIH8g1C8yyGiKSEyh1526lAHUXaCoA8TjxjJstYJyrGBUw5nUxyehK397nOMm5ipOqrNXtPz9kCe3Z5u84R7rk1oTFgt4qvpMQGQO2xaBDrXrAcxs52s6No3YQ7xp5BfsyZn9LtHI0QK6z4Aol3feuErqL+K5NA5YV58XIHV3D4ymKqMjY5Xvyw/jUKMZJ8SnYpXllXcPmOieepPESynxQ7+C61ZkTCrISsi/92gnHnhwkVAiJfOi2JsheUsryJsf1tWXIqLTy0YTleKkqn1zCe5Gt2ac4bGRK2jIyreLtXCda0DKAv/Lezkf7pOV/5PEel3c7ekreQapRmCg4/HzoxPxI//H5VIXnXsVaIF7ZAHvBg2BIso9bqaSD2J5M9cQuJDNaPJDlXqJ1YCs4tK41PP8LVR5dN4wOhxJFo4ZumWl/u4Pv4lSi20yiJhrC6hkNcU6jnxkLyuZOhzBqXzPSmGrGVJ5BV1fSca5KvLDmOny8wqpPYegLlbn9j52WL9dDmklq4qLByo2xn1y6mwlY8pOqWyYXTJxyxs2tmRZga1a8lRtLLZowx9XRNsQsF+NyRWnu4FV9RoiN+FmQu4ZwSvBEwVU2RKu0r6alnmhUF74QYjAKdXYm+zWygW8oUhmNS3+JD8OY85+4eGDPaP4wQUOE=
