@@ -71,7 +71,7 @@ gulp.task('doctoc', ['checkoutMaster'], () =>
 );
 
 gulp.task('checkoutMaster', (done) => {
-  if (!process.env.CI) {
+  if (!process.env.CI || process.env.TRAVIS_BRANCH !== 'master') {
     return done();
   }
   return git.checkout('master', done);
@@ -138,19 +138,16 @@ gulp.task('changelog', ['bumpVersion'], () =>
     .pipe(gulp.dest('./'))
 );
 
-gulp.task('bumpVersion', ['checkoutMaster'], done => {
+gulp.task('bumpVersion', ['checkoutMaster'], () => {
   if (!process.env.CI) {
-    return done();
+    return undefined;
   }
-  return conventionalRecommendedBump({ preset: 'angular' }, (err, result) => {
-    if (err) {
-      return done(err);
-    }
-    return gulp.src('./package.json')
-      .pipe(bump({ type: result.releaseAs }))
-      .pipe(gulp.dest('./'))
-      .on('end', done);
-  });
+  return conventionalRecommendedBump({ preset: 'angular' })
+    .then((result) =>
+      gulp.src('./package.json')
+        .pipe(bump({ type: result.releaseAs }))
+        .pipe(gulp.dest('./'))
+    );
 });
 
 function runWebpackBuild() {
