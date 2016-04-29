@@ -11,13 +11,14 @@ const conventionalRecommendedBump = np(require('conventional-recommended-bump'))
 const conventionalGithubReleaser = np(require('conventional-github-releaser'));
 const gulpIgnore = require('gulp-ignore');
 const GitHubApi = require('github');
-const github = new GitHubApi({ version: '3.0.0' });
+const github = new GitHubApi({ version: '3.0.0', debug: true });
 const gitRev = require('git-rev');
 const readPkg = require('read-pkg');
 const gutil = require('gulp-util');
 const injectVersion = require('gulp-inject-version');
 const toc = require('gulp-doctoc');
 const webpackConfig = require('./webpack.config.js');
+const fs = require('fs');
 
 const filesToUpload = ['5eShapedCompanion.js', 'CHANGELOG.md', 'README.md'];
 let versionSuffix = '';
@@ -112,6 +113,23 @@ gulp.task('release', ['commitAndTag'], (done) => {
       return done();
     })
     .catch(done);
+});
+
+gulp.task('developRelease', ['buildReleaseVersionScript'], () => {
+  const auth = {
+    type: 'oauth',
+    token: process.env.GH_TOKEN,
+  };
+  github.authenticate(auth);
+  const gistEdit = np(github.gists.edit.bind(github.gists));
+  return gistEdit({
+    id: '7a16056c1b20ac50474854567d05ec63',
+    files: {
+      '5eShapedCompanion.js': {
+        content: fs.readFileSync('5eShapedCompanion.js', 'utf-8'),
+      },
+    },
+  });
 });
 
 gulp.task('changelog', ['bumpVersion'], () =>
