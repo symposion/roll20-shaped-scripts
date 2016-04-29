@@ -135,7 +135,7 @@ gulp.task('developRelease', ['buildReleaseVersionScript'], () => {
 
 gulp.task('changelog', ['bumpVersion'], () =>
   gulp.src('./CHANGELOG.md', { buffer: false })
-    .pipe(conventionalChangelog({ preset: 'angular', releaseCount: 0 }, { currentTag: readPkg.sync().version }))
+    .pipe(conventionalChangelog({ preset: 'angular' }, { currentTag: readPkg.sync().version }))
     .pipe(gulp.dest('./'))
 );
 
