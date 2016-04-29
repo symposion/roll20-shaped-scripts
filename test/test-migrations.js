@@ -8,7 +8,7 @@ const dl = require('./dummy-logger');
 describe('Migrator', function () {
   it('fails for missing version', function () {
     const mig = new Migrator();
-    const config = {};
+    const config = { foo: 'bar' };
     mig.nextVersion().addProperty('test', 'testVal');
 
     expect(function () {
