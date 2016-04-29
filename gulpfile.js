@@ -106,7 +106,8 @@ gulp.task('release', ['commitAndTag'], (done) => {
               name: fileName,
               filePath: `./${fileName}`,
             })));
-          });
+          })
+          .then(() => done());
       }
 
       gutil.log('Skipping github release, tag on current commit doesn\'t match package.json version');
@@ -134,7 +135,7 @@ gulp.task('developRelease', ['buildReleaseVersionScript'], () => {
 
 gulp.task('changelog', ['bumpVersion'], () =>
   gulp.src('./CHANGELOG.md', { buffer: false })
-    .pipe(conventionalChangelog({ preset: 'angular', releaseCount: 2 }, { currentTag: readPkg.sync().version }))
+    .pipe(conventionalChangelog({ preset: 'angular', releaseCount: 0 }, { currentTag: readPkg.sync().version }))
     .pipe(gulp.dest('./'))
 );
 
