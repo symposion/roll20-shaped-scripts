@@ -18,6 +18,7 @@ const gutil = require('gulp-util');
 const injectVersion = require('gulp-inject-version');
 const toc = require('gulp-doctoc');
 const webpackConfig = require('./webpack.config.js');
+const gitPush = np(git.push);
 
 const filesToUpload = ['5eShapedCompanion.js', 'CHANGELOG.md', 'README.md'];
 let versionSuffix = '';
@@ -49,34 +50,27 @@ gulp.task('test', () =>
 
 gulp.task('buildReleaseVersionScript', ['bumpVersion'], () => runWebpackBuild());
 
-gulp.task('commitAndTag', ['changelog', 'doctoc', 'buildReleaseVersionScript'], (done) => {
+gulp.task('commitAndTag', ['changelog', 'doctoc', 'buildReleaseVersionScript'], () => {
   if (!process.env.CI) {
-    return done();
+    return undefined;
   }
   // Get all the files to bump version in
-  gulp.src(['./package.json', './CHANGELOG.md', './README.md'])
+  return gulp.src(['./package.json', './CHANGELOG.md', './README.md'])
     .pipe(git.commit('chore(release): bump package version and update changelog [ci skip]', { emitData: true }))
     .pipe(gulpIgnore.exclude(/CHANGELOG.md|README.md/))
     // **tag it in the repository**
-    .pipe(tagVersion({ prefix: '' }))
-    .on('end', () => git.push('origin', 'master', { args: '--tags' }, (err) => done(err)));
-  return undefined;
+    .pipe(tagVersion({ prefix: '' }));
 });
 
-gulp.task('doctoc', ['checkoutMaster'], () =>
+gulp.task('push', ['commitAndTag'], () => gitPush('origin', process.env.TRAVIS_BRANCH, { args: '--tags' }));
+
+gulp.task('doctoc', () =>
   gulp.src('README.md')
     .pipe(toc({ depth: 2 }))
     .pipe(gulp.dest('./'))
 );
 
-gulp.task('checkoutMaster', (done) => {
-  if (!process.env.CI) {
-    return done();
-  }
-  return git.checkout('master', done);
-});
-
-gulp.task('release', ['commitAndTag'], (done) => {
+gulp.task('release', ['push'], (done) => {
   if (!process.env.CI) {
     return done();
   }
@@ -114,25 +108,32 @@ gulp.task('release', ['commitAndTag'], (done) => {
     .catch(done);
 });
 
-gulp.task('changelog', ['bumpVersion'], () =>
-  gulp.src('./CHANGELOG.md', { buffer: false })
-    .pipe(conventionalChangelog({ preset: 'angular' }, { currentTag: readPkg.sync().version }))
-    .pipe(gulp.dest('./'))
-);
-
-gulp.task('bumpVersion', ['checkoutMaster'], done => {
-  if (!process.env.CI) {
-    return done();
+gulp.task('changelog', ['bumpVersion'], () => {
+  if (process.env.TRAVIS_BRANCH === 'master') {
+    return gulp.src('./CHANGELOG.md', { buffer: false })
+      .pipe(conventionalChangelog({ preset: 'angular' }, { currentTag: readPkg.sync().version }))
+      .pipe(gulp.dest('./'));
   }
-  return conventionalRecommendedBump({ preset: 'angular' }, (err, result) => {
-    if (err) {
-      return done(err);
-    }
-    return gulp.src('./package.json')
-      .pipe(bump({ type: result.releaseAs }))
-      .pipe(gulp.dest('./'))
-      .on('end', done);
-  });
+  return undefined;
+});
+
+gulp.task('bumpVersion', () => {
+  if (!process.env.CI) {
+    return undefined;
+  }
+
+  if (process.env.TRAVIS_BRANCH === 'master') {
+    return conventionalRecommendedBump({ preset: 'angular' })
+      .then(result =>
+        gulp.src('./package.json')
+          .pipe(bump({ type: result.releaseAs }))
+          .pipe(gulp.dest('./'))
+      );
+  }
+
+  return gulp.src('./package.json')
+    .pipe(bump({ type: 'prerelease' }))
+    .pipe(gulp.dest('./'));
 });
 
 function runWebpackBuild() {
