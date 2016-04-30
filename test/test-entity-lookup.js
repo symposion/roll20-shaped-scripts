@@ -56,6 +56,62 @@ describe('entity-lookup', function () {
     });
   });
 
+  describe('#entitySearch', function () {
+    const el = new EntityLookup();
+    el.configureEntity('spells', [], _.constant(true), ['attribute', 'multiAttribute', 'boolVal', 'intVal']);
+    el.addEntities({
+      spells: [
+        {
+          name: 'spell1',
+          attribute: 'att1',
+          multiAttribute: 'val1, val2',
+          boolVal: true,
+          intVal: 1,
+          arrayVal: ['one', 'two', 'three'],
+        },
+        {
+          name: 'spell2',
+          attribute: 'att2',
+          multiAttribute: 'val3, val2',
+          boolVal: false,
+          intVal: 10,
+        },
+      ],
+    });
+
+    it('should filter entities in search correctly', function () {
+      let results = el.searchEntities('spells', { multiAttribute: 'val2' });
+      expect(results).to.have.lengthOf(2);
+      results = el.searchEntities('spells', { multiAttribute: 'val2', attribute: 'att1' });
+      expect(results).to.have.lengthOf(1);
+      expect(results[0]).to.have.property('name', 'spell1');
+    });
+
+    it('should filter by boolean properly', function () {
+      let results = el.searchEntities('spells', { boolVal: true });
+      expect(results).to.have.lengthOf(1);
+      expect(results[0]).to.have.property('name', 'spell1');
+      results = el.searchEntities('spells', { boolVal: false });
+      expect(results).to.have.lengthOf(1);
+      expect(results[0]).to.have.property('name', 'spell2');
+    });
+
+    it('should filter by integer properly', function () {
+      const results = el.searchEntities('spells', { intVal: 1 });
+      expect(results).to.have.lengthOf(1);
+      expect(results[0]).to.have.property('name', 'spell1');
+    });
+
+    it('should filter by array properly', function () {
+      const results = el.searchEntities('spells', { arrayVal: ['one'] });
+      expect(results).to.have.lengthOf(1);
+      expect(results[0]).to.have.property('name', 'spell1');
+    });
+
+    it('should return empty for unknown properties', function () {
+      expect(el.searchEntities('spells', 'fooVal')).to.have.lengthOf(0);
+    });
+  });
 
   describe('functional test', function () {
     const el = new EntityLookup();
