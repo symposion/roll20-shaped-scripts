@@ -25,6 +25,8 @@ This is a script designed for use with the API on the [Roll20 Virtual Table Top]
 - [Full command list](#full-command-list)
   - [!shaped-import-statblock](#shaped-import-statblock)
   - [!shaped-import-monster](#shaped-import-monster)
+  - [!shaped-import-spell](#shaped-import-spell)
+  - [!shaped-import-spell-list](#shaped-import-spell-list)
   - [!shaped-at](#shaped-at)
   - [!shaped-abilities](#shaped-abilities)
   - [!shaped-config](#shaped-config)
