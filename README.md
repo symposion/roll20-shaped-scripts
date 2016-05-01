@@ -228,23 +228,25 @@ Creates token actions for your character as shortcuts to a variety of rolls and 
 ### Options
 * **--attacks** - create an ability for each attack present in the character sheet
 * **--traits** - create an ability for each trait present in the character sheet
-* **--traits-macro** - create an ability to launch the chat window traits buttons
+* **--traitsMacro** - create an ability to launch the chat window traits buttons
 * **--actions** - create an ability for each action present in the character sheet
-* **--actions-macro** - create an ability to launch the chat window actions buttons
+* **--actionsMacro** - create an ability to launch the chat window actions buttons
 * **--reactions** - create an ability for each reaction present in the character sheet
-* **--reactions-macro** - create an ability to launch the chat window reactions buttons
-* **--legendaryactions** or **--legendarya** - create an ability for each legendary action present in the character sheet
-* **--legendaryactions-macro** - create an ability to launch chat window legendary actions buttons
-* **--lairactions** or **--laira** - create an ability to launch chat window lair actions buttons
-* **--regionaleffects** or --regionale - create an ability to launch chat window regional effects buttons
+* **--reactionsMacro** - create an ability to launch the chat window reactions buttons
+* **--legendaryActions** or **--legendaryA** - create an ability for each legendary action present in the character sheet
+* **--legendaryActionsMacro** - create an ability to launch chat window legendary actions buttons
+* **--lairActions** or **--lairA** - create an ability to launch chat window lair actions buttons
+* **--regionalEffects** or **--regionalE** - create an ability to launch chat window regional effects buttons
 * **--initiative** - create an ability to roll initiative
-* **--saves** or **--savingthrows** - create an ability to launch the chat window save buttons
-* **--savesquery** or **--savingthrowsquery** - create an ability to launch the save drop-down query
-* **--abilitychecks** or **--abilchecks** - create an ability to launch the chat window ability check buttons
-* **--abilitychecksquery** or **--abilchecksquery** - create an ability launch the ability check drop-down query
+* **--saves** or **--savingThrows** - create an ability to launch the chat window save buttons
+* **--savesSmall** or **--savingThrowsSmall** - create an ability to launch the chat window save buttons with smaller text to use less space in the chat window
+* **--savesQuery** or **--savingThrowsQuery** - create an ability to launch the save drop-down query
+* **--abilityChecks** or **--abilChecks** - create an ability to launch the chat window ability check buttons
+* **--abilityChecksSmall** or **--abilChecksSmall** - create an ability to launch the chat window ability check buttons with smaller text to use less space in the chat window
+* **--abilityChecksQuery** or **--abilChecksQuery** - create an ability launch the ability check drop-down query
 * **--statblock** - create an ability to launch a chat window statblock display
-* **--advantagetracker** - create 3 abilities, one for each Advantage Tracker option (Advantage, Disadvantage, Normal)
-* **--advantagetracker-query** - create an ability to set an Advantage Tracker option from a drop-down query
+* **--advantageTracker** - create 3 abilities, one for each Advantage Tracker option (Advantage, Disadvantage, Normal)
+* **--advantageTrackerQuery** - create an ability to set an Advantage Tracker option from a drop-down query
 * **--DELETE** - delete all abilities on the token (including those not created by this script)
 
 In addition, you can pass the names of spells like **--Fireball** to create token actions for each spell. Obviously the character in question must actually have this spell in its spellbook for this to work.
