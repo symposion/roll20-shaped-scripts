@@ -229,6 +229,48 @@ describe('shaped-script', function () {
       }).callCount).to.equal(1);
     });
   });
+
+  describe('#getTokenVisionConfigurer', function () {
+    const shapedScript = new ShapedScripts(logger, { version: 0 }, roll20, null, null, new Reporter(),
+      { convertMonster: _.identity }, _.identity, _.identity);
+    it('should configure senses correctly', function () {
+      const token = new Roll20Object('graphic');
+      shapedScript.getTokenVisionConfigurer(token, 'blindsight 80ft. tremorsense 60ft.')();
+      expect(token.props).to.have.property('light_radius', 80);
+      expect(token.props).to.have.property('light_dimradius', 80);
+    });
+
+    it('should handle senses with conditions', function () {
+      const token = new Roll20Object('graphic');
+      shapedScript.getTokenVisionConfigurer(token,
+        'blindsight 30 ft. or 10 ft. while deafened (blind beyond this radius)')();
+      expect(token.props).to.have.property('light_radius', 30);
+      expect(token.props).to.have.property('light_dimradius', 30);
+    });
+
+    it('should handle darkvision with another sense', function () {
+      const token = new Roll20Object('graphic');
+      shapedScript.getTokenVisionConfigurer(token,
+        'darkvision 40ft., tremorsense 20ft.')();
+      expect(token.props).to.have.property('light_radius', 40 * 1.1666666);
+      expect(token.props).to.have.property('light_dimradius', 20);
+    });
+
+    it('should handle darkvision with another better sense', function () {
+      const token = new Roll20Object('graphic');
+      shapedScript.getTokenVisionConfigurer(token,
+        'darkvision 30ft., tremorsense 40ft.')();
+      expect(token.props).to.have.property('light_radius', 40);
+      expect(token.props).to.have.property('light_dimradius', 40);
+    });
+
+    it('should handle darkvision on its own', function () {
+      const token = new Roll20Object('graphic');
+      shapedScript.getTokenVisionConfigurer(token, 'darkvision 30ft.')();
+      expect(token.props).to.have.property('light_radius', 30 * 1.1666666);
+      expect(token.props).to.have.property('light_dimradius', -5);
+    });
+  });
 });
 
 
