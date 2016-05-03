@@ -218,7 +218,7 @@ describe('shaped-script', function () {
       const reporter = new Reporter();
       const shapedScript = new ShapedScripts(logger, { config: { updateAmmo: true } }, roll20, null,
         el.entityLookup, reporter);
-      shapedScript.getCommandProcessor().processCommand({
+      shapedScript.handleInput({
         type: 'api',
         content: '!shaped-abilities --saves',
         selected: [{ _type: 'graphic', _id: tokenStub.id }],

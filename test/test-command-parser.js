@@ -36,7 +36,6 @@ describe('command-parser', function () {
             ],
           },
         })
-        .end()
         .processCommand({ content: '!shaped-config --foo.subThree.flurb[1] splat', type: 'api' });
       const expected = {
         foo: {
@@ -62,8 +61,7 @@ describe('command-parser', function () {
       })
       .optionLookup('spells', function (option) {
         return lookup[option];
-      })
-      .end();
+      });
 
     it('handles comma-sep options', function () {
       myCp.processCommand({ content: '!shaped-stuff --key1, key2', type: 'api' });
@@ -85,8 +83,7 @@ describe('command-parser', function () {
         .addCommand('stuff', function (object) {
           result = object;
         })
-        .option('test', testValidator, true)
-        .end();
+        .option('test', testValidator, true);
 
       myCp.processCommand({ content: '!shaped-stuff --test', type: 'api' });
       expect(result).to.deep.equal({ test: true });
