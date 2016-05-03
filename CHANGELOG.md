@@ -1,3 +1,13 @@
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/symposion/roll20-shaped-scripts/compare/2.1.0...2.1.1) (2016-05-03)
+
+
+### Bug Fixes
+
+* **AdvTrack:** Token selection no longer required([b2ad644](https://github.com/symposion/roll20-shaped-scripts/commit/b2ad644))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/symposion/roll20-shaped-scripts/compare/2.0.0...2.1.0) (2016-05-02)
 
