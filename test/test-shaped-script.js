@@ -1,4 +1,4 @@
-/* globals describe: false, it:false, beforeEach:false*/
+/* globals describe: false, it:false, beforeEach:false, before:false */
 'use strict';
 require('chai').should();
 const expect = require('chai').expect;
@@ -218,7 +218,7 @@ describe('shaped-script', function () {
       const reporter = new Reporter();
       const shapedScript = new ShapedScripts(logger, { config: { updateAmmo: true } }, roll20, null,
         el.entityLookup, reporter);
-      shapedScript.getCommandProcessor().processCommand({
+      shapedScript.handleInput({
         type: 'api',
         content: '!shaped-abilities --saves',
         selected: [{ _type: 'graphic', _id: tokenStub.id }],
@@ -231,8 +231,12 @@ describe('shaped-script', function () {
   });
 
   describe('#getTokenVisionConfigurer', function () {
-    const shapedScript = new ShapedScripts(logger, { version: 0 }, roll20, null, null, new Reporter(),
-      { convertMonster: _.identity }, _.identity, _.identity);
+    let shapedScript;
+    before(function () {
+      shapedScript = new ShapedScripts(logger, { version: 0 }, roll20, null, null, new Reporter(),
+        { convertMonster: _.identity }, _.identity, _.identity);
+    });
+
     it('should configure senses correctly', function () {
       const token = new Roll20Object('graphic');
       shapedScript.getTokenVisionConfigurer(token, 'blindsight 80ft. tremorsense 60ft.')();
