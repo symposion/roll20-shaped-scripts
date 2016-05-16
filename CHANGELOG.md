@@ -1,3 +1,8 @@
+<a name="2.3.1"></a>
+## [2.3.1](https://github.com/symposion/roll20-shaped-scripts/compare/2.3.0...2.3.1) (2016-05-16)
+
+
+
 <a name="2.3.0"></a>
 # [2.3.0](https://github.com/symposion/roll20-shaped-scripts/compare/2.2.0...2.3.0) (2016-05-15)
 
