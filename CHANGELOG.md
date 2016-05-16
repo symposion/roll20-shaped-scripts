@@ -1,3 +1,15 @@
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/symposion/roll20-shaped-scripts/compare/2.2.0...2.3.0) (2016-05-15)
+
+
+### Features
+
+* **configuration:** Allow configuring of default token actions ([3a9d8af](https://github.com/symposion/roll20-shaped-scripts/commit/3a9d8af))
+* **configuration:** Make token-defaults apply character defaults ([9b25171](https://github.com/symposion/roll20-shaped-scripts/commit/9b25171))
+* **import:** Update token bars for original token on import ([df4af6e](https://github.com/symposion/roll20-shaped-scripts/commit/df4af6e)), closes [#128](https://github.com/symposion/roll20-shaped-scripts/issues/128)
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/symposion/roll20-shaped-scripts/compare/2.1.1...2.2.0) (2016-05-04)
 
