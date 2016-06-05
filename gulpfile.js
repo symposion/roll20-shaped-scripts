@@ -89,7 +89,7 @@ gulp.task('release', ['commitAndTag'], (done) => {
   const config = {
     preset: 'angular',
   };
-  const upload = np(github.repos.uploadAsset.bind(github.repos));
+  const upload = np(github.releases.uploadAsset.bind(github.releases));
 
   return checkReleaseTaggedVersion()
     .then(isRelease => {
