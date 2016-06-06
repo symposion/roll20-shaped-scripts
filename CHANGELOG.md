@@ -1,3 +1,13 @@
+<a name="2.5.0"></a>
+# [2.5.0](https://github.com/symposion/roll20-shaped-scripts/compare/2.4.2...2.5.0) (2016-06-06)
+
+
+### Features
+
+* **abilities:** Add default token action option for spells ([456220e](https://github.com/symposion/roll20-shaped-scripts/commit/456220e)), closes [#143](https://github.com/symposion/roll20-shaped-scripts/issues/143)
+
+
+
 <a name="2.4.2"></a>
 ## [2.4.2](https://github.com/symposion/roll20-shaped-scripts/compare/2.4.1...2.4.2) (2016-06-05)
 
