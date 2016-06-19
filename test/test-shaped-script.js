@@ -66,7 +66,7 @@ describe('shaped-script', function () {
 
       roll20.findObjs.withArgs({ _type: 'character', name: 'Bob' }).returns([characterStub]);
       roll20.findObjs.withArgs({ type: 'attribute', characterid: characterStub.id }).returns(attributeArray);
-      roll20.getAttrByName.withArgs(characterStub.id, 'ammo_auto_use').returns('1');
+      roll20.checkCharacterFlag.withArgs(characterStub.id, 'ammo_auto_use').returns(true);
 
       const shapedScript = new ShapedScripts(logger, { config: { updateAmmo: true } }, roll20, null, null,
         new Reporter());
