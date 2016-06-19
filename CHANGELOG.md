@@ -1,3 +1,20 @@
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/symposion/roll20-shaped-scripts/compare/3.0.0...3.1.0) (2016-06-19)
+
+
+### Bug Fixes
+
+* **ammo-handling:** Ensure that auto ammo handling only happens when switched on ([6503033](https://github.com/symposion/roll20-shaped-scripts/commit/6503033)), closes [#154](https://github.com/symposion/roll20-shaped-scripts/issues/154)
+* **hit-dice:** Fix HD rolling for latest sheet ([c7a4309](https://github.com/symposion/roll20-shaped-scripts/commit/c7a4309))
+* **rest-handling:** Fix errors on rest when HP and HD values not set ([b0f1858](https://github.com/symposion/roll20-shaped-scripts/commit/b0f1858)), closes [#157](https://github.com/symposion/roll20-shaped-scripts/issues/157)
+
+
+### Features
+
+* **spell-import:** Support adding casting stat to secondary damage (for Green Flame Blade) ([a33e59f](https://github.com/symposion/roll20-shaped-scripts/commit/a33e59f)), closes [#152](https://github.com/symposion/roll20-shaped-scripts/issues/152)
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/symposion/roll20-shaped-scripts/compare/2.5.0...3.0.0) (2016-06-12)
 
