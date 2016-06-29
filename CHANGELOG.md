@@ -1,3 +1,13 @@
+<a name="4.0.1"></a>
+## [4.0.1](https://github.com/symposion/roll20-shaped-scripts/compare/4.0.0...4.0.1) (2016-06-29)
+
+
+### Bug Fixes
+
+* **shaped-support:** Get player HD working again with new translated output ([30fe836](https://github.com/symposion/roll20-shaped-scripts/commit/30fe836)), closes [#173](https://github.com/symposion/roll20-shaped-scripts/issues/173)
+
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/symposion/roll20-shaped-scripts/compare/3.1.1...4.0.0) (2016-06-28)
 
