@@ -1,3 +1,23 @@
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/symposion/roll20-shaped-scripts/compare/4.0.2...4.1.0) (2016-07-17)
+
+
+### Bug Fixes
+
+* **advantage-tracker:** Make advantage tracker silent for new installs ([8e18711](https://github.com/symposion/roll20-shaped-scripts/commit/8e18711)), closes [#169](https://github.com/symposion/roll20-shaped-scripts/issues/169)
+* **config:** Don't create attributes for sheet options with default values ([2db8c3a](https://github.com/symposion/roll20-shaped-scripts/commit/2db8c3a)), closes [#150](https://github.com/symposion/roll20-shaped-scripts/issues/150)
+* **json-import:** Fix broken version validation ([2642432](https://github.com/symposion/roll20-shaped-scripts/commit/2642432)), closes [#192](https://github.com/symposion/roll20-shaped-scripts/issues/192)
+
+
+### Features
+
+* **ability-maker:** Remove "small" options and replace with new text size menu ([d949733](https://github.com/symposion/roll20-shaped-scripts/commit/d949733)), closes [#168](https://github.com/symposion/roll20-shaped-scripts/issues/168)
+* **command-proc:** Implement security check + send messages to correct players ([d13072c](https://github.com/symposion/roll20-shaped-scripts/commit/d13072c)), closes [#165](https://github.com/symposion/roll20-shaped-scripts/issues/165)
+* **config:** Apply character defaults to manually created characters. ([b09bb27](https://github.com/symposion/roll20-shaped-scripts/commit/b09bb27)), closes [#164](https://github.com/symposion/roll20-shaped-scripts/issues/164)
+* **config:** Implement configuration for custom Saving throws ([55731c3](https://github.com/symposion/roll20-shaped-scripts/commit/55731c3))
+
+
+
 <a name="4.0.2"></a>
 ## [4.0.2](https://github.com/symposion/roll20-shaped-scripts/compare/4.0.1...4.0.2) (2016-07-17)
 
