@@ -1,3 +1,13 @@
+<a name="4.0.2"></a>
+## [4.0.2](https://github.com/symposion/roll20-shaped-scripts/compare/4.0.1...4.0.2) (2016-07-17)
+
+
+### Bug Fixes
+
+* **spell-import:** Fix bug with spells with material cost ([3eb033f](https://github.com/symposion/roll20-shaped-scripts/commit/3eb033f)), closes [#177](https://github.com/symposion/roll20-shaped-scripts/issues/177)
+
+
+
 <a name="4.0.1"></a>
 ## [4.0.1](https://github.com/symposion/roll20-shaped-scripts/compare/4.0.0...4.0.1) (2016-06-29)
 
