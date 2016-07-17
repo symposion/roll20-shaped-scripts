@@ -7,8 +7,15 @@ class Reporter {
   }
 
   // noinspection JSUnusedGlobalSymbols
-  report(title, message) {
+  reportPlayer(title, message) {
     this.messages.push(`${title}:${message}`);
+  }
+
+  reportPublic(title, message) {
+    this.reportPlayer(title, message);
+  }
+
+  setPlayer() {
   }
 
   // noinspection JSUnusedGlobalSymbols

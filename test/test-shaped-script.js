@@ -309,6 +309,7 @@ function runImportMonsterTest(roll20, monsters, options, preConfigure, expectati
     expect(characterId).to.equal(character.id);
     const attr = new Roll20Object('attribute');
     attributes[name] = attr;
+    attr.remove = _.noop;
     return attr;
   });
   roll20.getAttrByName.withArgs(character.id, 'locked').returns(null);
