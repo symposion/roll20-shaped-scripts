@@ -73,7 +73,7 @@ describe('Migrator', function () {
 
     const result = Migrator.migrateShapedConfig(config, dl).config;
     expect(result.newCharSettings).to.have.property('houserules');
-    expect(result.newCharSettings.houserules).to.have.property('savingThrowsHalfProf', false);
+    expect(result.newCharSettings.houserules.saves).to.have.property('savingThrowsHalfProf', false);
     expect(result.newCharSettings.houserules).to.have.property('mediumArmorMaxDex', 2);
     expect(result.newCharSettings).not.to.have.property('savingThrowsHalfProf');
   });
