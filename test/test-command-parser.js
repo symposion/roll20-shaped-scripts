@@ -3,6 +3,8 @@
 
 const expect = require('chai').expect;
 const cp = require('../lib/command-parser');
+const sinon = require('sinon');
+const Roll20 = require('roll20-wrapper');
 
 function testValidator(value) {
   return {
@@ -14,10 +16,13 @@ function testValidator(value) {
 describe('command-parser', function () {
   'use strict';
 
+  const roll20 = sinon.createStubInstance(Roll20);
+  roll20.playerIsGM.withArgs(sinon.match.any).returns(true);
+
   describe('#command', function () {
     it('parse options correctly', function () {
       let result = {};
-      cp('shaped')
+      cp('shaped', roll20)
         .addCommand('config', function (object) {
           result = object;
         })
@@ -55,7 +60,7 @@ describe('command-parser', function () {
       key2: 'value2',
     };
     let result = {};
-    const myCp = cp('shaped')
+    const myCp = cp('shaped', roll20)
       .addCommand('stuff', function (object) {
         result = object;
       })
@@ -79,7 +84,7 @@ describe('command-parser', function () {
   describe('#missingParam', function () {
     it('accepts supplied required param', function () {
       let result = {};
-      const myCp = cp('shaped')
+      const myCp = cp('shaped', roll20)
         .addCommand('stuff', function (object) {
           result = object;
         })
