@@ -1,3 +1,21 @@
+<a name="4.2.0"></a>
+# [4.2.0](https://github.com/symposion/roll20-shaped-scripts/compare/4.1.0...4.2.0) (2016-07-17)
+
+
+### Bug Fixes
+
+* **ability-maker:** Adjust ordering of default token actions ([d4a8305](https://github.com/symposion/roll20-shaped-scripts/commit/d4a8305)), closes [#185](https://github.com/symposion/roll20-shaped-scripts/issues/185)
+
+
+### Features
+
+* **ability-maker:** Add short option for advantage token actions ([5409e58](https://github.com/symposion/roll20-shaped-scripts/commit/5409e58)), closes [#186](https://github.com/symposion/roll20-shaped-scripts/issues/186)
+* **config:** Add expertise_as_advantage option for new characters ([edd36cc](https://github.com/symposion/roll20-shaped-scripts/commit/edd36cc))
+* **config:** Add hide options for new characters ([6da9521](https://github.com/symposion/roll20-shaped-scripts/commit/6da9521)), closes [#189](https://github.com/symposion/roll20-shaped-scripts/issues/189)
+* **parsing:** Add a couple of custom skills for Kryx ([ea4df01](https://github.com/symposion/roll20-shaped-scripts/commit/ea4df01)), closes [#191](https://github.com/symposion/roll20-shaped-scripts/issues/191)
+
+
+
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/symposion/roll20-shaped-scripts/compare/4.0.2...4.1.0) (2016-07-17)
 
