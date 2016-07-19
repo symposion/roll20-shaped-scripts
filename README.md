@@ -42,6 +42,7 @@ This is a script designed for use with the API on the [Roll20 Virtual Table Top]
   - [Token Defaults/Token Aura Options](#token-defaultstoken-aura-options)
   - [New Characters](#new-characters)
   - [New Characters/Houserule Settings](#new-charactershouserule-settings)
+  - [New Characters/Houserule Settings/Saving Throws](#new-charactershouserule-settingssaving-throws)
   - [Character Sheet Enhancements](#character-sheet-enhancements)
   - [Houserules & Variants](#houserules-&-variants)
 

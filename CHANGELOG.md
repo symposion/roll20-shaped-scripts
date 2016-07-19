@@ -1,3 +1,8 @@
+<a name="4.4.1"></a>
+## [4.4.1](https://github.com/symposion/roll20-shaped-scripts/compare/4.4.0...4.4.1) (2016-07-19)
+
+
+
 <a name="4.4.0"></a>
 # [4.4.0](https://github.com/symposion/roll20-shaped-scripts/compare/4.3.0...4.4.0) (2016-07-18)
 
