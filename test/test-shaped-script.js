@@ -256,7 +256,7 @@ describe('shaped-script', function () {
       const token = new Roll20Object('graphic');
       shapedScript.getTokenVisionConfigurer(token,
         'darkvision 40ft., tremorsense 20ft.')();
-      expect(token.props).to.have.property('light_radius', 40 * 1.1666666);
+      expect(token.props).to.have.property('light_radius', Math.round(40 * 1.1666666));
       expect(token.props).to.have.property('light_dimradius', 20);
     });
 
@@ -271,7 +271,7 @@ describe('shaped-script', function () {
     it('should handle darkvision on its own', function () {
       const token = new Roll20Object('graphic');
       shapedScript.getTokenVisionConfigurer(token, 'darkvision 30ft.')();
-      expect(token.props).to.have.property('light_radius', 30 * 1.1666666);
+      expect(token.props).to.have.property('light_radius', Math.round(30 * 1.1666666));
       expect(token.props).to.have.property('light_dimradius', -5);
     });
   });
