@@ -1,3 +1,13 @@
+<a name="4.4.4"></a>
+## [4.4.4](https://github.com/symposion/roll20-shaped-scripts/compare/4.4.3...4.4.4) (2016-07-20)
+
+
+### Bug Fixes
+
+* **config:** Fix broken show character name option ([2cca256](https://github.com/symposion/roll20-shaped-scripts/commit/2cca256))
+
+
+
 <a name="4.4.3"></a>
 ## [4.4.3](https://github.com/symposion/roll20-shaped-scripts/compare/4.4.2...4.4.3) (2016-07-20)
 
