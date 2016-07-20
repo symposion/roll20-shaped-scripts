@@ -1,3 +1,14 @@
+<a name="4.4.3"></a>
+## [4.4.3](https://github.com/symposion/roll20-shaped-scripts/compare/4.4.2...4.4.3) (2016-07-20)
+
+
+### Bug Fixes
+
+* **config:** fix order of hide options in config ui ([1bda2d4](https://github.com/symposion/roll20-shaped-scripts/commit/1bda2d4))
+* **spell-import:** Set toggle_details to 0 after importing spells ([ef5d22e](https://github.com/symposion/roll20-shaped-scripts/commit/ef5d22e)), closes [#215](https://github.com/symposion/roll20-shaped-scripts/issues/215)
+
+
+
 <a name="4.4.2"></a>
 ## [4.4.2](https://github.com/symposion/roll20-shaped-scripts/compare/4.4.1...4.4.2) (2016-07-19)
 
