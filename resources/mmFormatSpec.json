@@ -335,7 +335,7 @@
           "name": "legendaryPoints",
           "type": "number",
           "bare": true,
-          "pattern": "^The[ \\w]+can take (\\d+) legendary actions.*?start of its turn[.]?",
+          "pattern": "^The[ \\w]+can take (\\d+) legendary actions.*?start.*?turn[.]?",
           "matchGroup": 1
         },
         {
