@@ -1,3 +1,13 @@
+<a name="4.4.5"></a>
+## [4.4.5](https://github.com/symposion/roll20-shaped-scripts/compare/4.4.4...4.4.5) (2016-07-22)
+
+
+### Bug Fixes
+
+* **config:** Fix spell text size option for new characters ([0dbf43c](https://github.com/symposion/roll20-shaped-scripts/commit/0dbf43c)), closes [#223](https://github.com/symposion/roll20-shaped-scripts/issues/223)
+
+
+
 <a name="4.4.4"></a>
 ## [4.4.4](https://github.com/symposion/roll20-shaped-scripts/compare/4.4.3...4.4.4) (2016-07-20)
 
