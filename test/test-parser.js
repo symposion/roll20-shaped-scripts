@@ -1,17 +1,22 @@
+'use strict';
+
 /* globals describe: false, before:false, it:false */
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
+
 chai.use(chaiAsPromised);
 require('chai').should();
 const Promise = require('bluebird'); // jshint ignore:line
 const fs = require('fs');
-Promise.promisifyAll(fs);
+
 const glob = require('glob');
 const parseModule = require('../lib/parser');
 const logger = require('./dummy-logger');
 const sanitise = require('../lib/sanitise');
 const mpp = require('../lib/monster-post-processor');
 const el = require('./dummy-entity-lookup');
+
+Promise.promisifyAll(fs);
 
 /**
  * @name readFileAsync
@@ -25,8 +30,6 @@ const el = require('./dummy-entity-lookup');
 
 
 describe('Monster Manual tests', function () {
-  'use strict';
-
   let parser;
 
   before(function () {
@@ -56,15 +59,12 @@ describe('Monster Manual tests', function () {
 
 
 function runTestForFile(parser, file) {
-  'use strict';
   return fs.readFileAsync(file, 'utf-8').then(function (statblockText) {
     return runParse(parser, statblockText);
   });
 }
 
 function getExpectedOutputForFile(file) {
-  'use strict';
-
   const filename = file.replace(/\.txt$/, '.json');
   return fs.readFileAsync(filename, 'utf-8')
     .catch(() => null)
@@ -73,7 +73,6 @@ function getExpectedOutputForFile(file) {
 
 
 function runParse(parser, statBlockText) {
-  'use strict';
   try {
     const parsed = parser.parse(sanitise(statBlockText, logger));
     mpp(parsed.monsters, el.entityLookup);

@@ -279,12 +279,12 @@ describe('shaped-script', function () {
 
 
 function runImportMonsterTest(roll20, monsters, options, preConfigure, expectationChecker) {
-  'use strict';
   sinon.stub(roll20, 'createObj');
   sinon.stub(roll20, 'findObjs');
   sinon.stub(roll20, 'getAttrByName');
   sinon.stub(roll20, 'sendChat');
   sinon.stub(roll20, 'getObj');
+  sinon.stub(roll20, 'setDefaultTokenForCharacter');
   const shapedScript = new ShapedScripts(logger, { version: 0 }, roll20, null, null, new Reporter(),
     { convertMonster: _.identity }, _.identity, _.identity);
   shapedScript.checkInstall();

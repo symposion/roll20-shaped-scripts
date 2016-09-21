@@ -14,8 +14,6 @@ function testValidator(value) {
 }
 
 describe('command-parser', function () {
-  'use strict';
-
   const roll20 = sinon.createStubInstance(Roll20);
   roll20.playerIsGM.withArgs(sinon.match.any).returns(true);
 
