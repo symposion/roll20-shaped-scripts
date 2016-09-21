@@ -1,3 +1,13 @@
+<a name="4.4.7"></a>
+## [4.4.7](https://github.com/symposion/roll20-shaped-scripts/compare/4.4.6...4.4.7) (2016-09-21)
+
+
+### Features
+
+* **import:** Automatically set default token for new characters where available ([8be1d30](https://github.com/symposion/roll20-shaped-scripts/commit/8be1d30))
+
+
+
 <a name="4.4.6"></a>
 ## [4.4.6](https://github.com/symposion/roll20-shaped-scripts/compare/4.4.5...4.4.6) (2016-07-24)
 
