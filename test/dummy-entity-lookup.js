@@ -1,3 +1,5 @@
+'use strict';
+
 const EntityLookup = require('../lib/entity-lookup');
 const _ = require('underscore');
 

@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb/base",
+  "extends": "airbnb-base",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "script"
@@ -12,6 +12,26 @@
     ],
     "no-param-reassign": 0,
     "prefer-rest-params": 0,
+    "class-methods-use-this": 0,
+    "prefer-spread": 0,
+    "no-underscore-dangle": 0,
+    "no-plusplus": 0,
+    "no-mixed-operators": 0,
+    "no-continue": 0,
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true,
+        "optionalDependencies": false,
+        "peerDependencies": false
+      }
+    ],
+    "object-property-newline": [
+      "error",
+      {
+        "allowMultiplePropertiesPerLine": true
+      }
+    ],
     "brace-style": [
       "error",
       "stroustrup",

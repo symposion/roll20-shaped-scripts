@@ -1,10 +1,10 @@
+'use strict';
+
 /* globals describe: false, it:false */
 const expect = require('chai').expect;
 const utils = require('../lib/utils');
 
 describe('utils', function () {
-  'use strict';
-
   describe('#deepExtend', function () {
     it('parse options correctly', function () {
       const result = utils.deepExtend({ foo: 'bar', blort: ['wibble'] }, {

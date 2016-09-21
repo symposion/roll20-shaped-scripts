@@ -11,7 +11,6 @@ const conventionalRecommendedBump = np(require('conventional-recommended-bump'))
 const conventionalGithubReleaser = np(require('conventional-github-releaser'));
 const gulpIgnore = require('gulp-ignore');
 const GitHubApi = require('github');
-const github = new GitHubApi({ version: '3.0.0', debug: true });
 const gitRev = require('git-rev');
 const readPkg = require('read-pkg');
 const gutil = require('gulp-util');
@@ -19,6 +18,8 @@ const injectVersion = require('gulp-inject-version');
 const toc = require('gulp-doctoc');
 const webpackConfig = require('./webpack.config.js');
 const fs = require('fs');
+
+const github = new GitHubApi({ version: '3.0.0', debug: true });
 
 const filesToUpload = ['5eShapedCompanion.js', 'CHANGELOG.md', 'README.md'];
 let versionSuffix = '';
@@ -60,7 +61,7 @@ gulp.task('commitAndTag', ['changelog', 'doctoc', 'buildReleaseVersionScript'], 
     .pipe(gulpIgnore.exclude(/CHANGELOG.md|README.md/))
     // **tag it in the repository**
     .pipe(tagVersion({ prefix: '' }))
-    .on('end', () => git.push('origin', 'master', { args: '--tags' }, (err) => done(err)));
+    .on('end', () => git.push('origin', 'master', { args: '--tags' }, err => done(err)));
   return undefined;
 });
 
@@ -92,10 +93,10 @@ gulp.task('release', ['commitAndTag'], (done) => {
   const upload = np(github.releases.uploadAsset.bind(github.releases));
 
   return checkReleaseTaggedVersion()
-    .then(isRelease => {
+    .then((isRelease) => {
       if (isRelease) {
         return conventionalGithubReleaser(auth, config)
-          .then(response => {
+          .then((response) => {
             const release = getGHResponseValue(response);
 
             github.authenticate(auth);
@@ -143,7 +144,7 @@ gulp.task('bumpVersion', ['checkoutMaster'], (done) => {
     return done();
   }
   conventionalRecommendedBump({ preset: 'angular' })
-    .then((result) =>
+    .then(result =>
       gulp.src('./package.json')
         .pipe(bump({ type: result.releaseAs }))
         .pipe(gulp.dest('./'))
@@ -178,7 +179,7 @@ function getGHResponseValue(response) {
 
 function checkReleaseTaggedVersion() {
   return Promise.all([readPkg(), sp(gitRev.tag)(), delay()])
-    .then(results => {
+    .then((results) => {
       gutil.log(`Version from package.json: ${results[0].version}, version from tag: ${results[1]}`);
       return results[0].version === results[1];
     });
@@ -208,7 +209,7 @@ function sp(method) {
   return function promiseWrapper() {
     const self = this;
     const args = Array.prototype.slice(arguments);
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       args.push(data => resolve(data));
       return method.apply(self, args);
     });

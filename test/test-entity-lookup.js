@@ -1,3 +1,5 @@
+'use strict';
+
 /* globals describe: false, it:false */
 const expect = require('chai').expect;
 const utils = require('../lib/utils');
@@ -10,8 +12,6 @@ const _ = require('underscore');
 
 
 describe('entity-lookup', function () {
-  'use strict';
-
   const spell1 = { name: 'spell1' };
   const spell2 = { name: 'spell2' };
 

@@ -1,3 +1,5 @@
+'use strict';
+
 /* globals describe: false, it:false */
 require('chai').should();
 const srdConverter = require('../lib/srd-converter');
@@ -5,8 +7,6 @@ const fs = require('fs');
 const glob = require('glob');
 
 describe('srd-converter', function () {
-  'use strict';
-
   describe('#convertMonster', function () {
     const fullObject = {
       name: 'Wobbler',

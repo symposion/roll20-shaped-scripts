@@ -1,3 +1,6 @@
+'use strict';
+
+
 /* globals describe: false, it:false */
 const expect = require('chai').expect;
 const JSONValidator = require('../lib/json-validator');
@@ -7,8 +10,6 @@ const glob = require('glob');
 const fs = require('fs');
 
 describe('json-validator', function () {
-  'use strict';
-
   const jv = new JSONValidator(spec);
 
   it('validates correctly', function () {

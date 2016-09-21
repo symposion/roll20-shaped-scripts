@@ -1,3 +1,5 @@
+'use strict';
+
 /* globals describe: false, it:false */
 const expect = require('chai').expect;
 const _ = require('underscore');
@@ -77,9 +79,6 @@ const spellList = [
 
 
 describe('monster-post-processor', function () {
-  'use strict';
-
-
   it('extracts spell details', function () {
     const monster = {
       traits: [
