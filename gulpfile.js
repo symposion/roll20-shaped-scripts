@@ -90,7 +90,7 @@ gulp.task('release', ['commitAndTag'], (done) => {
   const config = {
     preset: 'angular',
   };
-  const upload = np(github.releases.uploadAsset.bind(github.releases));
+  const upload = np(github.repos.uploadAsset.bind(github.repos));
 
   return checkReleaseTaggedVersion()
     .then((isRelease) => {
@@ -146,10 +146,11 @@ gulp.task('bumpVersion', ['checkoutMaster'], (done) => {
   conventionalRecommendedBump({ preset: 'angular' })
     .then(result =>
       gulp.src('./package.json')
-        .pipe(bump({ type: result.releaseAs }))
+        .pipe(bump({ type: result.releaseType }))
         .pipe(gulp.dest('./'))
         .on('end', done)
     );
+
   return undefined;
 });
 
