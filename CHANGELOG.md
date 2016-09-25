@@ -1,3 +1,13 @@
+<a name="4.5.0"></a>
+# [4.5.0](https://github.com/symposion/roll20-shaped-scripts/compare/4.4.8...4.5.0) (2016-09-25)
+
+
+### Features
+
+* **blah:** test commit ([1209c22](https://github.com/symposion/roll20-shaped-scripts/commit/1209c22))
+
+
+
 <a name="4.4.8"></a>
 ## [4.4.8](https://github.com/symposion/roll20-shaped-scripts/compare/4.4.7...4.4.8) (2016-09-25)
 
