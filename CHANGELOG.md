@@ -1,3 +1,19 @@
+<a name="4.4.8"></a>
+## [4.4.8](https://github.com/symposion/roll20-shaped-scripts/compare/4.4.7...4.4.8) (2016-09-25)
+
+
+### Bug Fixes
+
+* **apply-defaults:** Ensure apply-defaults saves the default token ([314b61d](https://github.com/symposion/roll20-shaped-scripts/commit/314b61d)), closes [#230](https://github.com/symposion/roll20-shaped-scripts/issues/230)
+* **token-numbering:** NUMBERED shouldn't be applied to PC tokens ([d74c529](https://github.com/symposion/roll20-shaped-scripts/commit/d74c529)), closes [#231](https://github.com/symposion/roll20-shaped-scripts/issues/231)
+
+
+### Features
+
+* **token-vision:** Automatically set vision for PCs from senses ([8ad9077](https://github.com/symposion/roll20-shaped-scripts/commit/8ad9077)), closes [#229](https://github.com/symposion/roll20-shaped-scripts/issues/229)
+
+
+
 <a name="4.4.7"></a>
 ## [4.4.7](https://github.com/symposion/roll20-shaped-scripts/compare/4.4.6...4.4.7) (2016-09-21)
 
