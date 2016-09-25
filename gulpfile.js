@@ -150,6 +150,7 @@ gulp.task('bumpVersion', ['checkoutMaster'], (done) => {
         .pipe(gulp.dest('./'))
         .on('end', done)
     );
+
   return undefined;
 });
 
