@@ -101,7 +101,7 @@ gulp.task('release', ['commitAndTag'], (done) => {
 
             github.authenticate(auth);
             return Promise.all(filesToUpload.map(fileName => upload({
-              owner: 'symposion',
+              user: 'symposion',
               repo: 'roll20-shaped-scripts',
               id: release.id,
               name: fileName,
