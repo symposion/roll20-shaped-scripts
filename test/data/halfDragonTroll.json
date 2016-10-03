@@ -1,4 +1,5 @@
 {
+  "version": "1.0.0",
   "monsters": [
     {
       "name": "Half-Dragon Troll",
@@ -7,7 +8,7 @@
       "alignment": "chaotic evil",
       "AC": "15 (natural armor)",
       "HP": "84 (8d10 + 40)",
-      "speed": "30 ft",
+      "speed": "30 ft.",
       "strength": 18,
       "dexterity": 13,
       "constitution": 20,
@@ -16,7 +17,7 @@
       "charisma": 7,
       "skills": "Perception +1",
       "damageResistances": "acid",
-      "senses": "blindsight 10 ft, darkvision 60 ft",
+      "senses": "blindsight 10 ft., darkvision 60 ft.",
       "languages": "Draconic, Giant",
       "challenge": "5",
       "traits": [
@@ -36,11 +37,11 @@
         },
         {
           "name": "Bite",
-          "text": "Melee Weapon Attack: +7 to hit, reach 5 ft, one target. Hit: 7 (1d6 + 4) piercing damage."
+          "text": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 7 (1d6 + 4) piercing damage."
         },
         {
           "name": "Claw",
-          "text": "Melee Weapon Attack: +7 to hit, reach 5 ft, one target. Hit: 11 (2d6 + 4) slashing damage."
+          "text": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) slashing damage."
         },
         {
           "name": "Acid Breath",
@@ -49,6 +50,5 @@
         }
       ]
     }
-  ],
-  "version": "0.2"
+  ]
 }

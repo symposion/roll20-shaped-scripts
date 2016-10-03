@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "1.0.0",
   "monsters": [
     {
       "name": "Jermlaine",
@@ -8,7 +8,7 @@
       "alignment": "neutral evil",
       "AC": "13",
       "HP": "1 (1d4-1)",
-      "speed": "40 ft",
+      "speed": "40 ft.",
       "strength": 3,
       "dexterity": 17,
       "constitution": 8,
@@ -17,7 +17,7 @@
       "charisma": 5,
       "savingThrows": "Dex +5, Wis +5",
       "skills": "Perception +5, Stealth +5",
-      "senses": "darkvision 60 ft",
+      "senses": "darkvision 60 ft.",
       "languages": "Jermlaine",
       "challenge": "1/4",
       "traits": [
@@ -41,11 +41,11 @@
       "actions": [
         {
           "name": "Mini Dart",
-          "text": "Ranged Weapon Attack: +5 to hit, range 20/60 ft, one target. Hit: 4 (1d2+3) piercing damage."
+          "text": "Ranged Weapon Attack: +5 to hit, range 20/60 ft., one target. Hit: 4 (1d2+3) piercing damage."
         },
         {
           "name": "Mini Spear",
-          "text": "Melee Weapon Attack: -2 to hit, reach 5 ft, one target. Hit: 1 (1d4-4) piercing damage."
+          "text": "Melee Weapon Attack: -2 to hit, reach 5 ft., one target. Hit: 1 (1d4-4) piercing damage."
         }
       ]
     }
