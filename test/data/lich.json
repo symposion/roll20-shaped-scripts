@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "1.0.0",
   "monsters": [
     {
       "name": "Lich",
@@ -8,7 +8,7 @@
       "alignment": "any evil alignment",
       "AC": "17 (natural armor)",
       "HP": "135 (18d8 +54)",
-      "speed": "30ft",
+      "speed": "30ft.",
       "strength": 11,
       "dexterity": 16,
       "constitution": 16,
@@ -20,114 +20,8 @@
       "damageResistances": "cold, lightning, necrotic",
       "damageImmunities": "poison; bludgeoning, piercing, and slashing from nonmagical weapons",
       "conditionImmunities": "charmed, exhaustion, frightened, paralyzed, poisoned",
-      "senses": "truesight 120 ft",
+      "senses": "truesight 120 ft.",
       "languages": "Common plus up to five other languages",
-      "spells": [
-        {
-          "level": 0,
-          "name": "Mage Hand"
-        },
-        {
-          "level": 0,
-          "name": "Prestidigitation"
-        },
-        {
-          "level": 0,
-          "name": "Ray of Frost"
-        },
-        {
-          "level": 1,
-          "name": "Detect Magic"
-        },
-        {
-          "level": 1,
-          "name": "Magic Missile"
-        },
-        {
-          "level": 1,
-          "name": "Shield"
-        },
-        {
-          "level": 1,
-          "name": "Thunderwave"
-        },
-        {
-          "level": 2,
-          "name": "Detect Thoughts"
-        },
-        {
-          "level": 2,
-          "name": "Invisibility"
-        },
-        {
-          "level": 2,
-          "name": "Melf's Acid Arrow"
-        },
-        {
-          "level": 2,
-          "name": "Mirror Image"
-        },
-        {
-          "level": 3,
-          "name": "Animate Dead"
-        },
-        {
-          "level": 3,
-          "name": "Counterspell"
-        },
-        {
-          "level": 3,
-          "name": "Dispel Magic"
-        },
-        {
-          "level": 3,
-          "name": "Fireball"
-        },
-        {
-          "level": 4,
-          "name": "Blight"
-        },
-        {
-          "level": 4,
-          "name": "Dimension Door"
-        },
-        {
-          "level": 5,
-          "name": "Cloudkill"
-        },
-        {
-          "level": 5,
-          "name": "Scrying"
-        },
-        {
-          "level": 6,
-          "name": "Disintegrate"
-        },
-        {
-          "level": 6,
-          "name": "Globe of Invulnerability"
-        },
-        {
-          "level": 7,
-          "name": "Finger of Death"
-        },
-        {
-          "level": 7,
-          "name": "Planeshift"
-        },
-        {
-          "level": 8,
-          "name": "Dominate Monster"
-        },
-        {
-          "level": 8,
-          "name": "Power Word Stun"
-        },
-        {
-          "level": 9,
-          "name": "Power Word Kill"
-        }
-      ],
       "challenge": "21",
       "traits": [
         {
@@ -174,6 +68,112 @@
           "name": "Disrupt Life",
           "cost": 3,
           "text": "Each living creature within 20 feet of the lich must make a DC 18 Constitution saving throw against this magic, taking 21 (6d6) necrotic damage on a failed save, or half as much damage on a successful one."
+        }
+      ],
+      "spells": [
+        {
+          "name": "Mage Hand",
+          "level": 0
+        },
+        {
+          "name": "Prestidigitation",
+          "level": 0
+        },
+        {
+          "name": "Ray of Frost",
+          "level": 0
+        },
+        {
+          "name": "Detect Magic",
+          "level": 1
+        },
+        {
+          "name": "Magic Missile",
+          "level": 1
+        },
+        {
+          "name": "Shield",
+          "level": 1
+        },
+        {
+          "name": "Thunderwave",
+          "level": 1
+        },
+        {
+          "name": "Detect Thoughts",
+          "level": 2
+        },
+        {
+          "name": "Invisibility",
+          "level": 2
+        },
+        {
+          "name": "Melf's Acid Arrow",
+          "level": 2
+        },
+        {
+          "name": "Mirror Image",
+          "level": 2
+        },
+        {
+          "name": "Animate Dead",
+          "level": 3
+        },
+        {
+          "name": "Counterspell",
+          "level": 3
+        },
+        {
+          "name": "Dispel Magic",
+          "level": 3
+        },
+        {
+          "name": "Fireball",
+          "level": 3
+        },
+        {
+          "name": "Blight",
+          "level": 4
+        },
+        {
+          "name": "Dimension Door",
+          "level": 4
+        },
+        {
+          "name": "Cloudkill",
+          "level": 5
+        },
+        {
+          "name": "Scrying",
+          "level": 5
+        },
+        {
+          "name": "Disintegrate",
+          "level": 6
+        },
+        {
+          "name": "Globe of Invulnerability",
+          "level": 6
+        },
+        {
+          "name": "Finger of Death",
+          "level": 7
+        },
+        {
+          "name": "Planeshift",
+          "level": 7
+        },
+        {
+          "name": "Dominate Monster",
+          "level": 8
+        },
+        {
+          "name": "Power Word Stun",
+          "level": 8
+        },
+        {
+          "name": "Power Word Kill",
+          "level": 9
         }
       ]
     }

@@ -17,6 +17,6 @@
         </codeStyleSettings>
       </value>
     </option>
-    <option name="PREFERRED_PROJECT_CODE_STYLE" value="ES6-airbnb" />
+    <option name="PREFERRED_PROJECT_CODE_STYLE" value="Standard" />
   </component>
 </project>

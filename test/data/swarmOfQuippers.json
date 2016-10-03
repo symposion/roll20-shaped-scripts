@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "1.0.0",
   "monsters": [
     {
       "name": "Swarm Of Quippers",
@@ -8,7 +8,7 @@
       "alignment": "unaligned",
       "AC": "13",
       "HP": "28 (8d8 - 8)",
-      "speed": "0 ft, swim 40 ft",
+      "speed": "0 ft., swim 40 ft.",
       "strength": 13,
       "dexterity": 16,
       "constitution": 9,
@@ -17,7 +17,7 @@
       "charisma": 2,
       "damageResistances": "bludgeoning, piercing, slashing",
       "conditionImmunities": "charmed, frightened, paralyzed, petrified, prone, restrained, stunned",
-      "senses": "darkvision 60ft",
+      "senses": "darkvision 60ft.",
       "challenge": "1",
       "traits": [
         {
@@ -36,7 +36,7 @@
       "actions": [
         {
           "name": "Bites",
-          "text": "Melee Weapon Attack: +5 to hit, reach 0 ft, one creature in the swarm's space. Hit: 14 (4d6) piercing damage, or 7 (2d6) piercing damage if the swarm has half of its hit points or fewer."
+          "text": "Melee Weapon Attack: +5 to hit, reach 0 ft., one creature in the swarm's space. Hit: 14 (4d6) piercing damage, or 7 (2d6) piercing damage if the swarm has half of its hit points or fewer."
         }
       ]
     }
