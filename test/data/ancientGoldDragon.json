@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "1.0.0",
   "monsters": [
     {
       "name": "Ancient Gold Dragon",
@@ -8,6 +8,7 @@
       "alignment": "lawful good",
       "AC": "22 (natural armor)",
       "HP": "546 (28d20 + 252)",
+      "speed": "40 ft., fly 80 ft., swim 40 ft.",
       "strength": 30,
       "dexterity": 14,
       "constitution": 29,
@@ -16,9 +17,8 @@
       "charisma": 28,
       "savingThrows": "Dex +9, Con +16, Wis +10, Cha +16",
       "skills": "Insight +10, Perception +17, Persuasion +16, Stealth +9",
-      "speed": "40 ft, fly 80 ft, swim 40 ft",
-      "senses": "blindsight 60ft, darkvision 120ft",
       "damageImmunities": "fire",
+      "senses": "blindsight 60ft., darkvision 120ft.",
       "languages": "Common, Draconic",
       "challenge": "24",
       "traits": [
@@ -39,15 +39,15 @@
         },
         {
           "name": "Bite",
-          "text": "Melee Weapon Attack:+17 to hit, reach 15 ft, one target. Hit: 21 (2d10 + 10) piercing damage."
+          "text": "Melee Weapon Attack:+17 to hit, reach 15 ft., one target. Hit: 21 (2d10 + 10) piercing damage."
         },
         {
           "name": "Claw",
-          "text": "Melee Weapon Attack: +17 to hit, reach 10ft, one target. Hit: 17 (2d6 + 10) slashing damage."
+          "text": "Melee Weapon Attack: +17 to hit, reach 10ft., one target. Hit: 17 (2d6 + 10) slashing damage."
         },
         {
           "name": "Tail",
-          "text": "Melee Weapon Attack:+17 to hit, reach 20ft, one target. Hit: 19 (2d8 + 10) bludgeoning damage."
+          "text": "Melee Weapon Attack:+17 to hit, reach 20ft., one target. Hit: 19 (2d8 + 10) bludgeoning damage."
         },
         {
           "name": "Frightful Presence",
@@ -82,8 +82,8 @@
           "text": "The dragon makes a tail attack."
         },
         {
-          "cost": 2,
           "name": "Wing Attack",
+          "cost": 2,
           "text": "The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 25 Dexterity saving throw or take 17 (2d6 + 10) bludgeoning damage and be knocked prone. The dragon can then fly up to halfits flying speed."
         }
       ]

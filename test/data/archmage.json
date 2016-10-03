@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "1.0.0",
   "monsters": [
     {
       "name": "Archmage",
@@ -8,7 +8,7 @@
       "alignment": "any alignment",
       "AC": "12 (1 5 with mage armor)",
       "HP": "99 (18d8 + 18)",
-      "speed": "30ft",
+      "speed": "30ft.",
       "strength": 10,
       "dexterity": 14,
       "constitution": 12,

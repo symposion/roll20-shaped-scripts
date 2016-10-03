@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "1.0.0",
   "monsters": [
     {
       "name": "Death Knight",
@@ -8,7 +8,7 @@
       "alignment": "chaotic evil",
       "AC": "20 (plate, shield)",
       "HP": "180 (19d8 + 95)",
-      "speed": "30ft",
+      "speed": "30ft.",
       "strength": 20,
       "dexterity": 11,
       "constitution": 20,
@@ -18,51 +18,9 @@
       "savingThrows": "Dex +6, Wis +9, Cha +10",
       "damageImmunities": "necrotic, poison",
       "conditionImmunities": "exhaustion,frightened,poisoned",
-      "senses": "darkvision 120ft",
+      "senses": "darkvision 120ft.",
       "languages": "Abyssal, Common",
       "challenge": "17",
-      "spells": [
-        {
-          "level": 1,
-          "name": "Command"
-        },
-        {
-          "level": 1,
-          "name": "Compelled Duel"
-        },
-        {
-          "level": 1,
-          "name": "Searing Smite"
-        },
-        {
-          "level": 2,
-          "name": "Hold Person"
-        },
-        {
-          "level": 2,
-          "name": "Magic Weapon"
-        },
-        {
-          "level": 3,
-          "name": "Dispel Magic"
-        },
-        {
-          "level": 3,
-          "name": "Elemental Weapon"
-        },
-        {
-          "level": 4,
-          "name": "Banishment"
-        },
-        {
-          "level": 4,
-          "name": "Staggering Smite"
-        },
-        {
-          "level": 5,
-          "name": "Destructive Wave"
-        }
-      ],
       "traits": [
         {
           "name": "Magic Resistance",
@@ -84,7 +42,7 @@
         },
         {
           "name": "Longsword",
-          "text": "Melee Weapon Attack:+11 to hit,reach5ft, one target. Hit:9 (1d8 + 5) slashing damage, or 10 (1d10 + 5) slashing damage if used with two hands, plus 18 (4d8) necrotic damage."
+          "text": "Melee Weapon Attack:+11 to hit,reach5ft., one target. Hit:9 (1d8 + 5) slashing damage, or 10 (1d10 + 5) slashing damage if used with two hands, plus 18 (4d8) necrotic damage."
         },
         {
           "name": "Hellfire Orb",
@@ -96,6 +54,48 @@
         {
           "name": "Parry",
           "text": "The death knight adds 6 to its AC against one melee attack that would hit it. To do so, the death knight must see the attackerand bewieldingameleeweapon."
+        }
+      ],
+      "spells": [
+        {
+          "name": "Command",
+          "level": 1
+        },
+        {
+          "name": "Compelled Duel",
+          "level": 1
+        },
+        {
+          "name": "Searing Smite",
+          "level": 1
+        },
+        {
+          "name": "Hold Person",
+          "level": 2
+        },
+        {
+          "name": "Magic Weapon",
+          "level": 2
+        },
+        {
+          "name": "Dispel Magic",
+          "level": 3
+        },
+        {
+          "name": "Elemental Weapon",
+          "level": 3
+        },
+        {
+          "name": "Banishment",
+          "level": 4
+        },
+        {
+          "name": "Staggering Smite",
+          "level": 4
+        },
+        {
+          "name": "Destructive Wave",
+          "level": 5
         }
       ]
     }

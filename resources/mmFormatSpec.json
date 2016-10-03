@@ -1,5 +1,5 @@
 {
-  "formatVersion": "0.2",
+  "formatVersion": "1.0.0",
   "name": "monsters",
   "maxOccurs": "Infinity",
   "type": "orderedContent",
@@ -39,6 +39,7 @@
           "name": "alignment",
           "type": "enumType",
           "enumValues": [
+            "(?:lawful|neutral|chaotic) (?:good|neutral|evil)(?:\\s?\\(\\d+%\\))? or (?:lawful|neutral|chaotic) (?:good|neutral|evil)(?:\\s?\\(\\d+%\\))?",
             "lawful good",
             "lawful neutral",
             "lawful evil",
@@ -48,6 +49,10 @@
             "chaotic good",
             "chaotic neutral",
             "chaotic evil",
+            "chaotic",
+            "lawful",
+            "good",
+            "evil",
             "unaligned",
             "any alignment",
             "any good alignment",
@@ -58,8 +63,7 @@
             "any non-lawful alignment",
             "any chaotic alignment",
             "any non-chaotic alignment",
-            "construct",
-            "(?:lawful|neutral|chaotic) (?:good|neutral|evil) \\(\\d+%\\) or (?:lawful|neutral|chaotic) (?:good|neutral|evil) \\(\\d+%\\)"
+            "construct"
           ],
           "bare": true
         }
@@ -85,8 +89,7 @@
         {
           "name": "speed",
           "minOccurs": 0,
-          "type": "string",
-          "pattern": "^\\d+\\s?ft[\\.]?(,\\s?(fly|swim|burrow|climb)\\s\\d+\\s?ft[\\.]?)*(\\s?\\([^\\)]+\\))?$"
+          "type": "string"
         },
         {
           "name": "strength",
@@ -158,8 +161,7 @@
         {
           "name": "senses",
           "type": "string",
-          "minOccurs": 0,
-          "pattern": "(?:(?:^|,\\s*)(?:blindsight|darkvision|tremorsense|truesight)\\s+\\d+\\s*ft\\.?(?: or \\d+ ft\\. while deafened)?(?:\\s?\\([^\\)]+\\))?)+"
+          "minOccurs": 0
         },
         {
           "name": "passivePerception",
@@ -202,7 +204,7 @@
             {
               "name": "name",
               "type": "string",
-              "pattern": "(^|.*?[a-z]\\.\\s?)((?:[A-Z][\\w\\-']+[,:!]?|A)(?:\\s(?:[A-Z][\\w\\-']+[,:!]?|of|to|in|the|with|and|or|a)+)*)(\\s?\\([^\\)]+\\))?\\.(?!$)",
+              "pattern": "(^|.*?[a-z0-9]\\.\\s?)((?:[A-Z0-9][\\w\\-']+[,:!]?|A)(?:\\s(?:[A-Z0-9][\\w\\-']+[,:!]?|of|to|in|the|with|and|or|a|by|for)+)*)(\\s?\\([^\\)]+\\))?\\.(?!$)",
               "matchGroup": 2,
               "forPreviousMatchGroup": 1,
               "forNextMatchGroup": 3,
@@ -248,7 +250,7 @@
             {
               "name": "name",
               "type": "string",
-              "pattern": "(^|.*?[a-z]\\.\\s?)((?:\\d+\\.\\s?)?(?:[A-Z][\\w\\-']+[,:!]?|A)(?:\\s(?:[A-Z][\\w\\-']+[,:!]?|of|in|to|with|the|and|or|a|\\+\\d+)+)*)(\\s?\\([^\\)]+\\))?\\.(?!$)",
+              "pattern": "(^|.*?[a-z]\\.\\s?)((?:\\d+\\.\\s?)?(?:[A-Z][\\w\\-']+[,:!]?|A|\\+\\d)(?:\\s(?:[A-Z][\\w\\-']+[,:!]?|of|in|to|with|the|and|or|by|for|a|\\+\\d+|2hd)+)*)(\\s?\\([^\\)]+\\))?\\.(?!$)",
               "matchGroup": 2,
               "forPreviousMatchGroup": 1,
               "forNextMatchGroup": 3,
@@ -335,7 +337,7 @@
           "name": "legendaryPoints",
           "type": "number",
           "bare": true,
-          "pattern": "^The[ \\w]+can take (\\d+) legendary actions.*?start.*?turn[.]?",
+          "pattern": "^(?:The)?[ \\w-]+(?:can|may) take (\\d+) legendary action(?:s)?.*?start.*?turn[.]?",
           "matchGroup": 1
         },
         {
@@ -358,7 +360,7 @@
               "name": "cost",
               "type": "number",
               "bare": true,
-              "pattern": "^\\s*\\(\\s*costs (\\d+) actions\\s*\\)",
+              "pattern": "^\\s*\\(\\s*(?:costs )?(\\d+) actions\\s*\\)",
               "matchGroup": 1,
               "minOccurs": 0
             },
@@ -381,13 +383,19 @@
         {
           "name": "actionHeader",
           "type": "heading",
-          "bare": true,
           "pattern": "^Lair Actions$"
+        },
+        {
+          "name": "lairActionBlurb",
+          "type": "heading",
+          "pattern": "^On initiative count 20[^:]+:*$"
         },
         {
           "name": "lairActions",
           "type": "string",
           "bare": true,
+          "pattern": "^(?:\\*|•)\\s?((?:.|\n)*)",
+          "matchGroup": 1,
           "minOccurs": 1,
           "maxOccurs": "Infinity"
         }
@@ -403,20 +411,28 @@
         {
           "name": "actionHeader",
           "type": "heading",
-          "bare": true,
           "pattern": "^Regional Effects$"
+        },
+        {
+          "name": "regionalBlurb",
+          "type": "heading",
+          "minOccurs": 0,
+          "pattern": "^The region (?:containing|around|surrounding)[^:]+:$"
         },
         {
           "name": "regionalEffects",
           "type": "string",
           "minOccurs": 1,
           "maxOccurs": "Infinity",
-          "bare": true
+          "bare": true,
+          "pattern": "^(?:\\*|•)\\s?((?:.|\n)*)",
+          "matchGroup": 1
         },
         {
           "name": "regionalEffectsFade",
           "type": "string",
-          "bare": true
+          "bare": true,
+          "pattern": "^(?:if|when)[\\w\\s-]+(?:dies|is destroyed).*$"
         }
       ]
     }
