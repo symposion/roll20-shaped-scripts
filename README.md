@@ -89,7 +89,7 @@ Some of the script commands allow you to import spells or monsters from custom d
 ```
 "ShapedScripts 1460893071585 INFO : Summary of adding entities to the lookup: {\"errors\":0,\"monsters\":{\"withErrors\":0,\"skipped\":0,\"deleted\":0,\"patched\":0,\"added\":558}}"
 ```
-Send me a private message [here](https://app.roll20.net/users/791452/lucian) if you want some more guidance on finding and installing useful extras.
+Send me a private message [here](https://app.roll20.net/users/791452/lucian) containing your email address if you want some more guidance on finding and installing useful extras.
 
 # Usage
 ## Import a Monster from Monster Manual Statblock text
