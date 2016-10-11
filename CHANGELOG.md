@@ -1,3 +1,13 @@
+<a name="4.7.0"></a>
+# [4.7.0](https://github.com/symposion/roll20-shaped-scripts/compare/4.6.1...4.7.0) (2016-10-11)
+
+
+### Features
+
+* **config:** Add Hit Dice Output and Show Rests to "!shaped-config" ([d5ab14b](https://github.com/symposion/roll20-shaped-scripts/commit/d5ab14b)), closes [#246](https://github.com/symposion/roll20-shaped-scripts/issues/246)
+
+
+
 <a name="4.6.1"></a>
 ## [4.6.1](https://github.com/symposion/roll20-shaped-scripts/compare/4.6.0...4.6.1) (2016-10-03)
 
