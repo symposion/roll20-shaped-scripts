@@ -1,3 +1,13 @@
+<a name="4.8.0"></a>
+# [4.8.0](https://github.com/symposion/roll20-shaped-scripts/compare/4.7.0...4.8.0) (2016-10-13)
+
+
+### Features
+
+* **json-import:** Internal improvements to JSON database loading ([7a62d0c](https://github.com/symposion/roll20-shaped-scripts/commit/7a62d0c)), closes [#248](https://github.com/symposion/roll20-shaped-scripts/issues/248)
+
+
+
 <a name="4.7.0"></a>
 # [4.7.0](https://github.com/symposion/roll20-shaped-scripts/compare/4.6.1...4.7.0) (2016-10-11)
 
