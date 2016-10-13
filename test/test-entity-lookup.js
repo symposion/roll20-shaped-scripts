@@ -1,6 +1,6 @@
 'use strict';
 
-/* globals describe: false, it:false */
+/* globals describe: false, it:false, before:false, after:false */
 const expect = require('chai').expect;
 const utils = require('../lib/utils');
 const EntityLookup = require('../lib/entity-lookup');
@@ -8,8 +8,17 @@ const JSONValidator = require('../lib/json-validator');
 const spec = require('../resources/mmFormatSpec.json');
 const glob = require('glob');
 const fs = require('fs');
-const _ = require('underscore');
+const sinon = require('sinon');
 
+class DummyResultReporter {
+  constructor() {
+    this.results = {};
+  }
+
+  report(result) {
+    this.results[result.entityGroupName] = result;
+  }
+}
 
 describe('entity-lookup', function () {
   const spell1 = { name: 'spell1' };
@@ -22,8 +31,8 @@ describe('entity-lookup', function () {
 
   describe('#lookupEntity', function () {
     const el = new EntityLookup();
-    el.configureEntity('spells', [el.getMonsterSpellUpdater()], _.constant(true));
-    el.configureEntity('monsters', [el.getSpellHydrator()], _.constant(true));
+    el.configureEntity('spells', [el.getMonsterSpellUpdater()]);
+    el.configureEntity('monsters', [el.getSpellHydrator()]);
     el.addEntities({ version: '0.2', spells: [spell1, spell2] });
     it('finds entity by name', function () {
       expect(el.findEntity('spells', 'SPell1')).to.deep.equal(spell1);
@@ -41,8 +50,8 @@ describe('entity-lookup', function () {
 
   describe('#addEntities', function () {
     const el = new EntityLookup();
-    el.configureEntity('spells', [el.getMonsterSpellUpdater()], _.constant(true));
-    el.configureEntity('monsters', [el.getSpellHydrator()], _.constant(true));
+    el.configureEntity('spells', [el.getMonsterSpellUpdater()]);
+    el.configureEntity('monsters', [el.getSpellHydrator()]);
     it('should hydrate spells', function () {
       el.addEntities({ version: '0.2', monsters: utils.deepClone([monster1, monster2]) });
       expect(el.findEntity('monsters', 'monster1')).to.deep.equal({
@@ -58,7 +67,7 @@ describe('entity-lookup', function () {
 
   describe('#entitySearch', function () {
     const el = new EntityLookup();
-    el.configureEntity('spells', [], _.constant(true), ['attribute', 'multiAttribute', 'boolVal', 'intVal']);
+    el.configureEntity('spells');
     el.addEntities({
       spells: [
         {
@@ -113,6 +122,46 @@ describe('entity-lookup', function () {
     });
   });
 
+  describe('dependencies', function () {
+    let clock;
+    before(function () {
+      clock = sinon.useFakeTimers();
+    });
+
+    it('fails for unmet dependency', function () {
+      const el = new EntityLookup();
+      const rr = new DummyResultReporter();
+
+      el.configureEntity('spells');
+      el.addEntities({ version: '1.0', name: 'derivative', spells: [], dependencies: 'base' }, rr);
+      expect(rr.results).to.be.empty;
+      clock.tick(10001);
+      expect(rr.results.derivative.errors).to.deep.equal([{
+        entity: 'Missing dependencies',
+        errors: [
+          'Entity group is missing dependencies [base]',
+        ],
+      }]);
+    });
+
+    it('works for met dependency', function () {
+      const el = new EntityLookup();
+      const rr = new DummyResultReporter();
+      el.configureEntity('spells');
+      el.addEntities({ version: '1.0', name: 'derivative', spells: [], dependencies: 'base' }, rr);
+      expect(rr.results).to.be.empty;
+      el.addEntities({ version: '1.0', name: 'base', spells: [] }, rr);
+      expect(rr.results).to.have.property('base');
+      expect(rr.results).to.have.property('derivative');
+      expect(rr.results.base.errors).to.be.empty;
+      expect(rr.results.derivative.errors).to.be.empty;
+    });
+
+    after(function () {
+      clock.restore();
+    });
+  });
+
   describe('functional test', function () {
     const el = new EntityLookup();
     const jv = new JSONValidator(spec);
@@ -121,10 +170,13 @@ describe('entity-lookup', function () {
       EntityLookup.jsonValidatorAsEntityProcessor(jv),
       el.getSpellHydrator(),
     ], EntityLookup.jsonValidatorAsVersionChecker(jv));
-    glob.sync('../../roll20/data/spellSourceFiles/spellData.json').forEach(function (jsonFile) {
+    glob.sync('../roll20/data/spellSourceFiles/spellData.json').forEach(function (jsonFile) {
       const spells = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
       it('loads spells correctly', function () {
-        const results = el.addEntities(spells);
+        const rr = new DummyResultReporter();
+        spells.name = 'spells';
+        el.addEntities(spells, rr);
+        const results = rr.results.spells;
         expect(results.spells.skipped).to.be.empty;
         expect(results.spells.deleted).to.be.empty;
         expect(results.spells.patched).to.be.empty;
@@ -134,18 +186,20 @@ describe('entity-lookup', function () {
       });
     });
 
-    glob.sync('../../roll20/data/monsterSourceFiles/*.json').forEach(function (jsonFile) {
-      describe(`JSON file: ${jsonFile}`, function () {
-        const monsters = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
-        it(`loads ${jsonFile} correctly`, function () {
-          const results = el.addEntities(monsters);
-          expect(results.errors).to.be.empty;
-          expect(results.monsters.skipped).to.be.empty;
-          expect(results.monsters.deleted).to.be.empty;
-          expect(results.monsters.patched).to.be.empty;
-          expect(results.monsters.withErrors).to.be.empty;
-          expect(results.monsters.added).to.have.lengthOf(monsters.monsters.length);
-        });
+    glob.sync('../roll20/data/monsterSourceFiles/*.json').forEach(function (jsonFile) {
+      const monsters = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
+      it(`loads ${jsonFile} correctly`, function () {
+        const rr = new DummyResultReporter();
+        const name = jsonFile.replace(/\.json/, '');
+        monsters.name = name;
+        el.addEntities(monsters, rr);
+        const results = rr.results[name];
+        expect(results.errors).to.be.empty;
+        expect(results.monsters.skipped).to.be.empty;
+        expect(results.monsters.deleted).to.be.empty;
+        expect(results.monsters.patched).to.be.empty;
+        expect(results.monsters.withErrors).to.be.empty;
+        expect(results.monsters.added).to.have.lengthOf(monsters.monsters.length);
       });
     });
   });
