@@ -17,12 +17,10 @@ describe('json-validator', function () {
   });
 
 
-  glob.sync('../../roll20/data/monsterSourceFiles/*.json').forEach(function (jsonFile) {
-    describe(`JSON file: ${jsonFile}`, function () {
-      const monsters = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
-      it(`validates ${jsonFile} correctly`, function () {
-        expect(jv.validate(monsters)).to.deep.equal({});
-      });
+  glob.sync('../roll20/data/monsterSourceFiles/*.json').forEach(function (jsonFile) {
+    const monsters = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
+    it(`validates ${jsonFile} correctly`, function () {
+      expect(jv.validate(monsters)).to.deep.equal({});
     });
   });
 });
