@@ -27,7 +27,7 @@
         },
         {
           "name": "Innate Spellcasting (Psionics)",
-          "text": "The mind flayer's innate spellcasting ability is Intelligence (spell save DC 15). It can innately cast the following spells, requiring no components:\nAt will: Detect Thoughts, Levitate\n1/day each: Dominate Monster, Planeshift (self only)"
+          "text": "The mind flayer's innate spellcasting ability is Intelligence (spell save DC 15). It can innately cast the following spells, requiring no components:\nAt will: detect thoughts, levitate 1/day each: dominate monster, plane shift (self only)"
         }
       ],
       "actions": [
@@ -43,24 +43,6 @@
           "name": "Mind Blast",
           "recharge": "Recharge 5-6",
           "text": "The mind flayer magically emits psychic energy in a 60-foot cone. Each creature in that area must succeed on a DC 15 Intelligence saving throw or take 22 (4d8 + 4) psychic damage and be stunned for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
-        }
-      ],
-      "spells": [
-        {
-          "name": "Levitate",
-          "level": 1
-        },
-        {
-          "name": "Detect Thoughts",
-          "level": 2
-        },
-        {
-          "name": "Planeshift (self only)",
-          "level": 7
-        },
-        {
-          "name": "Dominate Monster",
-          "level": 8
         }
       ]
     }
