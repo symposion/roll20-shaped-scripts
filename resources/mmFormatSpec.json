@@ -204,7 +204,7 @@
             {
               "name": "name",
               "type": "string",
-              "pattern": "(^|.*?[a-z0-9]\\.\\s?)((?:[A-Z0-9][\\w\\-']+[,:!]?|A)(?:\\s(?:[A-Z0-9][\\w\\-']+[,:!]?|of|to|in|the|with|and|or|a|by|for)+)*)(\\s?\\([^\\)]+\\))?\\.(?!$)",
+              "pattern": "(^|.*?[a-z0-9]\\.\\s?)((?:[A-Z0-9][\\w\\-']+[,:!]?|A)(?:\\s(?:[A-Z0-9][\\w\\-']+[,:!]?|of|to|in|the|with|and|or|a|by|for)+)*(?:\\s?\\((?!Recharge|\\d+)[^\\)]+\\))?)(\\s?\\([^\\)]+\\))?\\.(?!$)",
               "matchGroup": 2,
               "forPreviousMatchGroup": 1,
               "forNextMatchGroup": 3,
@@ -250,7 +250,7 @@
             {
               "name": "name",
               "type": "string",
-              "pattern": "(^|.*?[a-z]\\.\\s?)((?:\\d+\\.\\s?)?(?:[A-Z][\\w\\-']+[,:!]?|A|\\+\\d)(?:\\s(?:[A-Z][\\w\\-']+[,:!]?|of|in|to|with|the|and|or|by|for|a|\\+\\d+|2hd)+)*)(\\s?\\([^\\)]+\\))?\\.(?!$)",
+              "pattern": "(^|.*?[a-z]\\.\\s?)((?:\\d+\\.\\s?)?(?:[A-Z][\\w\\-']+[,:!]?|A|\\+\\d)(?:\\s(?:[A-Z][\\w\\-']+[,:!]?|of|in|to|with|the|and|or|by|for|a|\\+\\d+|2hd)+)*(?:\\s?\\((?!Recharge|\\d+)[^\\)]+\\))?)(\\s?\\([^\\)]+\\))?\\.(?!$)",
               "matchGroup": 2,
               "forPreviousMatchGroup": 1,
               "forNextMatchGroup": 3,
@@ -296,7 +296,7 @@
             {
               "name": "name",
               "type": "string",
-              "pattern": "(^|.*?[a-z]\\.\\s?)((?:[A-Z][\\w\\-']+[,:!]?|A)(?:\\s(?:[A-Z][\\w\\-']+[,:!]?|of|in|to|with|the|and|or|a)+)*)(\\s?\\([^\\)]+\\))?\\.(?!$)",
+              "pattern": "(^|.*?[a-z]\\.\\s?)((?:[A-Z][\\w\\-']+[,:!]?|A)(?:\\s(?:[A-Z][\\w\\-']+[,:!]?|of|in|to|with|the|and|or|a)+)*(?:\\s?\\((?!Recharge|\\d+)[^\\)]+\\))?)(\\s?\\([^\\)]+\\))?\\.(?!$)",
               "matchGroup": 2,
               "forPreviousMatchGroup": 1,
               "forNextMatchGroup": 3,
