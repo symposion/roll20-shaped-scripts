@@ -44,7 +44,7 @@ This is a script designed for use with the API on the [Roll20 Virtual Table Top]
   - [New Characters/Houserule Settings](#new-charactershouserule-settings)
   - [New Characters/Houserule Settings/Saving Throws](#new-charactershouserule-settingssaving-throws)
   - [Character Sheet Enhancements](#character-sheet-enhancements)
-  - [Houserules & Variants](#houserules-&-variants)
+  - [Houserules & Variants](#houserules--variants)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

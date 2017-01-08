@@ -1,3 +1,20 @@
+<a name="4.10.0"></a>
+# [4.10.0](https://github.com/symposion/roll20-shaped-scripts/compare/4.9.0...4.10.0) (2017-01-08)
+
+
+### Bug Fixes
+
+* **apply-defaults:** Stop bar changes causing data corruption ([fc74192](https://github.com/symposion/roll20-shaped-scripts/commit/fc74192))
+* **parser:** Traits should allow for parenthesis. ([8df5e0d](https://github.com/symposion/roll20-shaped-scripts/commit/8df5e0d)), closes [#262](https://github.com/symposion/roll20-shaped-scripts/issues/262)
+* **token-numbering:** Fix failure to apply token numbering ([b6e0f72](https://github.com/symposion/roll20-shaped-scripts/commit/b6e0f72))
+
+
+### Features
+
+* **config:** Add hide cost option to new character options ([a828aff](https://github.com/symposion/roll20-shaped-scripts/commit/a828aff)), closes [#266](https://github.com/symposion/roll20-shaped-scripts/issues/266)
+
+
+
 <a name="4.9.0"></a>
 # [4.9.0](https://github.com/symposion/roll20-shaped-scripts/compare/4.8.0...4.9.0) (2016-10-14)
 
