@@ -113,10 +113,10 @@ describe('srd-converter', function () {
 
   describe('#convertSpell', function () {
     try {
-      const spells = JSON.parse(fs.readFileSync('../../roll20/data/spells/spellData.json', 'utf-8'));
+      const spells = JSON.parse(fs.readFileSync('../roll20/data/spellSourceFiles/spellData.json', 'utf-8'));
 
       it('should parse spell correctly', function () {
-        srdConverter.convertSpells(spells, 'female');
+        srdConverter.convertSpells(spells.spells, 'female');
       });
     }
     catch (e) {
@@ -128,7 +128,7 @@ describe('srd-converter', function () {
   });
 
   describe('#convertJsonMonster', function () {
-    glob.sync('../../roll20/data/monsterSourceFiles/*.json').forEach(function (jsonFile) {
+    glob.sync('../roll20/data/monsterSourceFiles/*.json').forEach(function (jsonFile) {
       describe(`JSON file:  ${jsonFile}`, function () {
         const json = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
         json.monsters.forEach(function (monster) {

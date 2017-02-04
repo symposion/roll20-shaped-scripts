@@ -91,7 +91,13 @@ describe('monster-post-processor', function () {
         { name: 'Spellcasting', text: reformattedTrait },
         { name: 'Innate Spellcasting', text: reformattedInnateTrait },
       ],
-      spells: _.map(spellList, _.partial(el.entityLookup.findEntity.bind(el.entityLookup), 'spells')),
+      spells: _.map(spellList, _.partial(el.entityLookup.findEntity.bind(el.entityLookup), 'spells'))
+        .map((spell) => {
+          if (spell.name === 'Levitate') {
+            spell.name = 'Levitate (self only)';
+          }
+          return spell;
+        }),
     };
     mpp([monster], el.entityLookup);
     // noinspection JSUnresolvedVariable
