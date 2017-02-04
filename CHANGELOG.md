@@ -1,3 +1,35 @@
+<a name="5.0.0"></a>
+# [5.0.0](https://github.com/symposion/roll20-shaped-scripts/compare/4.10.0...5.0.0) (2017-02-04)
+
+
+### Bug Fixes
+
+* **advantage-tracker:** Fix advantage reversion to work with new sheet ([830f93b](https://github.com/symposion/roll20-shaped-scripts/commit/830f93b)), closes [#263](https://github.com/symposion/roll20-shaped-scripts/issues/263)
+* **config:** Update advantage options to match sheet 8.x.x ([f1bea77](https://github.com/symposion/roll20-shaped-scripts/commit/f1bea77))
+* **config:** Update config to match 9.x sheet ([840e0fd](https://github.com/symposion/roll20-shaped-scripts/commit/840e0fd))
+* **hp-roller:** Fix possible bug with sending HP info to chat ([4e73e67](https://github.com/symposion/roll20-shaped-scripts/commit/4e73e67))
+* **monster-import:** Don't strip bracketed info from spell names ([1326c7a](https://github.com/symposion/roll20-shaped-scripts/commit/1326c7a)), closes [#261](https://github.com/symposion/roll20-shaped-scripts/issues/261)
+* **spell-import:** Update spell attributes to match 9.x sheet ([6a3f5b2](https://github.com/symposion/roll20-shaped-scripts/commit/6a3f5b2))
+* **token-actions:** Fix broken token action creation for individual spells ([cdf7d1d](https://github.com/symposion/roll20-shaped-scripts/commit/cdf7d1d)), closes [#273](https://github.com/symposion/roll20-shaped-scripts/issues/273)
+* **traits:** Don't warn when no uses value present ([a2f0a68](https://github.com/symposion/roll20-shaped-scripts/commit/a2f0a68)), closes [#256](https://github.com/symposion/roll20-shaped-scripts/issues/256)
+
+
+### Features
+
+* **monster-import:** --as option for monsters ([5c14ef7](https://github.com/symposion/roll20-shaped-scripts/commit/5c14ef7)), closes [#255](https://github.com/symposion/roll20-shaped-scripts/issues/255)
+* **spell-import:** Fix higher level text to be in its own field ([5a21361](https://github.com/symposion/roll20-shaped-scripts/commit/5a21361)), closes [#278](https://github.com/symposion/roll20-shaped-scripts/issues/278)
+* **traits:** Decrement traits by per_use value if present ([90bcd49](https://github.com/symposion/roll20-shaped-scripts/commit/90bcd49)), closes [#265](https://github.com/symposion/roll20-shaped-scripts/issues/265)
+
+
+### BREAKING CHANGES
+
+* spell-import: More 9.x only changes!
+* config: This version of the script will no longer work with sheet versions prior to 9.0. DO NOT UPGRADE if you are still on sheet 7.x - it will not work and it is extremely hard to downgrade the script again afterwards.
+* advantage-tracker: This no longer works with old versions of the sheet
+* config: This no longer works with old versions of the sheet
+
+
+
 <a name="4.10.0"></a>
 # [4.10.0](https://github.com/symposion/roll20-shaped-scripts/compare/4.9.0...4.10.0) (2017-01-08)
 
