@@ -1,3 +1,18 @@
+<a name="5.1.0"></a>
+# [5.1.0](https://github.com/symposion/roll20-shaped-scripts/compare/5.0.0...5.1.0) (2017-02-04)
+
+
+### Bug Fixes
+
+* **adv-tracker:** Fix broken auto-revert functionality ([abd1158](https://github.com/symposion/roll20-shaped-scripts/commit/abd1158))
+
+
+### Features
+
+* **death-saves:** Handling for crits/fails + reporting of final result ([13741e9](https://github.com/symposion/roll20-shaped-scripts/commit/13741e9))
+
+
+
 <a name="5.0.0"></a>
 # [5.0.0](https://github.com/symposion/roll20-shaped-scripts/compare/4.10.0...5.0.0) (2017-02-04)
 
