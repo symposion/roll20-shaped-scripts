@@ -1,3 +1,13 @@
+<a name="5.2.0"></a>
+# [5.2.0](https://github.com/symposion/roll20-shaped-scripts/compare/5.1.0...5.2.0) (2017-02-09)
+
+
+### Features
+
+* **config:** Update initiative settings for 9.1.0 ([4f06dc6](https://github.com/symposion/roll20-shaped-scripts/commit/4f06dc6)), closes [#292](https://github.com/symposion/roll20-shaped-scripts/issues/292)
+
+
+
 <a name="5.1.0"></a>
 # [5.1.0](https://github.com/symposion/roll20-shaped-scripts/compare/5.0.0...5.1.0) (2017-02-04)
 
