@@ -1,3 +1,13 @@
+<a name="5.3.0"></a>
+# [5.3.0](https://github.com/symposion/roll20-shaped-scripts/compare/5.2.0...5.3.0) (2017-02-13)
+
+
+### Features
+
+* **token-actions:** Make abilities use ids to survive name changes ([7911049](https://github.com/symposion/roll20-shaped-scripts/commit/7911049)), closes [#295](https://github.com/symposion/roll20-shaped-scripts/issues/295)
+
+
+
 <a name="5.2.0"></a>
 # [5.2.0](https://github.com/symposion/roll20-shaped-scripts/compare/5.1.0...5.2.0) (2017-02-09)
 
