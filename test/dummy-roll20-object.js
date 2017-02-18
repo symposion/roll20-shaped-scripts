@@ -3,8 +3,8 @@ const _ = require('underscore');
 
 class Roll20Object {
 
-  constructor(type) {
-    this.props = {};
+  constructor(type, props) {
+    this.props = props || {};
     this.id = _.uniqueId();
     this.type = type;
   }

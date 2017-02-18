@@ -2,7 +2,6 @@
 
 /* globals describe: false, it:false, before:false, after:false */
 const expect = require('chai').expect;
-const utils = require('../lib/utils');
 const EntityLookup = require('../lib/entity-lookup');
 const JSONValidator = require('../lib/json-validator');
 const spec = require('../resources/mmFormatSpec.json');
@@ -24,15 +23,11 @@ describe('entity-lookup', function () {
   const spell1 = { name: 'spell1' };
   const spell2 = { name: 'spell2' };
 
-  const monster1 = { name: 'monster1', spells: 'spell1, spell2' };
-  const monster2 = { name: 'monster2' };
-  const monster3 = { name: 'monster3', spells: 'spell1' };
-
 
   describe('#lookupEntity', function () {
     const el = new EntityLookup();
-    el.configureEntity('spells', [el.getMonsterSpellUpdater()]);
-    el.configureEntity('monsters', [el.getSpellHydrator()]);
+    el.configureEntity('spells', []);
+    el.configureEntity('monsters', []);
     el.addEntities({ version: '0.2', spells: [spell1, spell2] });
     it('finds entity by name', function () {
       expect(el.findEntity('spells', 'SPell1')).to.deep.equal(spell1);
@@ -48,22 +43,6 @@ describe('entity-lookup', function () {
     });
   });
 
-  describe('#addEntities', function () {
-    const el = new EntityLookup();
-    el.configureEntity('spells', [el.getMonsterSpellUpdater()]);
-    el.configureEntity('monsters', [el.getSpellHydrator()]);
-    it('should hydrate spells', function () {
-      el.addEntities({ version: '0.2', monsters: utils.deepClone([monster1, monster2]) });
-      expect(el.findEntity('monsters', 'monster1')).to.deep.equal({
-        name: 'monster1',
-        spells: ['spell1', 'spell2'],
-      });
-      el.addEntities({ version: '0.2', spells: utils.deepClone([spell1, spell2]) });
-      expect(el.findEntity('monsters', 'monster1')).to.deep.equal({ name: 'monster1', spells: [spell1, spell2] });
-      el.addEntities({ version: '0.2', monsters: utils.deepClone([monster3]) });
-      expect(el.findEntity('monsters', 'monster3')).to.deep.equal({ name: 'monster3', spells: [spell1] });
-    });
-  });
 
   describe('#entitySearch', function () {
     const el = new EntityLookup();
@@ -165,10 +144,9 @@ describe('entity-lookup', function () {
   describe('functional test', function () {
     const el = new EntityLookup();
     const jv = new JSONValidator(spec);
-    el.configureEntity('spells', [el.getMonsterSpellUpdater()], EntityLookup.getVersionChecker('0.2'));
+    el.configureEntity('spells', [], EntityLookup.getVersionChecker('0.2'));
     el.configureEntity('monsters', [
       EntityLookup.jsonValidatorAsEntityProcessor(jv),
-      el.getSpellHydrator(),
     ], EntityLookup.jsonValidatorAsVersionChecker(jv));
     glob.sync('../roll20/data/spellSourceFiles/spellData.json').forEach(function (jsonFile) {
       const spells = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));

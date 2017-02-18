@@ -51,6 +51,19 @@ const attributeArray = [
   new Attribute('repeating_ammo_YYY_weight', 0.1),
 ];
 
+const spellAttributes = [
+  new Roll20Object('attribute', { name: 'repeating_spell0_1_name', current: 'Mage Hand' }),
+  new Roll20Object('attribute', { name: 'repeating_spell0_1_level', current: 0 }),
+  new Roll20Object('attribute', { name: 'repeating_spell0_1_content', current: 'Mage hand Content' }),
+  new Roll20Object('attribute', { name: 'repeating_spell1_2_name', current: 'Shield *' }),
+  new Roll20Object('attribute', { name: 'repeating_spell1_2_level', current: 1 }),
+  new Roll20Object('attribute', { name: 'repeating_spell1_3_name', current: 'Thunderwave (self only)' }),
+  new Roll20Object('attribute', { name: 'repeating_spell5_4_name', current: 'Dimension Door (self only)' }),
+  new Roll20Object('attribute', { name: 'repeating_spell5_4_content', current: 'Dimension Door content' }),
+  new Roll20Object('attribute', { name: 'repeating_spell6_5_name', current: 'Disintegrate' }),
+  new Roll20Object('attribute', { name: 'repeating_spell3_6_name', current: 'Counterspell' }),
+];
+
 describe('shaped-script', function () {
   let roll20;
 
@@ -81,7 +94,7 @@ describe('shaped-script', function () {
 
       const setVals = {};
 
-      arrowsQty.set = function (propName, value) {
+      arrowsQty.setWithWorker = function (propName, value) {
         setVals[propName] = value;
       };
 
@@ -99,7 +112,7 @@ describe('shaped-script', function () {
         },
       ];
 
-      runImportMonsterTest(roll20, monsters, {},
+      return runImportMonsterTest(roll20, monsters, {},
         function (token, character) {
           roll20.createObj.withArgs('character', { name: 'monster' }).returns(character);
         },
@@ -116,7 +129,7 @@ describe('shaped-script', function () {
         },
       ];
 
-      runImportMonsterTest(roll20, monsters, {},
+      return runImportMonsterTest(roll20, monsters, {},
         function (token, character) {
           token.set('represents', character.id);
           roll20.createObj.withArgs('character', { name: 'monster' }).returns(character);
@@ -134,7 +147,7 @@ describe('shaped-script', function () {
         },
       ];
 
-      runImportMonsterTest(roll20, monsters, { overwrite: true },
+      return runImportMonsterTest(roll20, monsters, { overwrite: true },
         function (token, character) {
           token.set('represents', character.id);
           roll20.getObj.withArgs('character', character.id).returns(character);
@@ -152,7 +165,7 @@ describe('shaped-script', function () {
         },
       ];
 
-      runImportMonsterTest(roll20, monsters, { replace: true },
+      return runImportMonsterTest(roll20, monsters, { replace: true },
         function (token, character) {
           character.set('name', 'monster2');
           token.set('represents', character.id);
@@ -171,7 +184,7 @@ describe('shaped-script', function () {
         },
       ];
 
-      runImportMonsterTest(roll20, monsters, { replace: true },
+      return runImportMonsterTest(roll20, monsters, { replace: true },
         function (token, character) {
           character.set('name', 'monster');
           roll20.findObjs.withArgs({ type: 'character', name: 'monster' }).returns([character]);
@@ -180,6 +193,87 @@ describe('shaped-script', function () {
           expect(token.props.represents).to.equal(character.id);
           expect(character.props.avatar).to.equal('imgsrc');
         });
+    });
+  });
+
+  describe('#runImportStage', function () {
+    it('builds execution groups properly', function () {
+      const roll20Mock = sinon.mock(roll20);
+      const characterStub = {
+        id: 'myid',
+        get: function get() {
+          return 'name';
+        },
+      };
+      const attributes = {};
+      const shapedScript = new ShapedScripts(logger, { config: { updateAmmo: true } }, roll20, null, null,
+        new Reporter());
+      _.times(100, index => (attributes[`attr${index}`] = index));
+      roll20Mock.expects('onSheetWorkerCompleted').twice().yieldsAsync();
+      roll20Mock.expects('setAttrWithWorker').exactly(100);
+      roll20Mock.expects('sendChat').once();
+      return shapedScript.runImportStage(characterStub, attributes, 'Test').then(() => roll20Mock.verify());
+    });
+  });
+
+  describe('#spellAttributesForCharacter', function () {
+    it('groups spell attributes correctly', function () {
+      const char = new Roll20Object('character', { name: 'character' });
+      const roll20Mock = sinon.mock(roll20);
+      const shapedScript = new ShapedScripts(logger, { config: { updateAmmo: true } }, roll20, null, null,
+        new Reporter());
+
+      roll20Mock.expects('findObjs').returns(spellAttributes);
+      const spells = shapedScript.getSpellAttributesForCharacter(char);
+      expect(_.size(spells)).to.equal(6);
+      expect(spells).to.have.all.keys(['mage hand', 'shield', 'thunderwave (self only)', 'dimension door (self only)',
+        'disintegrate', 'counterspell']);
+      roll20Mock.verify();
+    });
+
+    it('creates attribute list for import spells', function () {
+      const char = new Roll20Object('character', { name: 'character' });
+      const roll20Mock = sinon.mock(roll20);
+      const srdConverterStub = {
+        convertSpells: _.identity,
+      };
+      const shapedScript = new ShapedScripts(logger, { config: { updateAmmo: true } }, roll20, null, el.entityLookup,
+        new Reporter(), srdConverterStub);
+      roll20Mock.expects('findObjs').returns(spellAttributes);
+
+      const attributes = shapedScript.getSpellAttributesForImport(char, {},
+        [{ name: 'Banishment', content: 'Banishment content' }, { name: 'Shield', content: 'Shield content' }], true);
+      expect(attributes).to.deep.equal([
+        { name: 'Shield', rowId: '2', level: 1 },
+        { name: 'Thunderwave (self only)', rowId: '3', level: 1 },
+        { name: 'Disintegrate', rowId: '5', level: 6 },
+        { name: 'Counterspell', rowId: '6', level: 3 },
+        { name: 'Banishment', content: 'Banishment content' },
+      ]);
+      roll20Mock.verify();
+    });
+
+    it('omits spells when overwrite not set', function () {
+      const char = new Roll20Object('character', { name: 'character' });
+      const roll20Mock = sinon.mock(roll20);
+      const srdConverterStub = {
+        convertSpells: _.identity,
+      };
+      const shapedScript = new ShapedScripts(logger, { config: { updateAmmo: true } }, roll20, null, el.entityLookup,
+        new Reporter(), srdConverterStub);
+      roll20Mock.expects('findObjs').returns(spellAttributes);
+
+      const attributes = shapedScript.getSpellAttributesForImport(char, {},
+        [{ name: 'Banishment', content: 'Banishment content' }, { name: 'Mage Hand', content: 'Mage hand content' }],
+        false);
+      expect(attributes).to.deep.equal([
+        { name: 'Shield', rowId: '2', level: 1 },
+        { name: 'Thunderwave (self only)', rowId: '3', level: 1 },
+        { name: 'Disintegrate', rowId: '5', level: 6 },
+        { name: 'Counterspell', rowId: '6', level: 3 },
+        { name: 'Banishment', content: 'Banishment content' },
+      ]);
+      roll20Mock.verify();
     });
   });
 
@@ -313,8 +407,10 @@ function runImportMonsterTest(roll20, monsters, options, preConfigure, expectati
     return attr;
   });
   roll20.getAttrByName.withArgs(character.id, 'locked').returns(null);
+  sinon.stub(shapedScript, 'applyCharacterDefaults').returns(character);
+  sinon.stub(shapedScript, 'monsterDataPopulator').returns(character);
 
-  shapedScript.importMonsters(monsters, options, token, []);
-  expect(attributes.import_data_present.props.current).to.equal('on');
-  expectationChecker(character, attributes, token);
+  return shapedScript.importMonsters(monsters, options, token, []).then(() => {
+    expectationChecker(character, attributes, token);
+  });
 }

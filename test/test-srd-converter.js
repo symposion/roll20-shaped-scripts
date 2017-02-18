@@ -57,16 +57,16 @@ describe('srd-converter', function () {
       // noinspection JSUnresolvedVariable
       const converted = srdConverter.convertMonster(fullObject);
       converted.should.have.property('content_srd',
-        'Traits\n' +
+        '\n Traits\n' +
         '**Trait One (1/day)**: trait text blah blah\nblah\n' +
         '**Trait Two**: trait 2 text blah blah\nblah\n' +
-        'Actions\n' +
+        '\n Actions\n' +
         '**Action One (5-6)**: action text blah blah\nblah\n' +
         '**Action Two**: action 2 text blah blah\nblah\n' +
-        'Reactions\n' +
+        '\n Reactions\n' +
         '**Reaction One (5-6)**: reaction text blah blah\nblah\n' +
         '**Reaction Two**: reaction 2 text blah blah\nblah\n' +
-        'Legendary Actions\n' +
+        '\n Legendary Actions\n' +
         'The Wobbler can take 3 legendary actions, choosing from the options below. ' +
         'It can take only one legendary action at a time and only at the end of another creature\'s turn. ' +
         'The Wobbler regains spent legendary actions at the start of its turn.\n' +
@@ -80,7 +80,7 @@ describe('srd-converter', function () {
       // noinspection JSUnresolvedVariable
       const converted = srdConverter.convertMonster(fullObject);
       converted.should.have.property('is_npc', 1);
-      converted.should.have.property('edit_mode', 'off');
+      converted.should.have.property('edit_mode', 0);
       converted.should.not.contain.any.keys('traits', 'actions', 'reactions', 'legendaryActions', 'legendary_actions');
     });
 
@@ -102,9 +102,9 @@ describe('srd-converter', function () {
       // noinspection JSUnresolvedVariable
       const converted = srdConverter.convertMonster(someMissing);
       converted.should.have.property('content_srd',
-        'Traits\n' +
+        '\n Traits\n' +
         '**Trait Two**: trait 2 text blah blah\nblah\n' +
-        'Actions\n' +
+        '\n Actions\n' +
         '**Action One (5-6)**: action text blah blah\nblah\n' +
         '**Action Two**: action 2 text blah blah\nblah');
       converted.should.not.have.any.keys('traits', 'actions', 'reactions', 'legendaryActions', 'legendary_actions');

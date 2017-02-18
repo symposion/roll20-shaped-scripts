@@ -74,7 +74,7 @@ const spells = {
 };
 
 const el = new EntityLookup();
-el.configureEntity('monsters', [el.getSpellHydrator()], _.constant(true));
+el.configureEntity('monsters', [], _.constant(true));
 el.configureEntity('spells', [], _.constant(true));
 el.addEntities(spells);
 
