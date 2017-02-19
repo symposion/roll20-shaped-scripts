@@ -277,6 +277,9 @@ Display configuration UI to change default behaviours. The significance of all t
 * Alias !shaped-token-defaults *
 Apply the same defaults that are used when setting up tokens on import to whatever tokens are currently selected. Useful for mass-configuring manually created tokens. See [below](#config-token-settings) for more details on what these options are.
 
+### Selection
+You must have at least one token that represents a character selected for this command to work. 
+
 ## !shaped-rest
 Applies the effects of a long or short rest, or a turn recharge
 
@@ -285,7 +288,16 @@ Applies the effects of a long or short rest, or a turn recharge
 * **--character** Apply the rest to the supplied character id instead of the selected tokens
 
 ### Selection
-You must select at least one token that represents a character unless you supply the --id option. The selected character(s) will have the effects of the specified type of rest applied to them.
+You must select at least one token that represents a character unless you supply the --character option. The selected character(s) will have the effects of the specified type of rest applied to them.
+
+## !shaped-update-character
+Triggers any pending character sheet upgrades for the selected characters. When a new version of the character sheet is released, there are often upgrade scripts that must run before previously created characters can be used with it. Normally these are run the first time you open each character sheet. For convenience, you can use this command to trigger these updates on batches of characters without having to open their sheets.
+
+### Options
+* **--all** Apply any pending character sheet upgrades for all characters in the current campaign. Note that this might take a *long* time in a large campaign - use with caution!
+
+### Selection
+Unless you specify **--all** you must have at least one token that represents a character selected for this command to work.
 
 # Configuration
 ## Advantage Tracker
