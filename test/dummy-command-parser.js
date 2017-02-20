@@ -9,4 +9,5 @@ module.exports = {
   options: chainer,
   option: chainer,
   withSelection: chainer,
+  optionLookup: chainer,
 };
