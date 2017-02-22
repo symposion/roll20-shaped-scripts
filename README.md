@@ -296,6 +296,12 @@ Triggers any pending character sheet upgrades for the selected characters. When 
 ### Options
 * **--all** Apply any pending character sheet upgrades for all characters in the current campaign. Note that this might take a *long* time in a large campaign - use with caution!
 
+## !shaped-expand-spells
+When you drag characters from the SRD/Compendium, they are imported with a spell list, but none of the spells have any content. This command will expand these "stub spells" using data from a custom spells database, if one is present.
+
+### Selection
+You must select at least one token that represents a character. The selected character(s) will be checked for empty spells and these will be expanded from the custom JSON database.
+
 ### Selection
 Unless you specify **--all** you must have at least one token that represents a character selected for this command to work.
 
