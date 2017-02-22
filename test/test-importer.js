@@ -161,13 +161,13 @@ describe('importer', function () {
         },
       };
       const attributes = {};
+      const streamer = { stream: _.noop };
       const importer = new Importer(el.entityLookup, null, null);
       importer.configure(roll20, new Reporter(), logger, {}, errorHandler, cp);
       _.times(100, index => (attributes[`attr${index}`] = index));
       roll20Mock.expects('onSheetWorkerCompleted').twice().yieldsAsync();
       roll20Mock.expects('setAttrWithWorker').exactly(100);
-      roll20Mock.expects('sendChat').once();
-      return importer.runImportStage(characterStub, attributes, 'Test').then(() => roll20Mock.verify());
+      return importer.runImportStage(characterStub, attributes, 'Test', streamer).then(() => roll20Mock.verify());
     });
   });
 
