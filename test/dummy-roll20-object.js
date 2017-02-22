@@ -17,6 +17,10 @@ class Roll20Object {
   set(propName, value) {
     this.props[propName] = value;
   }
+
+  setWithWorker(propName, value) {
+    this.set(propName, value);
+  }
 }
 
 module.exports = Roll20Object;

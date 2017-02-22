@@ -4,6 +4,7 @@
 class Reporter {
   constructor() {
     this.messages = [];
+    this.errors = [];
   }
 
   // noinspection JSUnusedGlobalSymbols
@@ -20,7 +21,7 @@ class Reporter {
 
   // noinspection JSUnusedGlobalSymbols
   reportError(message) {
-    this.messages.push(message);
+    this.errors.push(message);
   }
 }
 
