@@ -277,6 +277,30 @@ describe('importer', function () {
       expect(token.props).to.have.property('light_dimradius', -5);
     });
   });
+
+  describe('fixRoll20Brokenness', function () {
+    it('debrokens', function () {
+      const importer = new Importer(el.entityLookup, null, null);
+      sinon.stub(roll20);
+      importer.configure(roll20, new Reporter(), logger, {}, errorHandler, cp);
+      const attributes = [
+        new Roll20Object('attribute', { name: 'foo', current: 1 }),
+        new Roll20Object('attribute', { name: 'foo', max: 2 }),
+        new Roll20Object('attribute', { name: 'bar', current: 1, max: 2 }),
+        new Roll20Object('attribute', { name: 'blort', current: 1 }),
+        new Roll20Object('attribute', { name: 'wibble', max: 1 }),
+      ];
+      let removed = false;
+      attributes[1].remove = function remove() {
+        removed = true;
+      };
+      roll20.findObjs.returns(attributes);
+      importer.fixRoll20Brokenness({ id: 5 });
+      expect(removed).to.equal(true);
+      expect(attributes[0].props).to.have.property('current', 1);
+      expect(attributes[0].props).to.have.property('max', 2);
+    });
+  });
 });
 
 
