@@ -86,4 +86,35 @@ describe('shaped-script', function () {
       }).callCount).to.equal(1);
     });
   });
+
+  describe('handleSpellCast', function () {
+    it('should deal with cantrips correctly', function () {
+      const mock = sinon.mock(roll20);
+      const char = new Roll20Object('character');
+      char.set('name', 'Bob');
+      const reporter = new Reporter();
+      const shapedScript = new ShapedScripts(logger, { config: { sheetEnhancements: { autoSpellSlots: true } } },
+        roll20, null, el.entityLookup, reporter);
+
+      mock.expects('getAttrObjectByName').never();
+      shapedScript.handleSpellCast({ castAsLevel: '', character: char, spellLevel: 'CANTRIP' });
+      mock.verify();
+    });
+
+    it('should deal with normal spells correctly', function () {
+      sinon.stub(roll20);
+      const char = new Roll20Object('character');
+      char.set('name', 'Bob');
+      const reporter = new Reporter();
+      const shapedScript = new ShapedScripts(logger, { config: { sheetEnhancements: { autoSpellSlots: true } } },
+        roll20, null, el.entityLookup, reporter);
+
+      const slotsAttr = new Roll20Object('attribute', { name: 'spell_slots_l5', current: 2 });
+      roll20.getAttrObjectByName.withArgs(char.id, 'spell_slots_l5').returns(slotsAttr);
+      roll20.getAttrObjectByName.withArgs(char.id, 'warlock_spell_slots').returns(null);
+
+      shapedScript.handleSpellCast({ castAsLevel: 5, character: char });
+      expect(slotsAttr.props).to.have.property('current', 1);
+    });
+  });
 });
