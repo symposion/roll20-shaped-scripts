@@ -18,8 +18,8 @@ class Roll20Object {
     this.props[propName] = value;
   }
 
-  setWithWorker(propName, value) {
-    this.set(propName, value);
+  setWithWorker(props) {
+    _.extend(this.props, props);
   }
 }
 
