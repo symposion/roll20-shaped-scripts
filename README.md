@@ -198,6 +198,16 @@ You may no or 1 tokens selected when running this command:
 
 <a name="avatar-note"/><sup>1</sup> Note that avatars will ony successfully be set for token images from your library, not marketplace or web content. This is due to security restrictions within the Roll20 platform. If you really want an image as a character avatar, please unpload it to your library and then create a token from it before doing your import.
 
+## !shaped-import-by-token
+This basically does the same thing as [!shaped-import-monster](#shaped-import-monster), except that instead of passing it a list of monsters as parameters to the chat command, it infers the names of the monster to import from the names of the selected tokens. This is a quick way to configure and import a whole bunch of monsters all at once. Find the tokens you want for all your monster and drag them to the tabletop; name the tokens according to the monsters they represent, select them all, and run this command. It will find monsters by name from your custom JSON database, and configure each token to represent the new characters it creates.
+
+### Options
+* **--overwrite** as for [!shaped-import-monster](#shaped-import-monster)
+* **--replace** as for [!shaped-import-monster](#shaped-import-monster)
+
+### Selection
+You must have at least one token selected for this command. As described above, it will use the name assigned to each token to lookup the monster it will represent from your JSON database.
+
 ## !shaped-import-spell
 * Alias !shaped-spell *
 Imports details of named spells from a database of customer spells loaded as a separate script. All spells will be added to the currently selected character. If run with no options, this command will display a chat window button that allows you to launch a select list of all available spells to choose from.
