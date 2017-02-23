@@ -13,8 +13,6 @@ const glob = require('glob');
 const parseModule = require('../lib/parser');
 const logger = require('./dummy-logger');
 const sanitise = require('../lib/sanitise');
-const mpp = require('../lib/monster-post-processor');
-const el = require('./dummy-entity-lookup');
 
 Promise.promisifyAll(fs);
 
@@ -74,9 +72,7 @@ function getExpectedOutputForFile(file) {
 
 function runParse(parser, statBlockText) {
   try {
-    const parsed = parser.parse(sanitise(statBlockText, logger));
-    mpp(parsed.monsters, el.entityLookup);
-    return parsed;
+    return parser.parse(sanitise(statBlockText, logger));
   }
   catch (e) {
     console.log(e.stack);
