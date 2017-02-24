@@ -1,3 +1,13 @@
+<a name="6.0.1"></a>
+## [6.0.1](https://github.com/symposion/roll20-shaped-scripts/compare/6.0.0...6.0.1) (2017-02-24)
+
+
+### Bug Fixes
+
+* **update-character:** Fix bug on update character ([cf625cd](https://github.com/symposion/roll20-shaped-scripts/commit/cf625cd)), closes [#321](https://github.com/symposion/roll20-shaped-scripts/issues/321)
+
+
+
 <a name="6.0.0"></a>
 # [6.0.0](https://github.com/symposion/roll20-shaped-scripts/compare/5.3.0...6.0.0) (2017-02-24)
 
