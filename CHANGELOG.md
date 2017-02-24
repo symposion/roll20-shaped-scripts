@@ -1,3 +1,41 @@
+<a name="6.0.0"></a>
+# [6.0.0](https://github.com/symposion/roll20-shaped-scripts/compare/5.3.0...6.0.0) (2017-02-24)
+
+
+### Bug Fixes
+
+* **import:** Import wasn't whispering to GM/player ([1977527](https://github.com/symposion/roll20-shaped-scripts/commit/1977527))
+* **import:** Workaround roll20 bug with max values under API sheetworkers ([d9c7292](https://github.com/symposion/roll20-shaped-scripts/commit/d9c7292)), closes [#317](https://github.com/symposion/roll20-shaped-scripts/issues/317)
+* **spell-import:** Fix crash bug with !shaped-import-spell ([4ae2344](https://github.com/symposion/roll20-shaped-scripts/commit/4ae2344))
+* **spell-slots:** Fix problem with Cantrips ([36df7ca](https://github.com/symposion/roll20-shaped-scripts/commit/36df7ca))
+* **uses:** Fix crash when per_use is a non-integer value ([19aeb05](https://github.com/symposion/roll20-shaped-scripts/commit/19aeb05))
+
+
+### Chores
+
+* Temporary guard for removeWithWorker not existing ([adace36](https://github.com/symposion/roll20-shaped-scripts/commit/adace36))
+
+
+### Features
+
+* **config:** Add all latest 9.x options to !shaped-config ([d226e04](https://github.com/symposion/roll20-shaped-scripts/commit/d226e04)), closes [#298](https://github.com/symposion/roll20-shaped-scripts/issues/298)
+* **import:** Add command that imports based on token names ([f03c5a8](https://github.com/symposion/roll20-shaped-scripts/commit/f03c5a8)), closes [#311](https://github.com/symposion/roll20-shaped-scripts/issues/311)
+* **import:** Support API sheetworkers for cleaner import ([beacb13](https://github.com/symposion/roll20-shaped-scripts/commit/beacb13))
+* **rests:** Support new recharge field for use recovery ([4864c10](https://github.com/symposion/roll20-shaped-scripts/commit/4864c10)), closes [#264](https://github.com/symposion/roll20-shaped-scripts/issues/264)
+* **spell-import:** Add command to expand empty spells ([f20b305](https://github.com/symposion/roll20-shaped-scripts/commit/f20b305))
+* **spell-slots:** Auto-decrement spell slots ([4516bd6](https://github.com/symposion/roll20-shaped-scripts/commit/4516bd6)), closes [#16](https://github.com/symposion/roll20-shaped-scripts/issues/16)
+* **token-actions:** Add option for showing recharge on token actions ([c5c3648](https://github.com/symposion/roll20-shaped-scripts/commit/c5c3648)), closes [#272](https://github.com/symposion/roll20-shaped-scripts/issues/272)
+* **upgrade:** Script-driven sheet update for all character sheets ([5401c56](https://github.com/symposion/roll20-shaped-scripts/commit/5401c56)), closes [#300](https://github.com/symposion/roll20-shaped-scripts/issues/300)
+* **uses:** Decrement legendary points + restore on turn recharge ([d451c2a](https://github.com/symposion/roll20-shaped-scripts/commit/d451c2a)), closes [#312](https://github.com/symposion/roll20-shaped-scripts/issues/312)
+* **uses:** Use uses for everything that  has them ([e123718](https://github.com/symposion/roll20-shaped-scripts/commit/e123718)), closes [#260](https://github.com/symposion/roll20-shaped-scripts/issues/260)
+
+
+### BREAKING CHANGES
+
+* This script no longer works with version of the sheet below 9.1.0, you have been warned!
+
+
+
 <a name="5.3.0"></a>
 # [5.3.0](https://github.com/symposion/roll20-shaped-scripts/compare/5.2.0...5.3.0) (2017-02-13)
 
