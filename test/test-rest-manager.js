@@ -67,7 +67,7 @@ describe('rest-manager', function () {
     restManager = new RestManager();
     sinon.stub(roll20);
     char = new Roll20Object('character', { name: 'character' });
-    restManager.configure(roll20, null, logger, null, null, cp);
+    restManager.configure(roll20, null, logger, null, cp);
     restManager.rests = testRests;
     restManager.displayTemplates = testTemplates;
   });
