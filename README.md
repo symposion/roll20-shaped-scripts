@@ -330,6 +330,7 @@ Unless you specify **--all** you must have at least one token that represents a 
 Note that all of the settings under Token Defaults are applied to tokens only when **!shaped-import-monster**, **!shaped-import-statblock** or **!shaped-apply-defaults** are run.
 
 * **Numbered Tokens** If this is 'on', new tokens will have %%NUMBERED%% appended to their name to work with Aaron's TokenNameNumbered script. Please search for this on the API forum for more details.
+* **Token Name Override** If this is not empty, all new tokens will have their name tag set to this value. This is most useful in combination with Numbered Tokens, which allows you to have all your monsters labelled something like 'Monster 1', 'Monster 2', so your players can reference them but don't get any clues about what they are from the name.
 * **Show Name Tag** If this is 'on', the token will show its name tag to anyone who has permission to see it
 * **Show Name to Players** If this is 'on', and **Show Name Tag** is also 'on', players will be able to see the token's name.
 * **Light Radius** Default light radius emitted from token (Note that this value will be overriden by a value derived from a monster's senses attribute where available)
