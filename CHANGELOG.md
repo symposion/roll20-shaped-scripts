@@ -1,3 +1,18 @@
+<a name="6.1.0"></a>
+# [6.1.0](https://github.com/symposion/roll20-shaped-scripts/compare/6.0.1...6.1.0) (2017-02-24)
+
+
+### Bug Fixes
+
+* **import:** Make lair actions import properly again ([49a42b3](https://github.com/symposion/roll20-shaped-scripts/commit/49a42b3)), closes [#313](https://github.com/symposion/roll20-shaped-scripts/issues/313)
+
+
+### Features
+
+* **import:** Add option to use same label for all tokens ([89ed6b8](https://github.com/symposion/roll20-shaped-scripts/commit/89ed6b8)), closes [#276](https://github.com/symposion/roll20-shaped-scripts/issues/276)
+
+
+
 <a name="6.0.1"></a>
 ## [6.0.1](https://github.com/symposion/roll20-shaped-scripts/compare/6.0.0...6.0.1) (2017-02-24)
 
