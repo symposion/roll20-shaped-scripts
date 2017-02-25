@@ -58,35 +58,6 @@ describe('shaped-script', function () {
     });
   });
 
-  describe('ability creation', function () {
-    it('should create save ability', function () {
-      sinon.stub(roll20);
-      const characterStub = new Roll20Object('character');
-      characterStub.set('name', 'Bob');
-      const tokenStub = new Roll20Object('graphic');
-      const abilityStub = new Roll20Object('ability');
-      tokenStub.set('represents', characterStub.id);
-      roll20.getObj.withArgs('graphic', tokenStub.id).returns(tokenStub);
-      roll20.getObj.withArgs('character', characterStub.id).returns(characterStub);
-      roll20.getOrCreateObj.withArgs('ability', {
-        characterid: characterStub.id,
-        name: 'Saves',
-      }).returns(abilityStub);
-      const reporter = new Reporter();
-      const shapedScript = new ShapedScripts(logger, { config: { updateAmmo: true } }, roll20, null,
-        el.entityLookup, reporter);
-      shapedScript.handleInput({
-        type: 'api',
-        content: '!shaped-abilities --saves',
-        selected: [{ _type: 'graphic', _id: tokenStub.id }],
-      });
-      expect(roll20.getOrCreateObj.withArgs('ability', {
-        characterid: characterStub.id,
-        name: 'Saves',
-      }).callCount).to.equal(1);
-    });
-  });
-
   describe('handleSpellCast', function () {
     it('should deal with cantrips correctly', function () {
       const mock = sinon.mock(roll20);
