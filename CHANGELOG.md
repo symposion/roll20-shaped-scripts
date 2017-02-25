@@ -1,3 +1,13 @@
+<a name="6.2.1"></a>
+## [6.2.1](https://github.com/symposion/roll20-shaped-scripts/compare/6.2.0...6.2.1) (2017-02-25)
+
+
+### Bug Fixes
+
+* **spell-import:** Added changes that got merged out before last release ([c40c952](https://github.com/symposion/roll20-shaped-scripts/commit/c40c952))
+
+
+
 <a name="6.2.0"></a>
 # [6.2.0](https://github.com/symposion/roll20-shaped-scripts/compare/6.1.1...6.2.0) (2017-02-25)
 
