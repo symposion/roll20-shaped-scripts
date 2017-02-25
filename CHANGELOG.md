@@ -1,3 +1,20 @@
+<a name="6.2.0"></a>
+# [6.2.0](https://github.com/symposion/roll20-shaped-scripts/compare/6.1.1...6.2.0) (2017-02-25)
+
+
+### Bug Fixes
+
+* **import:** Attempt to dedup attributes more aggressively. ([4da25ce](https://github.com/symposion/roll20-shaped-scripts/commit/4da25ce))
+* **slots:** Don't decrement for repeat casts (requires 9.2.2) ([53314f7](https://github.com/symposion/roll20-shaped-scripts/commit/53314f7)), closes [#329](https://github.com/symposion/roll20-shaped-scripts/issues/329)
+* **spell-import:** Importing Spell List gives an error ([88019de](https://github.com/symposion/roll20-shaped-scripts/commit/88019de)), closes [#12](https://github.com/symposion/roll20-shaped-scripts/issues/12) [#334](https://github.com/symposion/roll20-shaped-scripts/issues/334)
+
+
+### Features
+
+* **slots:** Handle spell points as well ([696a269](https://github.com/symposion/roll20-shaped-scripts/commit/696a269))
+
+
+
 <a name="6.1.1"></a>
 ## [6.1.1](https://github.com/symposion/roll20-shaped-scripts/compare/6.1.0...6.1.1) (2017-02-24)
 
