@@ -112,6 +112,7 @@ describe('shaped-script', function () {
       const slotsAttr = new Roll20Object('attribute', { name: 'spell_slots_l5', current: 2 });
       roll20.getAttrObjectByName.withArgs(char.id, 'spell_slots_l5').returns(slotsAttr);
       roll20.getAttrObjectByName.withArgs(char.id, 'warlock_spell_slots').returns(null);
+      roll20.getAttrObjectByName.withArgs(char.id, 'spell_points').returns(null);
 
       shapedScript.handleSpellCast({ castAsLevel: 5, character: char });
       expect(slotsAttr.props).to.have.property('current', 1);
