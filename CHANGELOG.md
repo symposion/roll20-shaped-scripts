@@ -1,3 +1,13 @@
+<a name="6.1.1"></a>
+## [6.1.1](https://github.com/symposion/roll20-shaped-scripts/compare/6.1.0...6.1.1) (2017-02-24)
+
+
+### Bug Fixes
+
+* **logging:** Improve logging output to track down odd bugs ([4162fba](https://github.com/symposion/roll20-shaped-scripts/commit/4162fba))
+
+
+
 <a name="6.1.0"></a>
 # [6.1.0](https://github.com/symposion/roll20-shaped-scripts/compare/6.0.1...6.1.0) (2017-02-24)
 
