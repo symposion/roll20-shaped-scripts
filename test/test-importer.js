@@ -163,6 +163,7 @@ describe('importer', function () {
       _.times(100, index => (attributes[`attr${index}`] = index));
       roll20Mock.expects('onSheetWorkerCompleted').twice().yieldsAsync();
       roll20Mock.expects('setAttrWithWorker').exactly(100);
+      roll20Mock.expects('findObjs').atLeast(1).returns([]);
       return importer.runImportStage(characterStub, attributes, 'Test', streamer).then(() => roll20Mock.verify());
     });
   });
@@ -291,7 +292,7 @@ describe('importer', function () {
         removed = true;
       };
       roll20.findObjs.returns(attributes);
-      importer.fixRoll20Brokenness({ id: 5 });
+      importer.fixRoll20Brokenness(new Roll20Object('character'), { name: 'Char' });
       expect(removed).to.equal(true);
       expect(attributes[0].props).to.have.property('current', 1);
       expect(attributes[0].props).to.have.property('max', 2);
