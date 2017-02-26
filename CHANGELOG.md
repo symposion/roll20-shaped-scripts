@@ -1,3 +1,13 @@
+<a name="6.4.1"></a>
+## [6.4.1](https://github.com/symposion/roll20-shaped-scripts/compare/6.4.0...6.4.1) (2017-02-26)
+
+
+### Bug Fixes
+
+* **startup:** Scale timeout to size of campaign ([155e45a](https://github.com/symposion/roll20-shaped-scripts/commit/155e45a)), closes [#341](https://github.com/symposion/roll20-shaped-scripts/issues/341)
+
+
+
 <a name="6.4.0"></a>
 # [6.4.0](https://github.com/symposion/roll20-shaped-scripts/compare/6.3.0...6.4.0) (2017-02-26)
 
