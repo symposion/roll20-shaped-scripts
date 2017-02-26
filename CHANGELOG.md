@@ -1,3 +1,13 @@
+<a name="6.4.5"></a>
+## [6.4.5](https://github.com/symposion/roll20-shaped-scripts/compare/6.4.4...6.4.5) (2017-02-26)
+
+
+### Bug Fixes
+
+* **rests:** Fix error when resting as player not GM (again!) ([8491e0c](https://github.com/symposion/roll20-shaped-scripts/commit/8491e0c))
+
+
+
 <a name="6.4.4"></a>
 ## [6.4.4](https://github.com/symposion/roll20-shaped-scripts/compare/6.4.3...6.4.4) (2017-02-26)
 
