@@ -86,6 +86,8 @@ describe('utils', function () {
       expect(utils.versionCompare('1.2.20', '1.1.21')).to.be.above(0);
       expect(utils.versionCompare('1.2.2', '1.2.2')).to.equal(0);
       expect(utils.versionCompare('1.20.2', '1.19.0')).to.be.above(0);
+      expect(utils.versionCompare(undefined, undefined)).to.equal(0);
+      expect(utils.versionCompare(undefined, '9.2.2')).to.equal(-1);
     });
   });
 });
