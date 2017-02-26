@@ -1,3 +1,13 @@
+<a name="6.3.0"></a>
+# [6.3.0](https://github.com/symposion/roll20-shaped-scripts/compare/6.2.1...6.3.0) (2017-02-26)
+
+
+### Features
+
+* **config:** Check against sheet version on startup ([35ba538](https://github.com/symposion/roll20-shaped-scripts/commit/35ba538)), closes [#12](https://github.com/symposion/roll20-shaped-scripts/issues/12)
+
+
+
 <a name="6.2.1"></a>
 ## [6.2.1](https://github.com/symposion/roll20-shaped-scripts/compare/6.2.0...6.2.1) (2017-02-25)
 
