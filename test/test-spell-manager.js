@@ -30,6 +30,7 @@ describe('shaped-script', function () {
       char.set('name', 'Bob');
 
       mock.expects('getAttrObjectByName').never();
+      mock.expects('getAttrByName').withArgs(char.id, 'automatically_expend_spell_resources').returns(1);
       spellManager.handleSpellCast({ castAsLevel: '', character: char, spellLevel: 'CANTRIP' });
       mock.verify();
     });
@@ -38,7 +39,7 @@ describe('shaped-script', function () {
       sinon.stub(roll20);
       const char = new Roll20Object('character');
       char.set('name', 'Bob');
-
+      roll20.getAttrByName.withArgs(char.id, 'automatically_expend_spell_resources').returns(1);
       const slotsAttr = new Roll20Object('attribute', { name: 'spell_slots_l5', current: 2 });
       roll20.getAttrObjectByName.withArgs(char.id, 'spell_slots_l5').returns(slotsAttr);
       roll20.getAttrObjectByName.withArgs(char.id, 'warlock_spell_slots').returns(null);
