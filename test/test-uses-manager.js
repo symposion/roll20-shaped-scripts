@@ -6,9 +6,10 @@ const Roll20 = require('roll20-wrapper');
 const sinon = require('sinon');
 const logger = require('./dummy-logger');
 const Roll20Object = require('./dummy-roll20-object');
-const UsesManager = require('../lib/uses-manager');
+const UsesManager = require('../lib/modules/uses-manager');
 const cp = require('./dummy-command-parser');
 const Reporter = require('./dummy-reporter');
+const _ = require('underscore');
 
 
 describe('uses-manager', function () {
@@ -23,7 +24,8 @@ describe('uses-manager', function () {
     usesManager = new UsesManager();
     sinon.stub(roll20);
     char = new Roll20Object('character', { name: 'character' });
-    usesManager.configure(roll20, reporter, logger, { config: { sheetEnhancements: { autoTraits: true } } }, null, cp);
+    usesManager.configure(roll20, reporter, logger, { config: { sheetEnhancements: { autoTraits: true } } }, cp,
+      { registerChatListener: _.noop });
   });
 
   describe('handleUses', function () {

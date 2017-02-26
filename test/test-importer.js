@@ -9,7 +9,7 @@ const logger = require('./dummy-logger');
 const Reporter = require('./dummy-reporter');
 const Roll20Object = require('./dummy-roll20-object');
 const el = require('./dummy-entity-lookup');
-const Importer = require('../lib/importer');
+const Importer = require('../lib/modules/importer');
 const cp = require('./dummy-command-parser');
 
 /**
@@ -159,7 +159,7 @@ describe('importer', function () {
       const attributes = {};
       const streamer = { stream: _.noop };
       const importer = new Importer(el.entityLookup, null, null);
-      importer.configure(roll20, new Reporter(), logger, {}, cp);
+      importer.configure(roll20, new Reporter(), logger, {}, cp, null, { registerEventHandler: _.noop });
       _.times(100, index => (attributes[`attr${index}`] = index));
       roll20Mock.expects('onSheetWorkerCompleted').twice().yieldsAsync();
       roll20Mock.expects('setAttrWithWorker').exactly(100);
@@ -173,7 +173,7 @@ describe('importer', function () {
       const char = new Roll20Object('character', { name: 'character' });
       const roll20Mock = sinon.mock(roll20);
       const importer = new Importer(el.entityLookup, null, null);
-      importer.configure(roll20, new Reporter(), logger, {}, cp);
+      importer.configure(roll20, new Reporter(), logger, {}, cp, null, { registerEventHandler: _.noop });
 
       roll20Mock.expects('findObjs').returns(spellAttributes);
       const spells = importer.getSpellAttributesForCharacter(char);
@@ -190,7 +190,7 @@ describe('importer', function () {
         convertSpells: _.identity,
       };
       const importer = new Importer(el.entityLookup, null, null, srdConverterStub);
-      importer.configure(roll20, new Reporter(), logger, {}, cp);
+      importer.configure(roll20, new Reporter(), logger, {}, cp, null, { registerEventHandler: _.noop });
       roll20Mock.expects('findObjs').returns(spellAttributes);
 
       const attributes = importer.getSpellAttributesForImport(char, {},
@@ -212,7 +212,7 @@ describe('importer', function () {
         convertSpells: _.identity,
       };
       const importer = new Importer(el.entityLookup, null, null, srdConverterStub);
-      importer.configure(roll20, new Reporter(), logger, {}, cp);
+      importer.configure(roll20, new Reporter(), logger, {}, cp, null, { registerEventHandler: _.noop });
       roll20Mock.expects('findObjs').returns(spellAttributes);
 
       const attributes = importer.getSpellAttributesForImport(char, {},
@@ -233,7 +233,7 @@ describe('importer', function () {
     let importer;
     before(function () {
       importer = new Importer(el.entityLookup, null, null);
-      importer.configure(roll20, new Reporter(), logger, {}, cp);
+      importer.configure(roll20, new Reporter(), logger, {}, cp, null, { registerEventHandler: _.noop });
     });
 
     it('should configure senses correctly', function () {
@@ -279,7 +279,7 @@ describe('importer', function () {
     it('debrokens', function () {
       const importer = new Importer(el.entityLookup, null, null);
       sinon.stub(roll20);
-      importer.configure(roll20, new Reporter(), logger, {}, cp);
+      importer.configure(roll20, new Reporter(), logger, {}, cp, null, { registerEventHandler: _.noop });
       const attributes = [
         new Roll20Object('attribute', { name: 'foo', current: 1 }),
         new Roll20Object('attribute', { name: 'foo', max: 2 }),
@@ -309,7 +309,8 @@ function runImportMonsterTest(roll20, monsters, options, preConfigure, expectati
   sinon.stub(roll20, 'getObj');
   sinon.stub(roll20, 'setDefaultTokenForCharacter');
   const importer = new Importer(el.entityLookup, null, null, { convertMonster: _.identity });
-  importer.configure(roll20, new Reporter(), logger, { config: { tokenSettings: { light: {} } } }, cp);
+  importer.configure(roll20, new Reporter(), logger, { config: { tokenSettings: { light: {} } } }, cp, null,
+    { registerEventHandler: _.noop });
 
   const token = new Roll20Object('graphic');
   token.set('imgsrc', 'imgsrc');
