@@ -1,3 +1,14 @@
+<a name="6.4.4"></a>
+## [6.4.4](https://github.com/symposion/roll20-shaped-scripts/compare/6.4.3...6.4.4) (2017-02-26)
+
+
+### Bug Fixes
+
+* **import-spell:** Fix bug when importing duplicate spell ([3ef693a](https://github.com/symposion/roll20-shaped-scripts/commit/3ef693a))
+* **rests:** Fix error when resting as player not GM ([0a7f157](https://github.com/symposion/roll20-shaped-scripts/commit/0a7f157))
+
+
+
 <a name="6.4.3"></a>
 ## [6.4.3](https://github.com/symposion/roll20-shaped-scripts/compare/6.4.2...6.4.3) (2017-02-26)
 
