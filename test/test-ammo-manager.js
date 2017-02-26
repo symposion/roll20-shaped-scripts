@@ -2,11 +2,12 @@
 'use strict';
 require('chai').should();
 const Roll20 = require('roll20-wrapper');
-const AmmoManager = require('../lib/ammo-manager');
+const AmmoManager = require('../lib/modules/ammo-manager');
 const sinon = require('sinon');
 const logger = require('./dummy-logger');
 const Reporter = require('./dummy-reporter');
 const cp = require('./dummy-command-parser');
+const _ = require('underscore');
 
 /**
  * Test attribute
@@ -66,7 +67,8 @@ describe('ammo-manager', function () {
       roll20.checkCharacterFlag.withArgs(characterStub.id, 'ammo_auto_use').returns(true);
 
       const ammoManager = new AmmoManager();
-      ammoManager.configure(roll20, new Reporter(), logger, { config: { updateAmmo: true } }, null, cp);
+      ammoManager.configure(roll20, new Reporter(), logger, { config: { updateAmmo: true } }, cp,
+        { registerChatListener: _.noop });
 
       const msg = {
         rolltemplate: '5e-shaped',

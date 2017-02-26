@@ -7,7 +7,7 @@ const Roll20 = require('roll20-wrapper');
 const sinon = require('sinon');
 const logger = require('./dummy-logger');
 const Roll20Object = require('./dummy-roll20-object');
-const RestManager = require('../lib/rest-manager');
+const RestManager = require('../lib/modules/rest-manager');
 const cp = require('./dummy-command-parser');
 
 const testRests = [
