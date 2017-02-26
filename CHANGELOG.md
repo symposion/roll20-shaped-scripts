@@ -1,3 +1,13 @@
+<a name="6.4.3"></a>
+## [6.4.3](https://github.com/symposion/roll20-shaped-scripts/compare/6.4.2...6.4.3) (2017-02-26)
+
+
+### Bug Fixes
+
+* **import-statblock:** Fix error reporting + bug with statblock import ([45e4014](https://github.com/symposion/roll20-shaped-scripts/commit/45e4014))
+
+
+
 <a name="6.4.2"></a>
 ## [6.4.2](https://github.com/symposion/roll20-shaped-scripts/compare/6.4.1...6.4.2) (2017-02-26)
 
