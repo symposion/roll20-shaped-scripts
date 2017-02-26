@@ -9,6 +9,7 @@ const logger = require('./dummy-logger');
 const Roll20Object = require('./dummy-roll20-object');
 const RestManager = require('../lib/modules/rest-manager');
 const cp = require('./dummy-command-parser');
+const Reporter = require('./dummy-reporter');
 
 const testRests = [
   {
@@ -61,13 +62,17 @@ describe('rest-manager', function () {
   let restManager;
   let roll20;
   let char;
+  let state;
+  let reporter;
 
   beforeEach(function () {
     roll20 = new Roll20();
+    state = { config: { variants: { rests: {} } } };
     restManager = new RestManager();
     sinon.stub(roll20);
+    reporter = new Reporter();
     char = new Roll20Object('character', { name: 'character' });
-    restManager.configure(roll20, null, logger, null, cp);
+    restManager.configure(roll20, reporter, logger, state, cp);
     restManager.rests = testRests;
     restManager.displayTemplates = testTemplates;
   });
@@ -94,6 +99,83 @@ describe('rest-manager', function () {
       expect(msg).to.equal(
         '&{template:5e-shaped} {{title=Rest Type 3}} {{character_name=character}}{{show_character_name=1}}' +
         'Result1: 1,3Result2: 2,4Result3: 5,character: rest2,character: rest3Result4: 6');
+    });
+  });
+
+  describe('recoverHP', function () {
+    it('recoversForHalfHP', function () {
+      state.config.variants.rests.longRestHPRecovery = 0.5;
+      const hpAttr = new Roll20Object('attribute', { current: 20, max: 50 });
+      roll20.getAttrObjectByName.withArgs(char.id, 'HP').returns(hpAttr);
+      restManager.recoverHP(char);
+      expect(hpAttr.props.current).to.equal(45);
+    });
+
+    it('recoversForFullHP', function () {
+      state.config.variants.rests.longRestHPRecovery = 1;
+      const hpAttr = new Roll20Object('attribute', { current: 30, max: 50 });
+      roll20.getAttrObjectByName.withArgs(char.id, 'HP').returns(hpAttr);
+      restManager.recoverHP(char);
+      expect(hpAttr.props.current).to.equal(50);
+    });
+
+    it('recoversForNoHP', function () {
+      state.config.variants.rests.longRestHPRecovery = 0;
+      const hpAttr = new Roll20Object('attribute', { current: 30, max: 50 });
+      roll20.getAttrObjectByName.withArgs(char.id, 'HP').returns(hpAttr);
+      restManager.recoverHP(char);
+      expect(hpAttr.props.current).to.equal(30);
+    });
+
+    it('errorsForNoMaxHP', function () {
+      state.config.variants.rests.longRestHPRecovery = 1;
+      const hpAttr = new Roll20Object('attribute', { current: 30 });
+      roll20.getAttrObjectByName.withArgs(char.id, 'HP').returns(hpAttr);
+      restManager.recoverHP(char);
+      expect(hpAttr.props.current).to.equal(30);
+      expect(reporter.errors).to.have.lengthOf(1);
+    });
+
+    it('dealsWithMissingCurrent', function () {
+      state.config.variants.rests.longRestHPRecovery = 0.5;
+      const hpAttr = new Roll20Object('attribute', { max: 30 });
+      roll20.getAttrObjectByName.withArgs(char.id, 'HP').returns(hpAttr);
+      restManager.recoverHP(char);
+      expect(hpAttr.props.current).to.equal(15);
+    });
+  });
+
+  describe('recoverHD', function () {
+    it('recoversForHalfHD', function () {
+      state.config.variants.rests.longRestHDRecovery = 0.5;
+      const hdAttrs = [new Roll20Object('attribute', { name: 'hd_d8', current: 1, max: 5 })];
+      roll20.findObjs.withArgs({ type: 'attribute', characterid: char.id }).returns(hdAttrs);
+      restManager.recoverHD(char);
+      expect(hdAttrs[0].props.current).to.equal(3);
+    });
+
+    it('ignoresHDForZeroMultiplier', function () {
+      state.config.variants.rests.longRestHDRecovery = 0;
+      const hdAttrs = [
+        new Roll20Object('attribute', { name: 'hd_d8', current: 1, max: 5 }),
+        new Roll20Object('attribute', { name: 'hd_d10', current: 3, max: 5 }),
+      ];
+      roll20.findObjs.withArgs({ type: 'attribute', characterid: char.id }).returns(hdAttrs);
+      restManager.recoverHD(char);
+      expect(hdAttrs[0].props.current).to.equal(1);
+      expect(hdAttrs[1].props.current).to.equal(3);
+    });
+
+    it('recoversFullHD', function () {
+      state.config.variants.rests.longRestHDRecovery = 1;
+      const hdAttrs = [
+        new Roll20Object('attribute', { name: 'hd_d8', current: 1, max: 5 }),
+        new Roll20Object('attribute', { name: 'hd_d10', current: 3, max: 10 }),
+      ];
+      roll20.findObjs.withArgs({ type: 'attribute', characterid: char.id }).returns(hdAttrs);
+      restManager.recoverHD(char);
+      expect(hdAttrs[0].props.current).to.equal(5);
+      expect(hdAttrs[1].props.current).to.equal(10);
     });
   });
 });
