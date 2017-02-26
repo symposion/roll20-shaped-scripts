@@ -1,3 +1,14 @@
+<a name="6.4.2"></a>
+## [6.4.2](https://github.com/symposion/roll20-shaped-scripts/compare/6.4.1...6.4.2) (2017-02-26)
+
+
+### Bug Fixes
+
+* **startup:** Deal with really old sheets not being able to report version ([232c41e](https://github.com/symposion/roll20-shaped-scripts/commit/232c41e))
+* **startup:** Try to avoid version not being set if API is really slow ([3f6cbd2](https://github.com/symposion/roll20-shaped-scripts/commit/3f6cbd2))
+
+
+
 <a name="6.4.1"></a>
 ## [6.4.1](https://github.com/symposion/roll20-shaped-scripts/compare/6.4.0...6.4.1) (2017-02-26)
 
