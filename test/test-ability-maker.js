@@ -2,7 +2,7 @@
 'use strict';
 const Roll20 = require('roll20-wrapper');
 const expect = require('chai').expect;
-const AbilityMaker = require('../lib/ability-maker');
+const AbilityMaker = require('../lib/modules/ability-maker');
 const sinon = require('sinon');
 const logger = require('./dummy-logger');
 const Reporter = require('./dummy-reporter');
