@@ -1,3 +1,20 @@
+<a name="6.4.0"></a>
+# [6.4.0](https://github.com/symposion/roll20-shaped-scripts/compare/6.3.0...6.4.0) (2017-02-26)
+
+
+### Bug Fixes
+
+* **config:** Update hide settings for 9.x ([731819a](https://github.com/symposion/roll20-shaped-scripts/commit/731819a)), closes [#339](https://github.com/symposion/roll20-shaped-scripts/issues/339)
+* **rests:** Make long rest HP behaviour more configurable ([b8fa697](https://github.com/symposion/roll20-shaped-scripts/commit/b8fa697)), closes [#284](https://github.com/symposion/roll20-shaped-scripts/issues/284)
+* **startup:** Clean up all SHAPED_VERSION_TESTER characters ([f7b6d39](https://github.com/symposion/roll20-shaped-scripts/commit/f7b6d39))
+
+
+### Features
+
+* **spells:** Make automatic spell slot processing a per-character setting ([6c0ae62](https://github.com/symposion/roll20-shaped-scripts/commit/6c0ae62)), closes [#340](https://github.com/symposion/roll20-shaped-scripts/issues/340)
+
+
+
 <a name="6.3.0"></a>
 # [6.3.0](https://github.com/symposion/roll20-shaped-scripts/compare/6.2.1...6.3.0) (2017-02-26)
 
