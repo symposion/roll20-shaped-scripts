@@ -1,6 +1,6 @@
 {
   "name": "roll20_shaped_scripts",
-  "version": "6.4.6",
+  "version": "7.0.0",
   "description": "Scripts to support the 5e Shaped Character Sheet on Roll20.net",
   "main": "lib/entry-point.js",
   "dependencies": {
