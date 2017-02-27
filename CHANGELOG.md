@@ -1,3 +1,15 @@
+<a name="6.4.6"></a>
+## [6.4.6](https://github.com/symposion/roll20-shaped-scripts/compare/6.4.5...6.4.6) (2017-02-27)
+
+
+### Bug Fixes
+
+* **chat-output:** Ensure messages only get sent to correct user ([dcc8b32](https://github.com/symposion/roll20-shaped-scripts/commit/dcc8b32))
+* **rests-and-hd:** Pay attention to reduced HP max ([34c8635](https://github.com/symposion/roll20-shaped-scripts/commit/34c8635)), closes [#359](https://github.com/symposion/roll20-shaped-scripts/issues/359)
+* **startup:** Make startup delay longer - still some crashes happening ([964230c](https://github.com/symposion/roll20-shaped-scripts/commit/964230c))
+
+
+
 <a name="6.4.5"></a>
 ## [6.4.5](https://github.com/symposion/roll20-shaped-scripts/compare/6.4.4...6.4.5) (2017-02-26)
 
