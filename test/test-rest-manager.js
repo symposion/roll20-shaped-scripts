@@ -73,11 +73,14 @@ describe('rest-manager', function () {
     reporter = new Reporter();
     char = new Roll20Object('character', { name: 'character' });
     restManager.configure(roll20, reporter, logger, state, cp);
-    restManager.rests = testRests;
-    restManager.displayTemplates = testTemplates;
   });
 
   describe('doRest', function () {
+    beforeEach(function () {
+      restManager.rests = testRests;
+      restManager.displayTemplates = testTemplates;
+    });
+
     it('only runs first rest operations for first rest', function () {
       const results = restManager.doRest(char, 'rest1');
       expect(results).to.deep.equal({
@@ -93,12 +96,70 @@ describe('rest-manager', function () {
   });
 
   describe('buildMessage', function () {
+    beforeEach(function () {
+      restManager.rests = testRests;
+      restManager.displayTemplates = testTemplates;
+    });
     it('builds message correctly', function () {
       roll20.getAttrByName.returns('@{show_character_name_yes}');
       const msg = restManager.buildMessage(char, 'rest3', expectedResultsAllRests);
       expect(msg).to.equal(
         '&{template:5e-shaped} {{title=Rest Type 3}} {{character_name=character}}{{show_character_name=1}}' +
         'Result1: 1,3Result2: 2,4Result3: 5,character: rest2,character: rest3Result4: 6');
+    });
+  });
+
+  describe('recoverUses', function () {
+    it('deals with recharge-type uses for turn recharge', function () {
+      const attributes = [
+        new Roll20Object('attribute', { name: 'repeating_foo_XXX_name', current: 'attack1' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_XXX_uses', current: 1, max: 3 }),
+        new Roll20Object('attribute', { name: 'repeating_foo_XXX_recharge', current: 'TURN' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_YYY_name', current: 'attack2' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_YYY_uses', current: 1, max: 3 }),
+        new Roll20Object('attribute', { name: 'repeating_foo_YYY_recharge', current: 'RECHARGE_5_6' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_ZZZ_name', current: 'attack3' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_ZZZ_uses', current: 1, max: 3 }),
+        new Roll20Object('attribute', { name: 'repeating_foo_ZZZ_recharge', current: 'LONG_REST' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_WWW_name', current: 'attack4' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_WWW_uses', current: 1 }),
+        new Roll20Object('attribute', { name: 'repeating_foo_WWW_recharge', current: 'TURN' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_VVV_name', current: 'attack5' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_VVV_uses', current: 1, max: 3 }),
+        new Roll20Object('attribute', { name: 'repeating_foo_VVV_recharge', current: 'RECHARGE_6' }),
+      ];
+      roll20.findObjs.returns(attributes);
+      roll20.randomInteger.returns(5);
+      const result = restManager.recoverUses(char, 'turn', 'turn');
+      expect(attributes[1].props).to.have.property('current', 3);
+      expect(attributes[4].props).to.have.property('current', 3);
+      expect(attributes[7].props).to.have.property('current', 1);
+      expect(attributes[10].props).to.have.property('current', 1);
+      expect(result.uses).to.deep.equal(['attack1', 'attack2 (Rolled a 5)']);
+      expect(result.usesNotRecharged).to.deep.equal(['attack5 (Rolled a 5)']);
+    });
+
+    it('deals with recharge-type uses for short rest', function () {
+      const attributes = [
+        new Roll20Object('attribute', { name: 'repeating_foo_XXX_name', current: 'attack1' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_XXX_uses', current: 1, max: 3 }),
+        new Roll20Object('attribute', { name: 'repeating_foo_XXX_recharge', current: 'TURN' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_YYY_name', current: 'attack2' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_YYY_uses', current: 1, max: 3 }),
+        new Roll20Object('attribute', { name: 'repeating_foo_YYY_recharge', current: 'RECHARGE_5_6' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_ZZZ_name', current: 'attack3' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_ZZZ_uses', current: 1, max: 3 }),
+        new Roll20Object('attribute', { name: 'repeating_foo_ZZZ_recharge', current: 'LONG_REST' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_WWW_name', current: 'attack4' }),
+        new Roll20Object('attribute', { name: 'repeating_foo_WWW_uses', current: 1 }),
+        new Roll20Object('attribute', { name: 'repeating_foo_WWW_recharge', current: 'TURN' }),
+      ];
+      roll20.findObjs.returns(attributes);
+      restManager.recoverUses(char, 'turn', 'short');
+      expect(attributes[1].props).to.have.property('current', 3);
+      expect(attributes[4].props).to.have.property('current', 3);
+      expect(attributes[7].props).to.have.property('current', 1);
+      expect(attributes[10].props).to.have.property('current', 1);
     });
   });
 
