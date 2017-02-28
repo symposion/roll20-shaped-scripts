@@ -70,13 +70,8 @@ describe('ammo-manager', function () {
       ammoManager.configure(roll20, new Reporter(), logger, { config: { updateAmmo: true } }, cp,
         { registerChatListener: _.noop });
 
-      const msg = {
-        rolltemplate: '5e-shaped',
-        content: '{{ammo_name=arrows}}{{character_name=Bob}}{{ammo=$[[0]]}}',
-        inlinerolls: [{ expression: '50-2' }],
-      };
 
-      const options = { ammoName: 'arrows', ammo: '$[[0]]', character: characterStub };
+      const options = { ammoName: 'arrows', ammo: '48', character: characterStub };
 
       const setVals = {};
 
@@ -84,7 +79,7 @@ describe('ammo-manager', function () {
         setVals[propName] = value;
       };
 
-      ammoManager.consumeAmmo(options, msg);
+      ammoManager.consumeAmmo(options);
       // noinspection JSUnresolvedVariable
       return setVals.should.deep.equal({ current: 48 });
     });
