@@ -1,3 +1,25 @@
+<a name="7.0.0"></a>
+# [7.0.0](https://github.com/symposion/roll20-shaped-scripts/compare/6.4.6...7.0.0) (2017-02-27)
+
+
+### Chores
+
+* Rename racial features to racial traits ([def82ef](https://github.com/symposion/roll20-shaped-scripts/commit/def82ef)), closes [#279](https://github.com/symposion/roll20-shaped-scripts/issues/279)
+
+
+### Features
+
+* **config:** Ask user before  upgrading + cmd to wipe config ([835ee05](https://github.com/symposion/roll20-shaped-scripts/commit/835ee05)), closes [#279](https://github.com/symposion/roll20-shaped-scripts/issues/279)
+
+
+### BREAKING CHANGES
+
+* The sheet has changed racial features to racial traits for
+10.0.0; the script has changed to match and will no longer work properly with
+pre 10.0.0 sheets.
+
+
+
 <a name="6.4.6"></a>
 ## [6.4.6](https://github.com/symposion/roll20-shaped-scripts/compare/6.4.5...6.4.6) (2017-02-27)
 
