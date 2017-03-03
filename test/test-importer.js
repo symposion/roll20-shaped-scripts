@@ -308,7 +308,8 @@ function runImportMonsterTest(roll20, monsters, options, preConfigure, expectati
   sinon.stub(roll20, 'sendChat');
   sinon.stub(roll20, 'getObj');
   sinon.stub(roll20, 'setDefaultTokenForCharacter');
-  const importer = new Importer(el.entityLookup, null, null, { convertMonster: _.identity });
+  const importer = new Importer(el.entityLookup, null, null, { convertMonster: _.identity },
+    { setTokenBarsOnDrop: _.identity });
   importer.configure(roll20, new Reporter(), logger, { config: { tokenSettings: { light: {} } } }, cp, null,
     { registerEventHandler: _.noop });
 
