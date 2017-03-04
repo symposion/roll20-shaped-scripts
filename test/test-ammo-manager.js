@@ -8,6 +8,7 @@ const logger = require('./dummy-logger');
 const Reporter = require('./dummy-reporter');
 const cp = require('./dummy-command-parser');
 const _ = require('underscore');
+const Roll20Object = require('./dummy-roll20-object');
 
 /**
  * Test attribute
@@ -65,10 +66,11 @@ describe('ammo-manager', function () {
       roll20.findObjs.withArgs({ _type: 'character', name: 'Bob' }).returns([characterStub]);
       roll20.findObjs.withArgs({ type: 'attribute', characterid: characterStub.id }).returns(attributeArray);
       roll20.checkCharacterFlag.withArgs(characterStub.id, 'ammo_auto_use').returns(true);
+      roll20.getCampaign.returns(new Roll20Object('campaign'));
 
       const ammoManager = new AmmoManager();
       ammoManager.configure(roll20, new Reporter(), logger, { config: { updateAmmo: true } }, cp,
-        { registerChatListener: _.noop });
+        { registerChatListener: _.noop }, { registerEventHandler: _.noop });
 
 
       const options = { ammoName: 'arrows', ammo: '48', character: characterStub };
