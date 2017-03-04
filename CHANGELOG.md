@@ -1,3 +1,13 @@
+<a name="7.2.1"></a>
+## [7.2.1](https://github.com/symposion/roll20-shaped-scripts/compare/7.2.0...7.2.1) (2017-03-03)
+
+
+### Bug Fixes
+
+* **import:** Default token bars not applied to 1st token ([a61f2b1](https://github.com/symposion/roll20-shaped-scripts/commit/a61f2b1))
+
+
+
 <a name="7.2.0"></a>
 # [7.2.0](https://github.com/symposion/roll20-shaped-scripts/compare/7.1.0...7.2.0) (2017-03-03)
 
