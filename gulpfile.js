@@ -159,6 +159,7 @@ function runWebpackBuild() {
     .pipe(webpack(webpackConfig))
     .pipe(injectVersion({
       append: versionSuffix,
+      replace: /%%GULP_INJECT_VERSION%%/g,
     }))
     .pipe(gulp.dest('./'));
 }
