@@ -1,3 +1,24 @@
+<a name="7.3.0"></a>
+# [7.3.0](https://github.com/symposion/roll20-shaped-scripts/compare/7.2.1...7.3.0) (2017-03-04)
+
+
+### Bug Fixes
+
+* **startup:** Remove startup delay to test Riley's fixes ([c740d1e](https://github.com/symposion/roll20-shaped-scripts/commit/c740d1e))
+* **token-defaults:** Only use default token label for new imports ([f8b4513](https://github.com/symposion/roll20-shaped-scripts/commit/f8b4513))
+
+
+### Features
+
+* **ammo:** Prompt for ammo recovery at end of combat ([5fe2d81](https://github.com/symposion/roll20-shaped-scripts/commit/5fe2d81)), closes [#74](https://github.com/symposion/roll20-shaped-scripts/issues/74)
+
+
+### Reverts
+
+* fix(startup): Remove startup delay to test Riley's fixes ([013609a](https://github.com/symposion/roll20-shaped-scripts/commit/013609a))
+
+
+
 <a name="7.2.1"></a>
 ## [7.2.1](https://github.com/symposion/roll20-shaped-scripts/compare/7.2.0...7.2.1) (2017-03-03)
 
