@@ -223,7 +223,7 @@ Imports details of named spells from a database of customer spells loaded as a s
 You must have exactly one token that represents a character selected when running this command.
 
 ## !shaped-import-spell-list
-Imports a complete list of spells according to specified criteria into the currently selected character. This allows you to e.g. import all 1st level cleric spells. Please note that importing very large lists of spells into a character may result in character sheet lag, please exercise caution when using this command.
+Imports a complete list of spells according to specified criteria into the currently selected character. This allows you to e.g. import all 1st level cleric spells. Please note that importing very large lists of spells into a character will result in character sheet and campaign lag, and will also place excessive load on the API server, which could eventually get this script banned/sanctioned. **DO NOT** do things like **!shaped-import-spell-list --classes Cleric** to import the whole cleric spell list. You shouldn't have more than ~35 spells for any character or you will run into problems.
 
 ### Options
 * **--level <level>** (e.g. **--level 1**) Restrict the list to the specified level
