@@ -1,3 +1,14 @@
+<a name="7.3.1"></a>
+## [7.3.1](https://github.com/symposion/roll20-shaped-scripts/compare/7.3.0...7.3.1) (2017-03-09)
+
+
+### Bug Fixes
+
+* **import:** Fix for the new !shaped-import-spell-list restriction ([d910905](https://github.com/symposion/roll20-shaped-scripts/commit/d910905))
+* **import:** Rework --all options and limit !shaped-import-spell-list ([7f2bd9a](https://github.com/symposion/roll20-shaped-scripts/commit/7f2bd9a))
+
+
+
 <a name="7.3.0"></a>
 # [7.3.0](https://github.com/symposion/roll20-shaped-scripts/compare/7.2.1...7.3.0) (2017-03-04)
 
