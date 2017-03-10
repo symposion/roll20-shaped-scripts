@@ -320,6 +320,16 @@ You must select at least one token that represents a character. The selected cha
 ### Selection
 Unless you specify **--all** you must have at least one token that represents a character selected for this command to work.
 
+## !shaped-remove-spell
+Removes spells from the selected character.
+
+### Options
+* **--all** If supplied, remove all spells from the selected character.
+* **--<spell name>** Remove spells by name from the selected character. You may supply multiple spells as separate options, or you may supply multiple in one option separate by commas (**--Fireball, Lightning Bolt, Wish**)
+
+### Selection
+You must select exactly one token which represents a character.
+
 # Configuration
 ## Advantage Tracker
 * **Output** Decides how Advantage Tracker will report changes (whisper the gm, public to all, or silent)
