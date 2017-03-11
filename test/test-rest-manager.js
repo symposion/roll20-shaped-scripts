@@ -62,17 +62,20 @@ describe('rest-manager', function () {
   let restManager;
   let roll20;
   let char;
-  let state;
+  let myState;
   let reporter;
 
   beforeEach(function () {
     roll20 = new Roll20();
-    state = { config: { variants: { rests: {} } } };
-    restManager = new RestManager();
-    sinon.stub(roll20);
+    myState = { config: { variants: { rests: {} } } };
     reporter = new Reporter();
+    restManager = new RestManager({
+      roll20, reporter, logger, myState,
+    });
+    sinon.stub(roll20);
+
     char = new Roll20Object('character', { name: 'character' });
-    restManager.configure(roll20, reporter, logger, state, cp, null, { registerEventHandler: _.noop });
+    restManager.configure(cp, null, { registerEventHandler: _.noop });
   });
 
   describe('doRest', function () {
@@ -165,7 +168,7 @@ describe('rest-manager', function () {
 
   describe('recoverHP', function () {
     it('recoversForHalfHP', function () {
-      state.config.variants.rests.longRestHPRecovery = 0.5;
+      myState.config.variants.rests.longRestHPRecovery = 0.5;
       const hpAttr = new Roll20Object('attribute', { current: 20, max: 50 });
       roll20.getAttrObjectByName.withArgs(char.id, 'HP').returns(hpAttr);
       restManager.recoverHP(char);
@@ -173,7 +176,7 @@ describe('rest-manager', function () {
     });
 
     it('recoversForFullHP', function () {
-      state.config.variants.rests.longRestHPRecovery = 1;
+      myState.config.variants.rests.longRestHPRecovery = 1;
       const hpAttr = new Roll20Object('attribute', { current: 30, max: 50 });
       roll20.getAttrObjectByName.withArgs(char.id, 'HP').returns(hpAttr);
       restManager.recoverHP(char);
@@ -181,7 +184,7 @@ describe('rest-manager', function () {
     });
 
     it('recoversForNoHP', function () {
-      state.config.variants.rests.longRestHPRecovery = 0;
+      myState.config.variants.rests.longRestHPRecovery = 0;
       const hpAttr = new Roll20Object('attribute', { current: 30, max: 50 });
       roll20.getAttrObjectByName.withArgs(char.id, 'HP').returns(hpAttr);
       restManager.recoverHP(char);
@@ -189,7 +192,7 @@ describe('rest-manager', function () {
     });
 
     it('errorsForNoMaxHP', function () {
-      state.config.variants.rests.longRestHPRecovery = 1;
+      myState.config.variants.rests.longRestHPRecovery = 1;
       const hpAttr = new Roll20Object('attribute', { current: 30 });
       roll20.getAttrObjectByName.withArgs(char.id, 'HP').returns(hpAttr);
       restManager.recoverHP(char);
@@ -197,7 +200,7 @@ describe('rest-manager', function () {
     });
 
     it('dealsWithMissingCurrent', function () {
-      state.config.variants.rests.longRestHPRecovery = 0.5;
+      myState.config.variants.rests.longRestHPRecovery = 0.5;
       const hpAttr = new Roll20Object('attribute', { max: 30 });
       roll20.getAttrObjectByName.withArgs(char.id, 'HP').returns(hpAttr);
       restManager.recoverHP(char);
@@ -207,7 +210,7 @@ describe('rest-manager', function () {
 
   describe('recoverHD', function () {
     it('recoversForHalfHD', function () {
-      state.config.variants.rests.longRestHDRecovery = 0.5;
+      myState.config.variants.rests.longRestHDRecovery = 0.5;
       const hdAttrs = [new Roll20Object('attribute', { name: 'hd_d8', current: 1, max: 5 })];
       roll20.findObjs.withArgs({ type: 'attribute', characterid: char.id }).returns(hdAttrs);
       restManager.recoverHD(char);
@@ -215,7 +218,7 @@ describe('rest-manager', function () {
     });
 
     it('ignoresHDForZeroMultiplier', function () {
-      state.config.variants.rests.longRestHDRecovery = 0;
+      myState.config.variants.rests.longRestHDRecovery = 0;
       const hdAttrs = [
         new Roll20Object('attribute', { name: 'hd_d8', current: 1, max: 5 }),
         new Roll20Object('attribute', { name: 'hd_d10', current: 3, max: 5 }),
@@ -227,7 +230,7 @@ describe('rest-manager', function () {
     });
 
     it('recoversFullHD', function () {
-      state.config.variants.rests.longRestHDRecovery = 1;
+      myState.config.variants.rests.longRestHDRecovery = 1;
       const hdAttrs = [
         new Roll20Object('attribute', { name: 'hd_d8', current: 1, max: 5 }),
         new Roll20Object('attribute', { name: 'hd_d10', current: 3, max: 10 }),

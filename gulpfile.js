@@ -38,7 +38,7 @@ switch (process.env.CI && process.env.TRAVIS_BRANCH) {
 gulp.task('default', ['test', 'lint'], () => runWebpackBuild());
 
 gulp.task('lint', () =>
-  gulp.src('./lib/*.js')
+  gulp.src('./lib/**/*.js')
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
