@@ -1,3 +1,13 @@
+<a name="7.4.0"></a>
+# [7.4.0](https://github.com/symposion/roll20-shaped-scripts/compare/7.3.1...7.4.0) (2017-03-10)
+
+
+### Features
+
+* **spell-import:** Add command to delete spells ([c37de93](https://github.com/symposion/roll20-shaped-scripts/commit/c37de93)), closes [#391](https://github.com/symposion/roll20-shaped-scripts/issues/391)
+
+
+
 <a name="7.3.1"></a>
 ## [7.3.1](https://github.com/symposion/roll20-shaped-scripts/compare/7.3.0...7.3.1) (2017-03-09)
 

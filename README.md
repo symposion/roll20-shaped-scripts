@@ -41,6 +41,7 @@ This is a script designed for use with the API on the [Roll20 Virtual Table Top]
   - [!shaped-rest](#shaped-rest)
   - [!shaped-update-character](#shaped-update-character)
   - [!shaped-expand-spells](#shaped-expand-spells)
+  - [!shaped-remove-spell](#shaped-remove-spell)
 - [Configuration](#configuration)
   - [Advantage Tracker](#advantage-tracker)
   - [Token Defaults](#token-defaults)
