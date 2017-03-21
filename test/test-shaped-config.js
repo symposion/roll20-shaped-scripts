@@ -1,4 +1,4 @@
-/* globals describe: false, it:false */
+/* globals describe: false, it:false, beforeEach:false */
 'use strict';
 const expect = require('chai').expect;
 const ShapedConfig = require('../lib/shaped-config.js');
@@ -8,38 +8,44 @@ const cp = require('./dummy-command-parser');
 
 
 describe('ShapedConfig', function () {
-  it('upgrades old Shaped Config correctly', function () {
-    const state = {
+  let sc;
+  let myState;
+
+  beforeEach(function () {
+    myState = {
       version: 0.1,
-      config: {
-        genderPronouns: [
-          'someStuff',
-        ],
-      },
+      config: {},
     };
-    const sc = new ShapedConfig();
-    sc.configure(null, new Reporter(), dl, state, cp);
+    sc = new ShapedConfig({
+      reporter: new Reporter(),
+      logger: dl,
+      myState,
+    });
+  });
+
+  it('upgrades old Shaped Config correctly', function () {
+    myState.config = {
+      genderPronouns: [
+        'someStuff',
+      ],
+    };
+    sc.configure(cp);
     sc.upgradeConfig();
 
-    expect(state.config.genderPronouns).to.have.lengthOf(3);
+    expect(myState.config.genderPronouns).to.have.lengthOf(3);
   });
 
   it('upgrades recent Shaped Config correctly', function () {
-    const config = {
-      version: 0.1,
-      config: {
-        newCharSettings: {
-          savingThrowsHalfProf: false,
-          mediumArmorMaxDex: 2,
-        },
+    myState.config = {
+      newCharSettings: {
+        savingThrowsHalfProf: false,
+        mediumArmorMaxDex: 2,
       },
     };
-    const sc = new ShapedConfig();
-    sc.configure(null, new Reporter(), dl, config, cp);
     sc.upgradeConfig();
 
 
-    const result = config.config;
+    const result = myState.config;
     expect(result.newCharSettings).to.have.property('houserules');
     expect(result.newCharSettings.houserules.saves).to.have.property('savingThrowsHalfProf', false);
     expect(result.newCharSettings.houserules).to.have.property('mediumArmorMaxDex', 2);

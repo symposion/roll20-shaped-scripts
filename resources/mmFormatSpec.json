@@ -1,5 +1,5 @@
 {
-  "formatVersion": "1.0.0",
+  "formatVersion": "2.0.0",
   "name": "monsters",
   "maxOccurs": "Infinity",
   "type": "orderedContent",

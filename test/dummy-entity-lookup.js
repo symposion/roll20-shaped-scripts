@@ -2,6 +2,7 @@
 
 const EntityLookup = require('../lib/entity-lookup');
 const _ = require('underscore');
+const logger = require('./dummy-logger');
 
 const spells = {
   version: '0.2',
@@ -73,10 +74,11 @@ const spells = {
   ],
 };
 
-const el = new EntityLookup();
+const el = new EntityLookup(logger);
 el.configureEntity('monsters', [], _.constant(true));
 el.configureEntity('spells', [], _.constant(true));
 el.addEntities(spells);
+el.configureEntity = _.noop;
 
 module.exports = {
   spells,

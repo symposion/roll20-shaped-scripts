@@ -68,9 +68,10 @@ describe('ammo-manager', function () {
       roll20.checkCharacterFlag.withArgs(characterStub.id, 'ammo_auto_use').returns(true);
       roll20.getCampaign.returns(new Roll20Object('campaign'));
 
-      const ammoManager = new AmmoManager();
-      ammoManager.configure(roll20, new Reporter(), logger, { config: { updateAmmo: true } }, cp,
-        { registerChatListener: _.noop }, { registerEventHandler: _.noop });
+      const ammoManager = new AmmoManager({
+        roll20, reporter: new Reporter(), logger, myState: { config: { updateAmmo: true } },
+      });
+      ammoManager.configure(cp, { registerChatListener: _.noop }, { registerEventHandler: _.noop });
 
 
       const options = { ammoName: 'arrows', ammo: '48', character: characterStub };
