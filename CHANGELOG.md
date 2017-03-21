@@ -1,3 +1,23 @@
+<a name="8.0.0"></a>
+# [8.0.0](https://github.com/symposion/roll20-shaped-scripts/compare/7.4.0...8.0.0) (2017-03-19)
+
+
+### Bug Fixes
+
+* **import:** Minor tweaks to improve efficiency of import ([85f755d](https://github.com/symposion/roll20-shaped-scripts/commit/85f755d))
+
+
+### Chores
+
+* Bump to next major sheet version ([115ebc0](https://github.com/symposion/roll20-shaped-scripts/commit/115ebc0))
+
+
+### BREAKING CHANGES
+
+* This script will now require 11.x sheet versions
+
+
+
 <a name="7.4.0"></a>
 # [7.4.0](https://github.com/symposion/roll20-shaped-scripts/compare/7.3.1...7.4.0) (2017-03-10)
 
