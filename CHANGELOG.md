@@ -1,3 +1,14 @@
+<a name="8.1.0"></a>
+# [8.1.0](https://github.com/symposion/roll20-shaped-scripts/compare/8.0.0...8.1.0) (2017-03-21)
+
+
+### Features
+
+* **import:** Add new spell/monster lister UI ([e5c31fc](https://github.com/symposion/roll20-shaped-scripts/commit/e5c31fc))
+* **import:** Include SRD content in main script build ([74366e0](https://github.com/symposion/roll20-shaped-scripts/commit/74366e0))
+
+
+
 <a name="8.0.0"></a>
 # [8.0.0](https://github.com/symposion/roll20-shaped-scripts/compare/7.4.0...8.0.0) (2017-03-19)
 

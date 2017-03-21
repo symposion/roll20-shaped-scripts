@@ -33,7 +33,7 @@ This is a script designed for use with the API on the [Roll20 Virtual Table Top]
   - [!shaped-import-monster](#shaped-import-monster)
   - [!shaped-import-by-token](#shaped-import-by-token)
   - [!shaped-import-spell](#shaped-import-spell)
-  - [!shaped-import-spell-list](#shaped-import-spell-list)
+  - [!shaped-list-spells](#shaped-list-spells)
   - [!shaped-at](#shaped-at)
   - [!shaped-abilities](#shaped-abilities)
   - [!shaped-config](#shaped-config)
