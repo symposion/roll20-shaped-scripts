@@ -1,6 +1,6 @@
 'use strict';
 
-/* globals describe: false, it:false */
+/* globals describe: false, it:false, before:false */
 require('chai').should();
 const srdConverter = require('../lib/srd-converter');
 const fs = require('fs');
@@ -111,31 +111,28 @@ describe('srd-converter', function () {
     });
   });
 
-  describe('#convertSpell', function () {
-    try {
-      const spells = JSON.parse(fs.readFileSync('../roll20/data/spellSourceFiles/spellData.json', 'utf-8'));
-
-      it('should parse spell correctly', function () {
-        srdConverter.convertSpells(spells.spells, 'female');
-      });
+  describe('#convertJson', function () {
+    if (process.env.CI) {
+      return;
     }
-    catch (e) {
-      // Test file not present, ignore
-      if (e.code !== 'ENOENT') {
-        throw e;
-      }
-    }
-  });
 
-  describe('#convertJsonMonster', function () {
-    glob.sync('../roll20/data/monsterSourceFiles/*.json').forEach(function (jsonFile) {
+    const monsterFiles = glob.sync('../5eshapedscriptdata/sources/*.json');
+    monsterFiles.should.not.be.empty;
+    monsterFiles.forEach(function (jsonFile) {
       describe(`JSON file:  ${jsonFile}`, function () {
         const json = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
-        json.monsters.forEach(function (monster) {
-          it(`convert ${monster.name}`, function () {
-            srdConverter.convertMonster(monster);
+        if (json.monsters) {
+          json.monsters.forEach(function (monster) {
+            it(`convert ${monster.name}`, function () {
+              srdConverter.convertMonster(monster);
+            });
           });
-        });
+        }
+        if (json.spells) {
+          it('should parse spell correctly', function () {
+            srdConverter.convertSpells(json.spells, 'female');
+          });
+        }
       });
     });
   });

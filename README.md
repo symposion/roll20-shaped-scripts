@@ -223,20 +223,21 @@ Imports details of named spells from a database of customer spells loaded as a s
 ### Selection
 You must have exactly one token that represents a character selected when running this command.
 
-## !shaped-import-spell-list
-Imports a complete list of spells according to specified criteria into the currently selected character. This allows you to e.g. import all 1st level cleric spells. Please note that importing very large lists of spells into a character will result in character sheet and campaign lag, and will also place excessive load on the API server, which could eventually get this script banned/sanctioned. **DO NOT** do things like **!shaped-import-spell-list --classes Cleric** to import the whole cleric spell list. You shouldn't have more than ~35 spells for any character or you will run into problems.
+## !shaped-list-spells
+Displays a list of spells in the currently loaded JSON database that match the supplied criteria. Each spell will be a linked to either import and delete the spell, depending on whether the selected/supplied character already has that spell in their spell list or not.
 
 ### Options
+* **--character <characterID>>** If there is no token selected, you must supply a character id for the character whose spells are to be edited.
 * **--level <level>** (e.g. **--level 1**) Restrict the list to the specified level
 * **--classes <classes>** (e.g. **--classes Cleric**) Restrict the list to the specified class or classes. If multiple, comma-separated classes are given, it will match any spell that has any of the supplied classes
 * **--school <school>** (e.g. **--school Transmutation**) Restrict the list to the specified school of magic
 * **--oaths <oaths>** (e.g. **--oaths Ancients) Restrict the list the specified paladin oath or oaths. If multiple, comma-separated oaths are given, it will match any of spell that falls under any of the supplied oaths. Valid values are Ancients, Vengeance and Devotion
 * **--domains <domains>** (e.g. **--domains War, Light**) Restrict the list to the specified cleric domain or domains. If multiple, comma-separated domains are given, it will match any spell that has any of the supplied domains
 * **--patrons <patrons>** (e.g. **--patrons Archfey**) Restrict the list to the specified warlock patron or patrons. If multiple, comma-separated patrons are given, it will match any spell that has any of the supplied patrons. Valid values are Archfey, Fiend and Great Old One
-* **--overwrite** If this option is included, the script will ovewrite existing spells with the same name with the new spells requested, otherwise they will be skipped
+
 
 ### Selection
-You must have exactly one token that represents a character selected when running this command.
+You can have up to one token that represents a character selected when running this command.
 
 ## !shaped-at
 Gives the selected character advantage or disadvantage, or  neither.

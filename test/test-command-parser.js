@@ -6,6 +6,7 @@ const cp = require('../lib/command-parser');
 const sinon = require('sinon');
 const Roll20 = require('roll20-wrapper');
 const _ = require('underscore');
+const logger = require('./dummy-logger');
 
 function testValidator(value) {
   return {
@@ -21,7 +22,7 @@ describe('command-parser', function () {
   describe('#command', function () {
     it('parse options correctly', function () {
       let result = {};
-      cp('shaped', roll20, null, { registerEventHandler: _.noop }, 1)
+      cp('shaped', roll20, null, { registerEventHandler: _.noop }, 1, logger)
         .addCommand('config', function (object) {
           result = object;
         })
@@ -60,7 +61,7 @@ describe('command-parser', function () {
       key2: 'value2',
     };
     let result = {};
-    const myCp = cp('shaped', roll20, null, { registerEventHandler: _.noop }, 1)
+    const myCp = cp('shaped', roll20, null, { registerEventHandler: _.noop }, 1, logger)
       .addCommand('stuff', function (object) {
         result = object;
       })
@@ -85,7 +86,7 @@ describe('command-parser', function () {
   describe('#missingParam', function () {
     it('accepts supplied required param', function () {
       let result = {};
-      const myCp = cp('shaped', roll20, null, { registerEventHandler: _.noop }, 1)
+      const myCp = cp('shaped', roll20, null, { registerEventHandler: _.noop }, 1, logger)
         .addCommand('stuff', function (object) {
           result = object;
         })

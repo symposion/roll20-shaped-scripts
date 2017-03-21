@@ -21,11 +21,11 @@ describe('uses-manager', function () {
   beforeEach(function () {
     roll20 = new Roll20();
     reporter = new Reporter();
-    usesManager = new UsesManager();
+    usesManager =
+      new UsesManager({ roll20, reporter, logger, myState: { config: { sheetEnhancements: { autoTraits: true } } } });
     sinon.stub(roll20);
     char = new Roll20Object('character', { name: 'character' });
-    usesManager.configure(roll20, reporter, logger, { config: { sheetEnhancements: { autoTraits: true } } }, cp,
-      { registerChatListener: _.noop });
+    usesManager.configure(cp, { registerChatListener: _.noop });
   });
 
   describe('handleUses', function () {

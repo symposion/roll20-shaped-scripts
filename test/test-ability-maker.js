@@ -27,8 +27,10 @@ describe('ability-maker', function () {
         characterid: characterStub.id,
         name: 'Saves',
       }).returns(abilityStub);
-      const abilityMaker = new AbilityMaker();
-      abilityMaker.configure(roll20, new Reporter(), logger, {}, cp);
+      const abilityMaker = new AbilityMaker({
+        roll20, reporter: new Reporter(), logger, myState: {},
+      });
+      abilityMaker.configure(cp);
       abilityMaker.addAbility({
         selected: { character: [characterStub] },
         abilities: [abilityMaker.staticAbilityOptions.saves],
