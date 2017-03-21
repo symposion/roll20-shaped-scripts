@@ -18,6 +18,8 @@ const injectVersion = require('gulp-inject-version');
 const toc = require('gulp-doctoc');
 const webpackConfig = require('./webpack.config.js');
 const fs = require('fs');
+const addSrc = require('gulp-add-src');
+const concat = require('gulp-concat');
 
 const github = new GitHubApi({ version: '3.0.0', debug: true });
 
@@ -161,6 +163,8 @@ function runWebpackBuild() {
       append: versionSuffix,
       replace: /%%GULP_INJECT_VERSION%%/g,
     }))
+    .pipe(addSrc('./data/5e-srd-content.js'))
+    .pipe(concat('./5eShapedCompanion.js'))
     .pipe(gulp.dest('./'));
 }
 
