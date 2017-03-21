@@ -120,12 +120,14 @@ describe('entity-lookup', function () {
       el.addEntities({ version: '1.0', name: 'derivative', spells: [], dependencies: 'base' }, rr);
       expect(rr.results).to.be.empty;
       clock.tick(10001);
-      expect(rr.results.derivative.errors).to.deep.equal([{
-        entity: 'Missing dependencies',
-        errors: [
-          'Entity group is missing dependencies [base]',
-        ],
-      }]);
+      expect(rr.results.derivative.errors).to.deep.equal([
+        {
+          entity: 'Missing dependencies',
+          errors: [
+            'Entity group is missing dependencies [base]',
+          ],
+        },
+      ]);
     });
 
     it('works for met dependency', function () {
@@ -147,6 +149,11 @@ describe('entity-lookup', function () {
   });
 
   describe('functional test', function () {
+
+    if (process.env.CI) {
+      return;
+    }
+
     const el = new EntityLookup(logger);
     const jv = new JSONValidator(spec);
     const spellListGrouper = SpellManager.getSpellListGrouper();
@@ -165,12 +172,13 @@ describe('entity-lookup', function () {
       EntityLookup.getVersionChecker('2.0.0', 'classes'));
 
     let jsonFiles = glob.sync('../5eshapedscriptdata/sources/*.json');
+    expect(jsonFiles).to.not.be.empty;
     const phb = jsonFiles.find(file => file.indexOf('PlayersHandbook') !== -1);
     const srd = jsonFiles.find(file => file.indexOf('SRD') !== -1);
     jsonFiles = _.without(jsonFiles, phb, srd);
     jsonFiles.unshift(phb);
     jsonFiles.unshift(srd);
-    expect(jsonFiles).to.not.be.empty;
+
     jsonFiles.forEach(function (jsonFile) {
       const data = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
       const name = jsonFile.replace(/.*\/([^.]+)\.json/, '$1');

@@ -1,6 +1,6 @@
 'use strict';
 
-/* globals describe: false, it:false */
+/* globals describe: false, it:false, before:false */
 require('chai').should();
 const srdConverter = require('../lib/srd-converter');
 const fs = require('fs');
@@ -112,6 +112,10 @@ describe('srd-converter', function () {
   });
 
   describe('#convertJson', function () {
+    if (process.env.CI) {
+      return;
+    }
+
     const monsterFiles = glob.sync('../5eshapedscriptdata/sources/*.json');
     monsterFiles.should.not.be.empty;
     monsterFiles.forEach(function (jsonFile) {
