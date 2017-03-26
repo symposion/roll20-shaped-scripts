@@ -92,11 +92,10 @@ You are now set up and should be able to use the script as detailed below.
 Sometimes a new version of the script comes out. If you have installed the script according to the instructions above, you will need to update it manually when this happens. The process is exactly the same as installing the original, except that when you paste the script into your campaign, you should **replace** the script text of the previous version rather than installing a new one. This is very important, because if you end up with two different versions of the script running at the same time, Bad Things Will Happen.
 
 ## Optional Extras
-Some of the script commands allow you to import spells or monsters from custom data files. This can be useful for things that aren't in the SRD, or for custom stuff created by other people. Creating these custom data files is beyond the scope of this README at the moment, but you may find pre-made files floating around on the internet made by other people. These should be script files that end in .js (**not .json**), and you install them in exactly the same way that you install the main script. If it worked, you should see some lines like this in your API log:
+Some of the script commands allow you to import spells or monsters from custom data files. This way of importing can be faster and more customisable than dragging from the Compendium, and it's also extensible: you can add extra data files to add more content. The script comes with all the SRD monsters and spells built-in. Creating additional custom data files is beyond the scope of this README at the moment, but you may find pre-made files floating around on the internet made by other people if you search for them. These should be script files that end in .js (**not .json**), and you install them in exactly the same way that you install the main script. If it worked, you should see some lines like this in your API log:
 ```
 "ShapedScripts 1460893071585 INFO : Summary of adding entities to the lookup: {\"errors\":0,\"monsters\":{\"withErrors\":0,\"skipped\":0,\"deleted\":0,\"patched\":0,\"added\":558}}"
 ```
-You might want to try searching for something like 'roll20 5eShapedScripts data 5e-spells.js 5e-monsters.js' on Google.
 
 # Usage
 ## Import a Monster from Monster Manual Statblock text
@@ -121,13 +120,12 @@ that it absolutely requires to be correct:
 * Trait and action names need to be title case and end with a full stop, like in the MM.
 * Don't paste in descriptions at the bottom of the statblock - just the statblock proper. This is because actions can be multiline and there is no way of telling where a final multiline action ends and a description begins (see e.g. Priest in the MM - don't paste the final description paragraph in)
 
-## Importing Monsters from a Custom Database
+## Importing Monsters from the Script Database
 ### Manually
-_Please see above for details about installing a custom database_
 
 1. Find a token for your new monster and place it on the tabletop
 1. Select the token
-1. Type **!shaped-import-monster --Lich** into the chat window and hit enter, replacing 'Lich' with the name of the monster you want to import. Obviously the monster name must match something in your custom database. If you're not sure what names are present in the database, or exactly what spelling is being used, you can run **!shaped-import-monster** on its own and it will show a button that will launch a select list of all the available monsters.
+1. Type **!shaped-import-monster --Lich** into the chat window and hit enter, replacing 'Lich' with the name of the monster you want to import. Obviously the monster name must match something in your database - which by default includes SRD monsters unless you've added additional data files. If you're not sure what names are present in the database, or exactly what spelling is being used, try the Guided approach mentioned immediately below.
 1. You should see a message in the chat window, and end up with a new character in the journal.
 
 Your new monster is now ready for use!
@@ -135,18 +133,17 @@ Your new monster is now ready for use!
 ### Guided
 When you run **!shaped-monsters** it will output a scrollable list of all of the monsters in the chat window, along with filter buttons to allow you to narrow the list down by things like type, CR, school, class, etc. Clicking a monster on this list will import it into your library. This script comes with all the SRD monsters and spells built in.
 
-## Importing Spells from a Custom Database
+## Importing Spells from the Script Database
 ### Manually
-_Please see above for details about installing a custom database_
 
 1. Select a token that represents a character
-1. Type **!shaped-import-spell --Fireball, Cure Wounds** into the chat window and hit enter, replacing the spell names with whatever spells you want to import. If you're not sure what spells are available, run **!shaped-import-spell** on its own to see a list.
+1. Type **!shaped-import-spell --Fireball, Cure Wounds** into the chat window and hit enter, replacing the spell names with whatever spells you want to import. If you're not sure what spells are available, try the Guided approach mentioned immediately below.
 1. You should see a confirmation message in the chat window
 
 Your new spells are now ready for use!
 
 ### Guided
-Similar to monsters, **!shaped-spells** will display a list of all available spells in the database, pre-filled with all SRD spells. You need a character token selected, or you need to pass a character id like **!shaped-spells --character**.
+Similar to monsters, **!shaped-spells** will display a list of all available spells in the database, pre-filled with all SRD spells. You need a character token selected, or you need to pass a character id like **!shaped-spells --character <character_id>**.
 
 ## Tracking advantage using the script
 1. Configure your characters with the "Normal" roll option in the character sheet options (see later on for details of how to ensure that this is set automatically for characters imported with the script)
@@ -192,11 +189,12 @@ Imports details from a text statblock into a Roll20 character. The statblock mus
 You must have at least one token selected. If you have more than one, it will attempt to import a statblock from each one in turn. When importing, each token will be set to represent the newly created character for it, and the script will also attempt to set the avatar for the character to be the token graphic<sup>[1](#avatar-note)</sup>.
 
 ## !shaped-monsters
+* Alias !shaped-list-monsters
 Displays a list of monsters in the currently loaded JSON database. The list is displayed in the chat window and includes buttons to filter the results on Type, CR and Size. The old "Click to select a monster/spell" query input (**!shaped-import-monster**) is available as a link at the top of the monsters/spells listings. Clicking a monster that is already imported won't remove it.
 
-## !shaped-import-monster
-* Alias !shaped-monster *
-Imports details of named monsters from a database of custom monsters loaded as a separate script. If run with no options, this command will display a chat window button that allows you to launch a select list of all available monsters to choose from. The imported character will be configured with the default settings that you specify in the [default character settings configuration](#new-characters) . In addition the tokens you use will be configured according to the [default token settings configuration](#token-defaults) ready to be set as the default token for the character.
+## !shaped-monster
+* Alias !shaped-import-monster *
+Imports details of named monsters from a database of custom monsters loaded as a separate script. The imported character will be configured with the default settings that you specify in the [default character settings configuration](#new-characters) . In addition the tokens you use will be configured according to the [default token settings configuration](#token-defaults) ready to be set as the default token for the character.
 
 ### Options
 * **--<monster name>** (e.g. **--Lich**) specifies a monster to import. You may supply multiple monsters as separate options, or you may supply multiple in one option separated by commas (**--Ghoul, Zombie, Ghost**)
@@ -222,9 +220,9 @@ This basically does the same thing as [!shaped-import-monster](#shaped-import-mo
 ### Selection
 You must have at least one token selected for this command. As described above, it will use the name assigned to each token to lookup the monster it will represent from your JSON database.
 
-## !shaped-import-spell
-* Alias !shaped-spell *
-Imports details of named spells from a database of customer spells loaded as a separate script. All spells will be added to the currently selected character. If run with no options, this command will display a chat window button that allows you to launch a select list of all available spells to choose from.
+## !shaped-spell
+* Alias !shaped-import-spell *
+Imports details of named spells from a database of customer spells loaded as a separate script. All spells will be added to the currently selected character. 
 
 ### Options
 * **--<spell name>** (e.g. **--Fireball**) specifies a spell to import. You may supply multiple spells as separate options, or you may supply multiple in one option separate by commas (**--Fireball, Lightning Bolt, Wish**)
@@ -233,17 +231,12 @@ Imports details of named spells from a database of customer spells loaded as a s
 ### Selection
 You must have exactly one token that represents a character selected when running this command.
 
-## !shaped-list-spells, !shaped-spells
-Displays a list of spells in the currently loaded JSON database that match the supplied criteria. Each spell will be a linked to either import and delete the spell, depending on whether the selected/supplied character already has that spell in their spell list or not.
+## !shaped-spells
+* Alias !shaped-list-spells
+Displays a list of spells in the currently loaded database that match the supplied criteria. Each spell will be a link to either import and delete the spell, depending on whether the selected/supplied character already has that spell in their spell list or not.
 
 ### Options
-* **--character <characterID>>** If there is no token selected, you must supply a character id for the character whose spells are to be edited.
-* **--level <level>** (e.g. **--level 1**) Restrict the list to the specified level
-* **--classes <classes>** (e.g. **--classes Cleric**) Restrict the list to the specified class or classes. If multiple, comma-separated classes are given, it will match any spell that has any of the supplied classes
-* **--school <school>** (e.g. **--school Transmutation**) Restrict the list to the specified school of magic
-* **--oaths <oaths>** (e.g. **--oaths Ancients) Restrict the list the specified paladin oath or oaths. If multiple, comma-separated oaths are given, it will match any of spell that falls under any of the supplied oaths. Valid values are Ancients, Vengeance and Devotion
-* **--domains <domains>** (e.g. **--domains War, Light**) Restrict the list to the specified cleric domain or domains. If multiple, comma-separated domains are given, it will match any spell that has any of the supplied domains
-* **--patrons <patrons>** (e.g. **--patrons Archfey**) Restrict the list to the specified warlock patron or patrons. If multiple, comma-separated patrons are given, it will match any spell that has any of the supplied patrons. Valid values are Archfey, Fiend and Great Old One
+* **--character <characterID>** If there is no token selected, you must supply a character id for the character whose spells are to be edited.
 
 ### Selection
 You can have up to one token that represents a character selected when running this command.
@@ -360,7 +353,7 @@ Note that all of the settings under Token Defaults are applied to tokens only wh
 
 * **Numbered Tokens** If this is 'on', new tokens will have %%NUMBERED%% appended to their name to work with Aaron's TokenNameNumbered script. Please search for this on the API forum for more details.
 * **Show Name Tag** If this is 'on', the token will show its name tag to anyone who has permission to see it
-* **Token Name Override** If this is not empty, all new tokens will have their name tag set to this value. This is most useful in combination with Numbered Tokens, which allows you to have all your monsters labelled something like 'Monster 1', 'Monster 2', so your players can reference them but don't get any clues about what they are from the name.
+* **Token Name Override** If this is not empty, new tokens will have their name tag set to this value. This is most useful in combination with Numbered Tokens, which allows you to have all your monsters labelled something like 'Monster 1', 'Monster 2', so your players can reference them but don't get any clues about what they are from the name.
 * **Show Name to Players** If this is 'on', and **Show Name Tag** is also 'on', players will be able to see the token's name.
 * **Light Radius** Default light radius emitted from token (Note that this value will be overriden by a value derived from a monster's senses attribute where available)
 * **Dim Radius** Start of dim light within the above-specified light radius (Note that this value will be overriden by a value derived from a monster's senses attribute where available)
@@ -385,7 +378,8 @@ Note that all of the settings under Token Defaults are applied to tokens only wh
 The settings in this section will be applied to new characters when they are created, since the sheet has no way of storing default options
 for new characters.
 
-* **Apply to all new chars?** If this is on, then the settings in this section will be applied to every new character, otherwise they will only be applied to characters created by the script using the various import commands, or when **!shaped-apply-defaults** is run.
+* **Apply to all new chars?** If this is on, then the settings in this section will be applied to every new character, otherwise they will only be applied to characters created by the script using the various import commands, or when **!shaped-apply-defaults** is run. Please note that these defaults
+are applied at the moment of character creation, so some settings may not apply correctly - for example token actions which reference traits that have not yet been created. In this case, you should run **!shaped-apply-defaults** after your character is completely configured to complete the setup. You should also be aware that as things currently stand, this functionality does not work well for items dragged from the Compendium due to limitations in how the drag and drop functionality interacts with the sheet import systems.
 * **Sheet Output** Set whether output from the new character sheet should be public or whispered to the controlling player by default.
 * **Death Save Output** Same as Sheet Output, but specifically for death saves.
 * **Hit Dice Output** Same as Sheet Output, but specifically for Hit Dice.
