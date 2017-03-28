@@ -130,7 +130,7 @@ describe('srd-converter', function () {
         }
         if (json.spells) {
           it('should parse spell correctly', function () {
-            srdConverter.convertSpells(json.spells, 'female');
+            srdConverter.convertSpells(json.spells.filter(spell => !spell.newName), 'female');
           });
         }
       });
