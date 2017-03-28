@@ -1,3 +1,23 @@
+<a name="8.3.0"></a>
+# [8.3.0](https://github.com/symposion/roll20-shaped-scripts/compare/8.2.0...8.3.0) (2017-03-28)
+
+
+### Bug Fixes
+
+* **death-saves:** Don't moan about negative HP ([2c63292](https://github.com/symposion/roll20-shaped-scripts/commit/2c63292)), closes [#422](https://github.com/symposion/roll20-shaped-scripts/issues/422)
+* **entity-lister:** Ensure classes are always listed for spells ([368a7a4](https://github.com/symposion/roll20-shaped-scripts/commit/368a7a4))
+* **entity-lister:** Improve concentration/ritual presentation ([33b567d](https://github.com/symposion/roll20-shaped-scripts/commit/33b567d))
+* **import:** Stop Errors being swallowed for monster import ([4f7dfda](https://github.com/symposion/roll20-shaped-scripts/commit/4f7dfda)), closes [#431](https://github.com/symposion/roll20-shaped-scripts/issues/431)
+
+
+### Features
+
+* **custom-json:** Implement better patch system for houserules ([ef93e8d](https://github.com/symposion/roll20-shaped-scripts/commit/ef93e8d)), closes [#433](https://github.com/symposion/roll20-shaped-scripts/issues/433)
+* **monster-list:** Click to remove existing ([8f57685](https://github.com/symposion/roll20-shaped-scripts/commit/8f57685)), closes [#436](https://github.com/symposion/roll20-shaped-scripts/issues/436)
+* **token-defaults:** Provide option to only link bars for PCs ([1876f40](https://github.com/symposion/roll20-shaped-scripts/commit/1876f40)), closes [#402](https://github.com/symposion/roll20-shaped-scripts/issues/402)
+
+
+
 <a name="8.2.0"></a>
 # [8.2.0](https://github.com/symposion/roll20-shaped-scripts/compare/8.1.0...8.2.0) (2017-03-23)
 
