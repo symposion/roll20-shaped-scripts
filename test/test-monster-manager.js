@@ -53,11 +53,15 @@ describe('monster-manager', function () {
         },
       },
       srdConverter: { convertMonster: _.identity, convertSpells: _.identity },
-      tokenBarConfigurer: { setTokenBarsOnDrop: _.identity },
+      newCharacterConfigurer: { configureCharacter(token, character) { return character; } },
       entityLister: { addEntity: _.noop },
     });
-    monsterManager.configure(cp, null, { registerEventHandler: _.noop });
+    monsterManager.configure(cp, null, { registerEventHandler: _.noop, registerAttributeChangeHandler: _.noop });
   });
+
+  // after(function() {
+  //   sinon.restore
+  // });
 
   describe('#importMonsters', function () {
     it('token, no existing character, one monster', function () {
@@ -72,8 +76,6 @@ describe('monster-manager', function () {
           roll20.createObj.withArgs('character', { name: 'monster' }).returns(character);
         },
         function (character, attributes, token) {
-          expect(token.props.represents).to.equal(character.id);
-          expect(character.props.avatar).to.equal('imgsrc');
         });
     });
 
@@ -90,8 +92,6 @@ describe('monster-manager', function () {
           roll20.createObj.withArgs('character', { name: 'monster' }).returns(character);
         },
         function (character, attributes, token) {
-          expect(token.props.represents).to.equal(character.id);
-          expect(character.props.avatar).to.equal('imgsrc');
         });
     });
 
@@ -108,8 +108,6 @@ describe('monster-manager', function () {
           roll20.getObj.withArgs('character', character.id).returns(character);
         },
         function (character, attributes, token) {
-          expect(token.props.represents).to.equal(character.id);
-          expect(character.props.avatar).to.equal('imgsrc');
         });
     });
 
@@ -127,8 +125,6 @@ describe('monster-manager', function () {
           roll20.getObj.withArgs('character', character.id).returns(character);
         },
         function (character, attributes, token) {
-          expect(token.props.represents).to.equal(character.id);
-          expect(character.props.avatar).to.equal('imgsrc');
         });
     });
 
@@ -145,51 +141,49 @@ describe('monster-manager', function () {
           roll20.findObjs.withArgs({ type: 'character', name: 'monster' }).returns([character]);
         },
         function (character, attributes, token) {
-          expect(token.props.represents).to.equal(character.id);
-          expect(character.props.avatar).to.equal('imgsrc');
         });
     });
   });
 
-  describe('#getTokenVisionConfigurer', function () {
-    it('should configure senses correctly', function () {
-      const token = new Roll20Object('graphic');
-      monsterManager.getTokenVisionConfigurer(token, 'blindsight 80ft. tremorsense 60ft.')();
-      expect(token.props).to.have.property('light_radius', 80);
-      expect(token.props).to.have.property('light_dimradius', 80);
-    });
-
-    it('should handle senses with conditions', function () {
-      const token = new Roll20Object('graphic');
-      monsterManager.getTokenVisionConfigurer(token,
-        'blindsight 30 ft. or 10 ft. while deafened (blind beyond this radius)')();
-      expect(token.props).to.have.property('light_radius', 30);
-      expect(token.props).to.have.property('light_dimradius', 30);
-    });
-
-    it('should handle darkvision with another sense', function () {
-      const token = new Roll20Object('graphic');
-      monsterManager.getTokenVisionConfigurer(token,
-        'darkvision 40ft., tremorsense 20ft.')();
-      expect(token.props).to.have.property('light_radius', Math.round(40 * 1.1666666));
-      expect(token.props).to.have.property('light_dimradius', 20);
-    });
-
-    it('should handle darkvision with another better sense', function () {
-      const token = new Roll20Object('graphic');
-      monsterManager.getTokenVisionConfigurer(token,
-        'darkvision 30ft., tremorsense 40ft.')();
-      expect(token.props).to.have.property('light_radius', 40);
-      expect(token.props).to.have.property('light_dimradius', 40);
-    });
-
-    it('should handle darkvision on its own', function () {
-      const token = new Roll20Object('graphic');
-      monsterManager.getTokenVisionConfigurer(token, 'darkvision 30ft.')();
-      expect(token.props).to.have.property('light_radius', Math.round(30 * 1.1666666));
-      expect(token.props).to.have.property('light_dimradius', -5);
-    });
-  });
+  // describe('#getTokenVisionConfigurer', function () {
+  //   it('should configure senses correctly', function () {
+  //     const token = new Roll20Object('graphic');
+  //     monsterManager.getTokenVisionConfigurer(token, 'blindsight 80ft. tremorsense 60ft.')();
+  //     expect(token.props).to.have.property('light_radius', 80);
+  //     expect(token.props).to.have.property('light_dimradius', 80);
+  //   });
+  //
+  //   it('should handle senses with conditions', function () {
+  //     const token = new Roll20Object('graphic');
+  //     monsterManager.getTokenVisionConfigurer(token,
+  //       'blindsight 30 ft. or 10 ft. while deafened (blind beyond this radius)')();
+  //     expect(token.props).to.have.property('light_radius', 30);
+  //     expect(token.props).to.have.property('light_dimradius', 30);
+  //   });
+  //
+  //   it('should handle darkvision with another sense', function () {
+  //     const token = new Roll20Object('graphic');
+  //     monsterManager.getTokenVisionConfigurer(token,
+  //       'darkvision 40ft., tremorsense 20ft.')();
+  //     expect(token.props).to.have.property('light_radius', Math.round(40 * 1.1666666));
+  //     expect(token.props).to.have.property('light_dimradius', 20);
+  //   });
+  //
+  //   it('should handle darkvision with another better sense', function () {
+  //     const token = new Roll20Object('graphic');
+  //     monsterManager.getTokenVisionConfigurer(token,
+  //       'darkvision 30ft., tremorsense 40ft.')();
+  //     expect(token.props).to.have.property('light_radius', 40);
+  //     expect(token.props).to.have.property('light_dimradius', 40);
+  //   });
+  //
+  //   it('should handle darkvision on its own', function () {
+  //     const token = new Roll20Object('graphic');
+  //     monsterManager.getTokenVisionConfigurer(token, 'darkvision 30ft.')();
+  //     expect(token.props).to.have.property('light_radius', Math.round(30 * 1.1666666));
+  //     expect(token.props).to.have.property('light_dimradius', -5);
+  //   });
+  // });
 
 
   function runImportMonsterTest(monsters, options, preConfigure, expectationChecker) {
@@ -198,7 +192,6 @@ describe('monster-manager', function () {
     sinon.stub(roll20, 'getAttrByName');
     sinon.stub(roll20, 'sendChat');
     sinon.stub(roll20, 'getObj');
-    sinon.stub(roll20, 'setDefaultTokenForCharacter');
 
     const token = new Roll20Object('graphic');
     token.set('imgsrc', 'imgsrc');
@@ -215,7 +208,6 @@ describe('monster-manager', function () {
       attributes[name] = attr;
     });
 
-    roll20.findObjs.withArgs({ type: 'attribute', characterid: character.id }).returns([]);
     sinon.stub(roll20, 'getOrCreateAttr', function (characterId, name) {
       expect(characterId).to.equal(character.id);
       const attr = new Roll20Object('attribute');
@@ -223,10 +215,8 @@ describe('monster-manager', function () {
       attr.remove = _.noop;
       return attr;
     });
-    roll20.getAttrByName.withArgs(character.id, 'locked').returns(null);
-    sinon.stub(monsterManager, 'applyCharacterDefaults').returns(character);
+    roll20.getAttrByName.withArgs(character.id, 'locked', 'current', true).returns(null);
     sinon.stub(monsterManager, 'monsterDataPopulator').returns(character);
-    sinon.stub(monsterManager, 'createTokenActions').returns(character);
 
     return monsterManager.importMonsters(monsters, options, token, []).then(() => {
       expectationChecker(character, attributes, token);
