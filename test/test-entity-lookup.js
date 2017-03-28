@@ -189,19 +189,14 @@ describe('entity-lookup', function () {
         el.addEntities(data, rr);
         const results = rr.results[name];
         if (data.spells) {
-          expect(results.spells.skipped).to.be.empty;
-          expect(results.spells.deleted).to.be.empty;
-          expect(results.spells.patched).to.be.empty;
           expect(results.spells.withErrors).to.be.empty;
           expect(results.errors).to.be.empty;
-          expect(results.spells.added).to.have.lengthOf(data.spells.length);
+          expect(results.spells.added.length + results.spells.patched.length).to.equal(data.spells.length);
         }
         if (data.monsters) {
-          expect(results.monsters.skipped).to.be.empty;
           expect(results.monsters.deleted).to.be.empty;
-          expect(results.monsters.patched).to.be.empty;
           expect(results.monsters.withErrors).to.be.empty;
-          expect(results.monsters.added.length + results.monsters.merged.length).to.equal(data.monsters.length);
+          expect(results.monsters.added.length + results.monsters.patched.length).to.equal(data.monsters.length);
         }
       });
     });

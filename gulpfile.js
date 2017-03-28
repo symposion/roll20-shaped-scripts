@@ -163,7 +163,7 @@ function runWebpackBuild() {
       append: versionSuffix,
       replace: /%%GULP_INJECT_VERSION%%/g,
     }))
-    .pipe(addSrc('./data/5e-srd-content.js'))
+    .pipe(addSrc('./data/5eSRDData.js'))
     .pipe(concat('./5eShapedCompanion.js'))
     .pipe(gulp.dest('./'));
 }

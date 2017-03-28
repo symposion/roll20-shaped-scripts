@@ -27,6 +27,7 @@ describe('entity-criteria-collector', function () {
       expect(ecc.criteria).to.deep.equal([
         {
           name: 'propTwo',
+          displayName: 'propTwo',
           values: [
             'valOne',
             'valTwo',
@@ -34,6 +35,7 @@ describe('entity-criteria-collector', function () {
         },
         {
           name: 'propOne',
+          displayName: 'propOne',
           values: [
             'valOne',
             'valTwo',
@@ -42,13 +44,35 @@ describe('entity-criteria-collector', function () {
       ]);
       expect(
         ecc.getCriteriaToDisplay({ propOne: ['valOne'] })).to.deep
-        .equal([{ name: 'propTwo', values: ['valOne'] }, { name: 'propOne', values: ['valOne', 'valTwo'] }]);
+        .equal([
+          {
+            name: 'propTwo',
+            displayName: 'propTwo',
+            values: ['valOne'],
+          },
+          {
+            name: 'propOne',
+            displayName: 'propOne',
+            values: ['valOne', 'valTwo'],
+          }
+        ]);
     });
 
     it('maintains original sort order', function () {
       expect(
         ecc.getCriteriaToDisplay({ propOne: ['valTwo', 'valOne'] })).to.deep
-        .equal([{ name: 'propTwo', values: ['valOne'] }, { name: 'propOne', values: ['valOne', 'valTwo'] }]);
+        .equal([
+          {
+            name: 'propTwo',
+            displayName: 'propTwo',
+            values: ['valOne'],
+          },
+          {
+            name: 'propOne',
+            displayName: 'propOne',
+            values: ['valOne', 'valTwo'],
+          }
+        ]);
     });
   });
 
@@ -69,7 +93,18 @@ describe('entity-criteria-collector', function () {
 
     it('matches integer criteria', function () {
       expect(ecc.getCriteriaToDisplay({ propOne: [3] })).to.deep.equal(
-        [{ name: 'propTwo', values: [1] }, { name: 'propOne', values: [3, 4] }]);
+        [
+          {
+            name: 'propTwo',
+            displayName: 'propTwo',
+            values: [1],
+          },
+          {
+            name: 'propOne',
+            displayName: 'propOne',
+            values: [3, 4],
+          }
+        ]);
     });
   });
 });
