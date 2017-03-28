@@ -1,5 +1,5 @@
 'use strict';
-
+const _ = require('underscore');
 
 class Reporter {
   constructor() {
@@ -17,6 +17,13 @@ class Reporter {
   }
 
   setPlayer() {
+  }
+
+  getMessageStreamer() {
+    return {
+      stream: _.noop,
+      finish: _.noop,
+    };
   }
 
   // noinspection JSUnusedGlobalSymbols
