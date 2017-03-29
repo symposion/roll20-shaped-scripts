@@ -1,3 +1,14 @@
+<a name="8.3.1"></a>
+## [8.3.1](https://github.com/symposion/roll20-shaped-scripts/compare/8.3.0...8.3.1) (2017-03-29)
+
+
+### Bug Fixes
+
+* **import:** Allow previous name to import spells for monster ([6cb8821](https://github.com/symposion/roll20-shaped-scripts/commit/6cb8821)), closes [#439](https://github.com/symposion/roll20-shaped-scripts/issues/439)
+* **import:** Fix error with custom JSON that still has patch attribute ([30a8f4e](https://github.com/symposion/roll20-shaped-scripts/commit/30a8f4e))
+
+
+
 <a name="8.3.0"></a>
 # [8.3.0](https://github.com/symposion/roll20-shaped-scripts/compare/8.2.0...8.3.0) (2017-03-28)
 
