@@ -1,3 +1,14 @@
+<a name="8.4.1"></a>
+## [8.4.1](https://github.com/symposion/roll20-shaped-scripts/compare/8.4.0...8.4.1) (2017-03-30)
+
+
+### Bug Fixes
+
+* **rests:** Send whisper as resting character ([e9f1e79](https://github.com/symposion/roll20-shaped-scripts/commit/e9f1e79))
+* **startup:** Fix version not found bug on startup ([8a75cb6](https://github.com/symposion/roll20-shaped-scripts/commit/8a75cb6)), closes [#441](https://github.com/symposion/roll20-shaped-scripts/issues/441)
+
+
+
 <a name="8.4.0"></a>
 # [8.4.0](https://github.com/symposion/roll20-shaped-scripts/compare/8.3.1...8.4.0) (2017-03-30)
 
