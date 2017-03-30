@@ -1,3 +1,18 @@
+<a name="8.4.0"></a>
+# [8.4.0](https://github.com/symposion/roll20-shaped-scripts/compare/8.3.1...8.4.0) (2017-03-30)
+
+
+### Bug Fixes
+
+* **rests:** Fix auto-turn-rests ([1224120](https://github.com/symposion/roll20-shaped-scripts/commit/1224120)), closes [#445](https://github.com/symposion/roll20-shaped-scripts/issues/445)
+
+
+### Features
+
+* **rests:** Handle Rests running on the sheet ([f44374c](https://github.com/symposion/roll20-shaped-scripts/commit/f44374c)), closes [#398](https://github.com/symposion/roll20-shaped-scripts/issues/398)
+
+
+
 <a name="8.3.1"></a>
 ## [8.3.1](https://github.com/symposion/roll20-shaped-scripts/compare/8.3.0...8.3.1) (2017-03-29)
 
