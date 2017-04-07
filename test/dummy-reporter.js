@@ -1,9 +1,10 @@
 'use strict';
-
+const _ = require('underscore');
 
 class Reporter {
   constructor() {
     this.messages = [];
+    this.errors = [];
   }
 
   // noinspection JSUnusedGlobalSymbols
@@ -18,9 +19,16 @@ class Reporter {
   setPlayer() {
   }
 
+  getMessageStreamer() {
+    return {
+      stream: _.noop,
+      finish: _.noop,
+    };
+  }
+
   // noinspection JSUnusedGlobalSymbols
   reportError(message) {
-    this.messages.push(message);
+    this.errors.push(message);
   }
 }
 

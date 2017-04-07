@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
   "monsters": [
     {
       "name": "Priest",
@@ -25,55 +25,13 @@
         },
         {
           "name": "Spellcasting",
-          "text": "The priest is a 5th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 13, +5 to hit with spell attacks). The priest has the following cleric spells prepared:\nCantrips (at will): Fight, Sacred Flame, Thaumaturgy\n1st level (4 slots): Cure Wounds, Guiding Bolt, Sanctuary\n2nd level (3 slots): Lesser Restoration, Spiritual Weapon\n3rd level (2 slots): Dispel Magic, Spirit Guardians"
+          "text": "The priest is a 5th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 13, +5 to hit with spell attacks). The priest has the following cleric spells prepared:\nCantrips (at will): fight, sacred flame, thaumaturgy\n1st level (4 slots): cure wounds, guiding bolt, sanctuary\n2nd level (3 slots): lesser restoration, spiritual weapon\n3rd level (2 slots): dispel magic, spirit guardians"
         }
       ],
       "actions": [
         {
           "name": "Mace",
           "text": "Melee Weapon Attack: +2 to hit, reach 5ft., one target. Hit:3 (1d6) bludgeoning damage."
-        }
-      ],
-      "spells": [
-        {
-          "name": "Fight",
-          "level": 0
-        },
-        {
-          "name": "Sacred Flame",
-          "level": 0
-        },
-        {
-          "name": "Thaumaturgy",
-          "level": 0
-        },
-        {
-          "name": "Cure Wounds",
-          "level": 1
-        },
-        {
-          "name": "Guiding Bolt",
-          "level": 1
-        },
-        {
-          "name": "Sanctuary",
-          "level": 1
-        },
-        {
-          "name": "Lesser Restoration",
-          "level": 2
-        },
-        {
-          "name": "Spiritual Weapon",
-          "level": 2
-        },
-        {
-          "name": "Dispel Magic",
-          "level": 3
-        },
-        {
-          "name": "Spirit Guardians",
-          "level": 3
         }
       ]
     }

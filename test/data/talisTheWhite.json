@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
   "monsters": [
     {
       "name": "Talis The White",
@@ -31,7 +31,7 @@
         },
         {
           "name": "Spellcasting",
-          "text": "Talis is a 9th-level spellcaster that uses Wisdom as her spellcasting ability (spell save DC 14, +6 to hit with spell attacks). Talis has the following spells prepared from the cleric spell list:\nCantrips (at will): guidance, resistance, Thaumaturgy\n1st level (4 slots): Command, Cure Wounds, healing word, inflict wounds\n2nd level (3 slots): blindness/deafness, Lesser Restoration, Spiritual Weapon (spear)\n3rd level (3 slots): Dispel Magic, mass healing word, sending\n4th level (3 slots): death ward, freedom of movement\n5th level (1 slot): insect plague\nWinter Strike (3/Day), when Talis hits with a melee attack, she can expend a use of this trait to deal an extra 9 (2d8)"
+          "text": "Talis is a 9th-level spellcaster that uses Wisdom as her spellcasting ability (spell save DC 14, +6 to hit with spell attacks). Talis has the following spells prepared from the cleric spell list:\nCantrips (at will): guidance, resistance, thaumaturgy\n1st level (4 slots): command, cure wounds, healing word, inflict wounds\n2nd level (3 slots): blindness/deafness, lesser restoration, spiritual weapon (spear)\n3rd level (3 slots): dispel magic, mass healing word, sending\n4th level (3 slots): death ward, freedom of movement\n5th level (1 slot): insect plague\nWinter Strike (3/Day) Once per turn, when Talis hits with a melee attack, she can expend a use of this trait to deal an extra 9 (2d8) cold damage."
         }
       ],
       "actions": [
@@ -39,44 +39,6 @@
           "name": "Spear",
           "text": "Melee or Ranged Weapon Attack: +5 to hit, reach 5 ft. or ranged 20 ft./60 ft., one target. Hit: 6 (1d6 + 2) piercing damage."
         }
-      ],
-      "spells": [
-        {
-          "name": "Thaumaturgy",
-          "level": 0
-        },
-        {
-          "name": "Command",
-          "level": 1
-        },
-        {
-          "name": "Cure Wounds",
-          "level": 1
-        },
-        {
-          "name": "Lesser Restoration",
-          "level": 2
-        },
-        {
-          "name": "Spiritual Weapon",
-          "level": 2
-        },
-        {
-          "name": "Dispel Magic",
-          "level": 3
-        },
-        "guidance",
-        "resistance",
-        "healing word",
-        "inflict wounds",
-        "blindness/deafness",
-        "mass healing word",
-        "sending",
-        "death ward",
-        "freedom of movement",
-        "insect plague\nWinter Strike",
-        "when Talis hits with a melee attack",
-        "she can expend a use of this trait to deal an extra 9"
       ]
     }
   ]

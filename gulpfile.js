@@ -18,6 +18,8 @@ const injectVersion = require('gulp-inject-version');
 const toc = require('gulp-doctoc');
 const webpackConfig = require('./webpack.config.js');
 const fs = require('fs');
+const addSrc = require('gulp-add-src');
+const concat = require('gulp-concat');
 
 const github = new GitHubApi({ version: '3.0.0', debug: true });
 
@@ -38,7 +40,7 @@ switch (process.env.CI && process.env.TRAVIS_BRANCH) {
 gulp.task('default', ['test', 'lint'], () => runWebpackBuild());
 
 gulp.task('lint', () =>
-  gulp.src('./lib/*.js')
+  gulp.src('./lib/**/*.js')
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
@@ -159,7 +161,10 @@ function runWebpackBuild() {
     .pipe(webpack(webpackConfig))
     .pipe(injectVersion({
       append: versionSuffix,
+      replace: /%%GULP_INJECT_VERSION%%/g,
     }))
+    .pipe(addSrc('./data/5eSRDData.js'))
+    .pipe(concat('./5eShapedCompanion.js'))
     .pipe(gulp.dest('./'));
 }
 

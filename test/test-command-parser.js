@@ -5,6 +5,8 @@ const expect = require('chai').expect;
 const cp = require('../lib/command-parser');
 const sinon = require('sinon');
 const Roll20 = require('roll20-wrapper');
+const _ = require('underscore');
+const logger = require('./dummy-logger');
 
 function testValidator(value) {
   return {
@@ -20,7 +22,7 @@ describe('command-parser', function () {
   describe('#command', function () {
     it('parse options correctly', function () {
       let result = {};
-      cp('shaped', roll20)
+      cp('shaped', roll20, null, { registerEventHandler: _.noop }, 1, logger)
         .addCommand('config', function (object) {
           result = object;
         })
@@ -39,13 +41,14 @@ describe('command-parser', function () {
             ],
           },
         })
-        .processCommand({ content: '!shaped-config --foo.subThree.flurb[1] splat', type: 'api' });
+        .processCommand({ content: '!shaped-config --foo.subThree.flurb[1] splat', type: 'api', playerid: 1 });
       const expected = {
         foo: {
           subThree: {
             flurb: [],
           },
         },
+        playerId: 1,
       };
       expected.foo.subThree.flurb[1] = 'splat';
       expect(result).to.deep.equal(expected);
@@ -58,7 +61,7 @@ describe('command-parser', function () {
       key2: 'value2',
     };
     let result = {};
-    const myCp = cp('shaped', roll20)
+    const myCp = cp('shaped', roll20, null, { registerEventHandler: _.noop }, 1, logger)
       .addCommand('stuff', function (object) {
         result = object;
       })
@@ -67,8 +70,9 @@ describe('command-parser', function () {
       });
 
     it('handles comma-sep options', function () {
-      myCp.processCommand({ content: '!shaped-stuff --key1, key2', type: 'api' });
+      myCp.processCommand({ content: '!shaped-stuff --key1, key2', type: 'api', playerid: 1 });
       expect(result).to.deep.equal({
+        playerId: 1,
         spells: ['value1', 'value2'],
       });
     });
@@ -82,14 +86,14 @@ describe('command-parser', function () {
   describe('#missingParam', function () {
     it('accepts supplied required param', function () {
       let result = {};
-      const myCp = cp('shaped', roll20)
+      const myCp = cp('shaped', roll20, null, { registerEventHandler: _.noop }, 1, logger)
         .addCommand('stuff', function (object) {
           result = object;
         })
         .option('test', testValidator, true);
 
-      myCp.processCommand({ content: '!shaped-stuff --test', type: 'api' });
-      expect(result).to.deep.equal({ test: true });
+      myCp.processCommand({ content: '!shaped-stuff --test', type: 'api', playerid: 1 });
+      expect(result).to.deep.equal({ test: true, playerId: 1 });
     });
   });
 });

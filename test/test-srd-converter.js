@@ -1,6 +1,6 @@
 'use strict';
 
-/* globals describe: false, it:false */
+/* globals describe: false, it:false, before:false */
 require('chai').should();
 const srdConverter = require('../lib/srd-converter');
 const fs = require('fs');
@@ -57,16 +57,16 @@ describe('srd-converter', function () {
       // noinspection JSUnresolvedVariable
       const converted = srdConverter.convertMonster(fullObject);
       converted.should.have.property('content_srd',
-        'Traits\n' +
+        '\n Traits\n' +
         '**Trait One (1/day)**: trait text blah blah\nblah\n' +
         '**Trait Two**: trait 2 text blah blah\nblah\n' +
-        'Actions\n' +
+        '\n Actions\n' +
         '**Action One (5-6)**: action text blah blah\nblah\n' +
         '**Action Two**: action 2 text blah blah\nblah\n' +
-        'Reactions\n' +
+        '\n Reactions\n' +
         '**Reaction One (5-6)**: reaction text blah blah\nblah\n' +
         '**Reaction Two**: reaction 2 text blah blah\nblah\n' +
-        'Legendary Actions\n' +
+        '\n Legendary Actions\n' +
         'The Wobbler can take 3 legendary actions, choosing from the options below. ' +
         'It can take only one legendary action at a time and only at the end of another creature\'s turn. ' +
         'The Wobbler regains spent legendary actions at the start of its turn.\n' +
@@ -80,7 +80,7 @@ describe('srd-converter', function () {
       // noinspection JSUnresolvedVariable
       const converted = srdConverter.convertMonster(fullObject);
       converted.should.have.property('is_npc', 1);
-      converted.should.have.property('edit_mode', 'off');
+      converted.should.have.property('edit_mode', 0);
       converted.should.not.contain.any.keys('traits', 'actions', 'reactions', 'legendaryActions', 'legendary_actions');
     });
 
@@ -102,40 +102,37 @@ describe('srd-converter', function () {
       // noinspection JSUnresolvedVariable
       const converted = srdConverter.convertMonster(someMissing);
       converted.should.have.property('content_srd',
-        'Traits\n' +
+        '\n Traits\n' +
         '**Trait Two**: trait 2 text blah blah\nblah\n' +
-        'Actions\n' +
+        '\n Actions\n' +
         '**Action One (5-6)**: action text blah blah\nblah\n' +
         '**Action Two**: action 2 text blah blah\nblah');
       converted.should.not.have.any.keys('traits', 'actions', 'reactions', 'legendaryActions', 'legendary_actions');
     });
   });
 
-  describe('#convertSpell', function () {
-    try {
-      const spells = JSON.parse(fs.readFileSync('../../roll20/data/spells/spellData.json', 'utf-8'));
-
-      it('should parse spell correctly', function () {
-        srdConverter.convertSpells(spells, 'female');
-      });
+  describe('#convertJson', function () {
+    if (process.env.CI) {
+      return;
     }
-    catch (e) {
-      // Test file not present, ignore
-      if (e.code !== 'ENOENT') {
-        throw e;
-      }
-    }
-  });
 
-  describe('#convertJsonMonster', function () {
-    glob.sync('../../roll20/data/monsterSourceFiles/*.json').forEach(function (jsonFile) {
+    const monsterFiles = glob.sync('../5eshapedscriptdata/sources/*.json');
+    monsterFiles.should.not.be.empty;
+    monsterFiles.forEach(function (jsonFile) {
       describe(`JSON file:  ${jsonFile}`, function () {
         const json = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
-        json.monsters.forEach(function (monster) {
-          it(`convert ${monster.name}`, function () {
-            srdConverter.convertMonster(monster);
+        if (json.monsters) {
+          json.monsters.forEach(function (monster) {
+            it(`convert ${monster.name}`, function () {
+              srdConverter.convertMonster(monster);
+            });
           });
-        });
+        }
+        if (json.spells) {
+          it('should parse spell correctly', function () {
+            srdConverter.convertSpells(json.spells.filter(spell => !spell.newName), 'female');
+          });
+        }
       });
     });
   });

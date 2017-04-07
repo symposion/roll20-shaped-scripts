@@ -10,4 +10,6 @@ module.exports = {
   trace: _.noop,
   wrapModule: _.noop,
   wrapFunction: _.noop,
+  getLogLevel: _.constant(1),
+  levels: {},
 };

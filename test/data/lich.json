@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
   "monsters": [
     {
       "name": "Lich",
@@ -35,7 +35,7 @@
         },
         {
           "name": "Spellcasting",
-          "text": "The lich is an 18th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 20, +12 to hit with spell attacks). The lich has the following wizard spells prepared:\nCantrips (at will): Mage Hand, Prestidigitation, Ray of Frost\n1st level (4 slots): Detect Magic, Magic Missile, Shield, Thunderwave\n2nd level (3 slots): Detect Thoughts, Invisibility, Melf's Acid Arrow, Mirror Image\n3rd level (3 slots): Animate Dead, Counterspell, Dispel Magic, Fireball\n4th level (3 slots): Blight, Dimension Door\n5th level (3 slots): Cloudkill, Scrying\n6th level (1 slot): Disintegrate, Globe of Invulnerability\n7th level (1 slot): Finger of Death, Planeshift\n8th level (1 slot): Dominate Monster, Power Word Stun\n9th level (1slot): Power Word Kill"
+          "text": "The lich is an 18th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 20, +12 to hit with spell attacks). The lich has the following wizard spells prepared:\nCantrips (at will): mage hand, prestidigitation, ray off rost 1st level (4 slots): detect magic, magic missile, shield, t h unde rwave\n2nd level (3 slots): detect thoughts, invisibility, Melf's acid arrow, mirror image\n3rd level (3 slots): animate dead, counterspell, dispel magic, fireball\n4th level (3 slots): blight, dimension door\n5th level (3 slots): cloudkill, scrying\n6th level (1 slot): disintegrate, globe of invulnerability 7thlevel(1 slot):fingerofdeath,planeshift\n8th level (1 slot): dominate monster, power word stun 9th level(1slot):powerwordkill"
         },
         {
           "name": "Turn Resistance",
@@ -68,112 +68,6 @@
           "name": "Disrupt Life",
           "cost": 3,
           "text": "Each living creature within 20 feet of the lich must make a DC 18 Constitution saving throw against this magic, taking 21 (6d6) necrotic damage on a failed save, or half as much damage on a successful one."
-        }
-      ],
-      "spells": [
-        {
-          "name": "Mage Hand",
-          "level": 0
-        },
-        {
-          "name": "Prestidigitation",
-          "level": 0
-        },
-        {
-          "name": "Ray of Frost",
-          "level": 0
-        },
-        {
-          "name": "Detect Magic",
-          "level": 1
-        },
-        {
-          "name": "Magic Missile",
-          "level": 1
-        },
-        {
-          "name": "Shield",
-          "level": 1
-        },
-        {
-          "name": "Thunderwave",
-          "level": 1
-        },
-        {
-          "name": "Detect Thoughts",
-          "level": 2
-        },
-        {
-          "name": "Invisibility",
-          "level": 2
-        },
-        {
-          "name": "Melf's Acid Arrow",
-          "level": 2
-        },
-        {
-          "name": "Mirror Image",
-          "level": 2
-        },
-        {
-          "name": "Animate Dead",
-          "level": 3
-        },
-        {
-          "name": "Counterspell",
-          "level": 3
-        },
-        {
-          "name": "Dispel Magic",
-          "level": 3
-        },
-        {
-          "name": "Fireball",
-          "level": 3
-        },
-        {
-          "name": "Blight",
-          "level": 4
-        },
-        {
-          "name": "Dimension Door",
-          "level": 4
-        },
-        {
-          "name": "Cloudkill",
-          "level": 5
-        },
-        {
-          "name": "Scrying",
-          "level": 5
-        },
-        {
-          "name": "Disintegrate",
-          "level": 6
-        },
-        {
-          "name": "Globe of Invulnerability",
-          "level": 6
-        },
-        {
-          "name": "Finger of Death",
-          "level": 7
-        },
-        {
-          "name": "Planeshift",
-          "level": 7
-        },
-        {
-          "name": "Dominate Monster",
-          "level": 8
-        },
-        {
-          "name": "Power Word Stun",
-          "level": 8
-        },
-        {
-          "name": "Power Word Kill",
-          "level": 9
         }
       ]
     }

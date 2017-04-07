@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
   "monsters": [
     {
       "name": "Ancient White Dragon",
@@ -55,8 +55,11 @@
         {
           "name": "Cold Breath",
           "recharge": "Recharge 5-6",
-          "text": "The dragon exhales an icy blast in a 90-foot cone. Each creature in that area must make a DC 22\nConstitution saving throw, taking 72 (16d8) cold damage on a failed save, or half as much damage on a successful one.\nLeg Endary\nActions\nThe dragon can take 3 Legendary Actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent Legendary Actions at the start of its turn."
-        },
+          "text": "The dragon exhales an icy blast in a 90-foot cone. Each creature in that area must make a DC 22\nConstitution saving throw, taking 72 (16d8) cold damage on a failed save, or half as much damage on a successful one."
+        }
+      ],
+      "legendaryPoints": 3,
+      "legendaryActions": [
         {
           "name": "Detect",
           "text": "The dragon makes a Wisdom (Perception) check."
@@ -67,7 +70,7 @@
         },
         {
           "name": "Wing Attack",
-          "recharge": "Costs 2 Actions",
+          "cost": 2,
           "text": "The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 22 Dexterity saving throw or take 15 (2d6 + 8) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed."
         }
       ],

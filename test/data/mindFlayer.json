@@ -1,0 +1,50 @@
+{
+  "version": "2.0.0",
+  "monsters": [
+    {
+      "name": "Mind Flayer",
+      "size": "Medium",
+      "type": "aberration",
+      "alignment": "lawful evil",
+      "AC": "15 (breastplate)",
+      "HP": "71 (13d8 + 13)",
+      "speed": "30ft.",
+      "strength": 11,
+      "dexterity": 12,
+      "constitution": 12,
+      "intelligence": 19,
+      "wisdom": 17,
+      "charisma": 17,
+      "savingThrows": "Int +7, Wis +6, Cha +6",
+      "skills": "Arcana +7, Deception +6, Insight +6, Perception +6,\nPersuasion +6, Stealth +4",
+      "senses": "darkvision 120ft.",
+      "languages": "Deep Speech, Undercommon, telepathy 120ft.",
+      "challenge": "7",
+      "traits": [
+        {
+          "name": "Magic Resistance",
+          "text": "The mind flayer has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Innate Spellcasting (Psionics)",
+          "text": "The mind flayer's innate spellcasting ability is Intelligence (spell save DC 15). It can innately cast the following spells, requiring no components:\nAt will: detect thoughts, levitate 1/day each: dominate monster, plane shift (self only)"
+        }
+      ],
+      "actions": [
+        {
+          "name": "Tentacles",
+          "text": "Melee Weapon Attack: +7 to hit, reach 5 ft., one creature. Hit: 15 (2d10 + 4) psychic damage. If the target is Medium or smaller, it is grappled (escape DC 15) and must succeed on a DC 15 Intelligence saving throw or be stunned until this grapple ends."
+        },
+        {
+          "name": "Extract Brain",
+          "text": "Melee Weapon Attack: +7 to hit, reach 5 ft., one incapacitated humanoid grappled by the mind flayer. Hit: The target takes 55 (10dl O) piercing damage. If this damage reduces the target to 0 hit points, the mind flayer kills the target by extracting and devouring its brain."
+        },
+        {
+          "name": "Mind Blast",
+          "recharge": "Recharge 5-6",
+          "text": "The mind flayer magically emits psychic energy in a 60-foot cone. Each creature in that area must succeed on a DC 15 Intelligence saving throw or take 22 (4d8 + 4) psychic damage and be stunned for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        }
+      ]
+    }
+  ]
+}
