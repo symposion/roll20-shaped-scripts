@@ -1,3 +1,19 @@
+<a name="9.0.0"></a>
+# [9.0.0](https://github.com/symposion/roll20-shaped-scripts/compare/8.5.0...9.0.0) (2017-04-09)
+
+
+### Bug Fixes
+
+* **uses:** Fix legendary action uses decrementing ([5e1503b](https://github.com/symposion/roll20-shaped-scripts/commit/5e1503b)), closes [#461](https://github.com/symposion/roll20-shaped-scripts/issues/461)
+
+
+### BREAKING CHANGES
+
+* **uses:** This script no longer works with sheets
+below version 11.4.0
+
+
+
 <a name="8.5.0"></a>
 # [8.5.0](https://github.com/symposion/roll20-shaped-scripts/compare/8.4.2...8.5.0) (2017-04-09)
 
