@@ -1,3 +1,30 @@
+<a name="8.5.0"></a>
+# [8.5.0](https://github.com/symposion/roll20-shaped-scripts/compare/8.4.2...8.5.0) (2017-04-09)
+
+
+### Bug Fixes
+
+* **rests:** Stop crash on turn change ([511b17f](https://github.com/symposion/roll20-shaped-scripts/commit/511b17f)), closes [#453](https://github.com/symposion/roll20-shaped-scripts/issues/453)
+* Prevent errors from occasionally being swallowed ([27edbb0](https://github.com/symposion/roll20-shaped-scripts/commit/27edbb0))
+* Prevent missing attribute Roll20 error ([c2300ef](https://github.com/symposion/roll20-shaped-scripts/commit/c2300ef))
+* **spell-list:** Fix problem with patching archetypes ([16ebf47](https://github.com/symposion/roll20-shaped-scripts/commit/16ebf47))
+* **spell-slots:** Make Divine Smite deduct spell slots. ([2f5f9bf](https://github.com/symposion/roll20-shaped-scripts/commit/2f5f9bf)), closes [#420](https://github.com/symposion/roll20-shaped-scripts/issues/420)
+* **statblock-import:** Log end of command correctly. ([e208c18](https://github.com/symposion/roll20-shaped-scripts/commit/e208c18))
+* **token-defaults:** Fix a few bugs with new token defaults code ([106155f](https://github.com/symposion/roll20-shaped-scripts/commit/106155f))
+
+
+### Features
+
+* **import:** Make MM drag configure new characters ([9ce30c9](https://github.com/symposion/roll20-shaped-scripts/commit/9ce30c9)), closes [#430](https://github.com/symposion/roll20-shaped-scripts/issues/430)
+
+
+### BREAKING CHANGES
+
+* **token-defaults:** This version will no longer work with sheets
+prior to 11.4.0
+
+
+
 <a name="8.4.2"></a>
 ## [8.4.2](https://github.com/symposion/roll20-shaped-scripts/compare/8.4.1...8.4.2) (2017-03-30)
 
