@@ -116,7 +116,7 @@ describe('srd-converter', function () {
       return;
     }
 
-    const monsterFiles = glob.sync('../5eshapedscriptdata/sources/*.json');
+    const monsterFiles = glob.sync('../5eshapedscriptdata/sources/{public,private}/*.json');
     monsterFiles.should.not.be.empty;
     monsterFiles.forEach(function (jsonFile) {
       describe(`JSON file:  ${jsonFile}`, function () {

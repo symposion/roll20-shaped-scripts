@@ -171,7 +171,7 @@ describe('entity-lookup', function () {
     el.configureEntity('classes', [SpellManager.getSpellDenormaliser(), spellListGrouper.entityProcessor],
       EntityLookup.getVersionChecker('2.0.0', 'classes'));
 
-    let jsonFiles = glob.sync('../5eshapedscriptdata/sources/*.json');
+    let jsonFiles = glob.sync('../5eshapedscriptdata/sources/{public,private}/*.json');
     expect(jsonFiles).to.not.be.empty;
     const phb = jsonFiles.find(file => file.indexOf('PlayersHandbook') !== -1);
     const srd = jsonFiles.find(file => file.indexOf('SRD') !== -1);
