@@ -1,3 +1,23 @@
+<a name="9.1.0"></a>
+# [9.1.0](https://github.com/symposion/roll20-shaped-scripts/compare/9.0.0...9.1.0) (2017-04-14)
+
+
+### Bug Fixes
+
+* **config:** Fix config not being applied to new characters ([a9ba283](https://github.com/symposion/roll20-shaped-scripts/commit/a9ba283))
+* **config:** Fix Rest settings ([61a75ef](https://github.com/symposion/roll20-shaped-scripts/commit/61a75ef)), closes [#470](https://github.com/symposion/roll20-shaped-scripts/issues/470)
+* **config:** Remove Houserules and Variants menu ([727abe2](https://github.com/symposion/roll20-shaped-scripts/commit/727abe2))
+* **import:** Don't show monster List after import ([48eec75](https://github.com/symposion/roll20-shaped-scripts/commit/48eec75)), closes [#456](https://github.com/symposion/roll20-shaped-scripts/issues/456)
+* **import:** Support complex legendary costs ([60e451c](https://github.com/symposion/roll20-shaped-scripts/commit/60e451c))
+* **startup:** Make "Upgrade the sheet" less confusing ([f0d5b73](https://github.com/symposion/roll20-shaped-scripts/commit/f0d5b73)), closes [#469](https://github.com/symposion/roll20-shaped-scripts/issues/469)
+
+
+### Features
+
+* **import:** Add UA content to script data ([7f9f1a5](https://github.com/symposion/roll20-shaped-scripts/commit/7f9f1a5))
+
+
+
 <a name="9.0.0"></a>
 # [9.0.0](https://github.com/symposion/roll20-shaped-scripts/compare/8.5.0...9.0.0) (2017-04-09)
 
