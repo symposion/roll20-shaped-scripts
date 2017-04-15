@@ -1,3 +1,19 @@
+<a name="10.0.0"></a>
+# [10.0.0](https://github.com/symposion/roll20-shaped-scripts/compare/9.1.0...10.0.0) (2017-04-15)
+
+
+### Bug Fixes
+
+* **config-ui:** Bump minimum sheet version for config UI changes ([925918a](https://github.com/symposion/roll20-shaped-scripts/commit/925918a))
+* **config-ui:** Remove config UI inline styles ([54edcfe](https://github.com/symposion/roll20-shaped-scripts/commit/54edcfe))
+
+
+### BREAKING CHANGES
+
+* **config-ui:** This script now requires a minimum sheet version of 11.5.0.
+
+
+
 <a name="9.1.0"></a>
 # [9.1.0](https://github.com/symposion/roll20-shaped-scripts/compare/9.0.0...9.1.0) (2017-04-14)
 
