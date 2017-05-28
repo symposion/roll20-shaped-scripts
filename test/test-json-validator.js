@@ -23,7 +23,7 @@ describe('json-validator', function () {
   });
 
 
-  const monsterFiles = glob.sync('../5eshapedscriptdata/sources/*.json')
+  const monsterFiles = glob.sync('../5eshapedscriptdata/sources/{public,private}/*.json')
     .filter(file => file.indexOf('MonsterManual') === -1);
   expect(monsterFiles).to.not.be.empty;
   monsterFiles.forEach(function (jsonFile) {

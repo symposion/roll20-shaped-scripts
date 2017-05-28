@@ -358,9 +358,9 @@
             },
             {
               "name": "cost",
-              "type": "number",
+              "type": "string",
               "bare": true,
-              "pattern": "^\\s*\\(\\s*(?:costs )?(\\d+) actions\\s*\\)",
+              "pattern": "^\\s*\\(\\s*(?:costs )?([\\d-]+) actions\\s*\\)",
               "matchGroup": 1,
               "minOccurs": 0
             },
