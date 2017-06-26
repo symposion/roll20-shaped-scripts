@@ -1,3 +1,13 @@
+<a name="10.0.2"></a>
+## [10.0.2](https://github.com/symposion/roll20-shaped-scripts/compare/10.0.1...10.0.2) (2017-06-26)
+
+
+### Bug Fixes
+
+* **statblock-parser:** Handle HTML lists for lair actions ([b2ebf49](https://github.com/symposion/roll20-shaped-scripts/commit/b2ebf49))
+
+
+
 <a name="10.0.1"></a>
 ## [10.0.1](https://github.com/symposion/roll20-shaped-scripts/compare/10.0.0...10.0.1) (2017-04-16)
 
