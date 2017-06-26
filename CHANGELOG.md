@@ -1,3 +1,23 @@
+<a name="11.0.0"></a>
+# [11.0.0](https://github.com/symposion/roll20-shaped-scripts/compare/10.0.1...11.0.0) (2017-06-26)
+
+
+### Bug Fixes
+
+* **statblock-parser:** Handle HTML lists for lair actions ([b2ebf49](https://github.com/symposion/roll20-shaped-scripts/commit/b2ebf49))
+
+
+### Features
+
+* **config:** Update naming of Offense etc to match sheet ([c269f6c](https://github.com/symposion/roll20-shaped-scripts/commit/c269f6c))
+
+
+### BREAKING CHANGES
+
+* config: Will not work with earlier versions of the Shaped Sheet
+
+
+
 <a name="10.0.1"></a>
 ## [10.0.1](https://github.com/symposion/roll20-shaped-scripts/compare/10.0.0...10.0.1) (2017-04-16)
 
