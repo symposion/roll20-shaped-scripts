@@ -53,87 +53,23 @@ gulp.task('test', () =>
 
 gulp.task('buildReleaseVersionScript', ['bumpVersion'], () => runWebpackBuild());
 
-gulp.task('commitAndTag', ['changelog', 'doctoc', 'buildReleaseVersionScript'], (done) => {
-  if (!process.env.CI) {
-    return done();
-  }
+gulp.task('release', ['changelog', 'doctoc', 'buildReleaseVersionScript'], (done) => {
   // Get all the files to bump version in
   gulp.src(['./package.json', './CHANGELOG.md', './README.md'])
     .pipe(git.commit('chore(release): bump package version and update changelog [ci skip]', { emitData: true }))
     .pipe(gulpIgnore.exclude(/CHANGELOG.md|README.md/))
     // **tag it in the repository**
     .pipe(tagVersion({ prefix: '' }))
-    .on('end', () => git.push('origin', 'master', { args: '--tags' }, err => done(err)));
+    .on('end', done);
   return undefined;
 });
 
-gulp.task('doctoc', ['checkoutMaster'], () =>
+gulp.task('doctoc', () =>
   gulp.src('README.md')
     .pipe(toc({ depth: 2 }))
     .pipe(gulp.dest('./'))
 );
 
-gulp.task('checkoutMaster', (done) => {
-  if (!process.env.CI || process.env.TRAVIS_BRANCH !== 'master') {
-    return done();
-  }
-  return git.checkout('master', done);
-});
-
-gulp.task('release', ['commitAndTag'], (done) => {
-  if (!process.env.CI) {
-    return done();
-  }
-
-  const auth = {
-    type: 'oauth',
-    token: process.env.GH_TOKEN,
-  };
-  const config = {
-    preset: 'angular',
-  };
-  const upload = np(github.repos.uploadAsset.bind(github.repos));
-
-  return checkReleaseTaggedVersion()
-    .then((isRelease) => {
-      if (isRelease) {
-        return conventionalGithubReleaser(auth, config)
-          .then((response) => {
-            const release = getGHResponseValue(response);
-
-            github.authenticate(auth);
-            return Promise.all(filesToUpload.map(fileName => upload({
-              user: 'symposion',
-              repo: 'roll20-shaped-scripts',
-              id: release.id,
-              name: fileName,
-              filePath: `./${fileName}`,
-            })));
-          });
-      }
-
-      gutil.log('Skipping github release, tag on current commit doesn\'t match package.json version');
-      return done();
-    })
-    .catch(done);
-});
-
-gulp.task('developRelease', ['buildReleaseVersionScript'], () => {
-  const auth = {
-    type: 'oauth',
-    token: process.env.GH_TOKEN,
-  };
-  github.authenticate(auth);
-  const gistEdit = np(github.gists.edit.bind(github.gists));
-  return gistEdit({
-    id: '7a16056c1b20ac50474854567d05ec63',
-    files: {
-      '5eShapedCompanion.js': {
-        content: fs.readFileSync('5eShapedCompanion.js', 'utf-8'),
-      },
-    },
-  });
-});
 
 gulp.task('changelog', ['bumpVersion'], () =>
   gulp.src('./CHANGELOG.md', { buffer: false })
@@ -141,10 +77,7 @@ gulp.task('changelog', ['bumpVersion'], () =>
     .pipe(gulp.dest('./'))
 );
 
-gulp.task('bumpVersion', ['checkoutMaster'], (done) => {
-  if (!process.env.CI) {
-    return done();
-  }
+gulp.task('bumpVersion', (done) => {
   conventionalRecommendedBump({ preset: 'angular' })
     .then(result =>
       gulp.src('./package.json')
